@@ -78,9 +78,9 @@ jobs:
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/api:${{ steps.get_latest_tag.outputs.tag }}
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/api:dev
 
-      # - name: Trigger Automatic Deploy on Render
-      #   run: |
-      #     curl -X POST ${{ secrets.DEV_RENDER_HOOK }}
+      - name: Trigger Automatic Deploy on Render
+        run: |
+          curl -X POST ${{ secrets.DEV_RENDER_HOOK }}
 
       - name: Send Slack Notification
         env:
