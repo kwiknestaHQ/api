@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html>
+<body style="margin:0;background:#f4f7fb;font-family:Inter,Arial,sans-serif;">
+
+    <table width="100%" cellpadding="0" cellspacing="0" style="background:#f4f7fb;">
+        <tr>
+            <td align="center" style="padding:24px 5px;">
+
+                <table width="100%" cellpadding="0" cellspacing="0"
+                       style="max-width:600px;background:#ffffff;border-radius:14px;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,0.06);">
+
+                    <tr>
+                        <td style="background:linear-gradient(90deg,#0f3b63,#1a5a94);height:6px;"></td>
+                    </tr>
+
+                    <tr>
+                        <td style="padding:24px 24px;text-align:center;">
+                            <img src="https://res.cloudinary.com/dctevxse1/image/upload/v1755309471/lbllx0uwgmgqucq8h83u.png"
+                                 width="105"
+                                 style="max-width:100%;height:auto;display:block;margin:0 auto;"
+                                 alt="{{APP_NAME}}">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="padding:0 18px 12px 18px;color:#4a5568;font-size:15px;line-height:1.7;">
+                            Hi {{USER_NAME}},<br>
+                            {{MESSAGE}}
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td align="center" style="padding:10px 18px 18px 18px;">
+                            <div style="
+                                display:inline-block;
+                                background:#f3f7fc;
+                                border:1px solid #e2e8f0;
+                                padding:16px 32px;
+                                border-radius:10px;
+                                font-size:28px;
+                                letter-spacing:6px;
+                                font-weight:700;
+                                color:#0f3b63;">
+                                {{OTP_CODE}}
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="padding:0 24px 26px 24px;text-align:center;color:#7a8797;font-size:13px;">
+                            This code expires in
+                            <strong>{{EXPIRATION_MINUTES}} minutes</strong>.
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="border-top:1px solid #eef2f7;"></td>
+                    </tr>
+
+                    <tr>
+                        <td style="padding:20px 18px 28px 18px;text-align:center;">
+                            <p style="margin:0;font-size:13px;color:#7a8797;">
+                                {{SECURITY_NOTICE}}
+                            </p>
+
+                            <p style="margin-top:12px;font-size:12px;color:#9aa6b2;">
+                                The <span style="color:#0f3b63;font-weight:bolder;">{{APP_NAME}}</span>
+                                <span style="color:#ff8a00;font-weight:bolder;"> Team</span><br><br>
+                                © {{YEAR}} {{APP_NAME}}. All rights reserved.<br><br>
+                                Please do not reply to this email; replies to this address are not monitored.
+                            </p>
+                        </td>
+                    </tr>
+
+                </table>
+
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

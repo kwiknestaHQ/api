@@ -1,0 +1,78 @@
+name: Build And Push Kwik Nesta API Docker Image To Docker Hub
+
+on:
+  pull_request:
+    branches:
+      - develop
+    types:
+      - closed
+
+jobs:
+  if_merged:
+    if: github.event.pull_request.merged
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Get latest semver tag from Docker Hub
+        id: get_latest_tag
+        run: |
+          tags=$(curl -s "https://hub.docker.com/v2/repositories/${{ secrets.DOCKERHUB_USERNAME }}/api/tags?page_size=100" | jq -r '.results[].name')
+          echo "All tags: $tags"
+
+          latest_version=$(echo "$tags" | grep -E '^dev-v[0-9]+\.[0-9]+\.[0-9]+$' | sort -V | tail -n 1)
+          echo "Latest version: $latest_version"
+
+          if [ -z "$latest_version" ]; then
+            next_version="dev-v1.0.0"
+          else
+            version=${latest_version#dev-v}
+            IFS='.' read -r major minor patch <<< "$version"
+
+            patch=$((patch + 1))
+
+            if [ "$patch" -ge 10 ]; then
+              patch=0
+              minor=$((minor + 1))
+            fi
+
+            if [ "$minor" -ge 10 ]; then
+              minor=0
+              major=$((major + 1))
+            fi
+
+            next_version="dev-v${major}.${minor}.${patch}"
+          fi
+
+          echo "Next version: $next_version"
+          echo "tag=$next_version" >> $GITHUB_OUTPUT
+
+      - name: Build Docker Image with version and dev tags
+        run: |
+          docker build \
+            --build-arg VERSION_TAG=${{ steps.get_latest_tag.outputs.tag }} \
+            --build-arg BUILD_CONFIGURATION=Release \
+            -t ${{ secrets.DOCKERHUB_USERNAME }}/api:${{ steps.get_latest_tag.outputs.tag }} \
+            -t ${{ secrets.DOCKERHUB_USERNAME }}/api:dev \
+            -f src/Gateway/KwikNestaGateway.API/Dockerfile .
+
+      - name: Push Docker Images to Docker Hub
+        run: |
+          docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PAT }}
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/api:${{ steps.get_latest_tag.outputs.tag }}
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/api:dev
+
+      # - name: Trigger Automatic Deploy on Render
+      #   run: |
+      #     curl -X POST ${{ secrets.DEV_RENDER_HOOK }}
+
+      - name: Send Slack Notification
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          DEPLOYED_VERSION=${{ steps.get_latest_tag.outputs.tag }}
+          curl -X POST -H 'Content-type: application/json' --data "{
+            \"text\": \"🚀 *Kwik Nesta API Deployed!*\nVersion: \`$DEPLOYED_VERSION\`\nTag: \`dev\`\nEnvironment: *Dev*\nRender triggered successfully.\"
+          }" $SLACK_WEBHOOK_URL

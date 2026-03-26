@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\KwikNesta.Mediator\KwikNesta.Mediator.csproj" />
+    <ProjectReference Include="..\..\KwikNesta.Shared\KwikNesta.Shared.csproj" />
+    <ProjectReference Include="..\KwikNestaIdentity.Domain\KwikNestaIdentity.Domain.csproj" />
+    <ProjectReference Include="..\KwikNestaIdentity.Infrastructure\KwikNestaIdentity.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

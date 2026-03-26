@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+	<GenerateDocumentationFile>true</GenerateDocumentationFile>
+	<NoWarn>$(NoWarn);1591</NoWarn>
+	<UserSecretsId>f8eb664d-9cf4-443d-92e9-de26c337922f</UserSecretsId>
+	<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+	<DockerfileContext>..\..\..</DockerfileContext>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Asp.Versioning.Http" Version="8.1.1" />
+    <PackageReference Include="Asp.Versioning.Mvc.ApiExplorer" Version="8.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.24" />
+	<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.24">
+		<PrivateAssets>all</PrivateAssets>
+		<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	</PackageReference>
+	<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Identity\KwikNestaIdentity.Application\KwikNestaIdentity.Application.csproj" />
+    <ProjectReference Include="..\..\Identity\KwikNestaIdentity.Infrastructure\KwikNestaIdentity.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\Infra\KwikNestaInfra.Application\KwikNestaInfra.Application.csproj" />
+    <ProjectReference Include="..\..\Infra\KwikNestaInfra.Infrastructure\KwikNestaInfra.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\KwikNesta.Mediator\KwikNesta.Mediator.csproj" />
+    <ProjectReference Include="..\..\KwikNesta.Shared\KwikNesta.Shared.csproj" />
+    <ProjectReference Include="..\..\Properties\KwikNestaProperty.Infrastructure\KwikNestaProperty.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>
