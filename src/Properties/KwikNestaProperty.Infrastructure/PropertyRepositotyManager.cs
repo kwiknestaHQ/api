@@ -21,6 +21,12 @@ namespace KwikNestaProperty.Infrastructure
            new(() => new PropertyMediaRepository(context));
         private readonly Lazy<IViewingRequestRepository> _viewngRequestRepository =
            new(() => new ViewingRequestRepository(context));
+        private readonly Lazy<IOwnershipDocumentRepository> _ownershipDocumentRepository =
+           new(() => new OwnershipDocumentRepository(context));
+        private readonly Lazy<IPropertyInquiryRepository> _propertyInquiryRepository =
+          new(() => new PropertyInquiryRepository(context));
+        private readonly Lazy<IPropertyPriceHistoryRepository> _propertyPriceHistoryRepository =
+           new(() => new PropertyPriceHistoryRepository(context));
 
         public IKNPropertyRepository Property => _propertyRepository.Value;
         public IOwnershipVerificationRepository OwnershipVerification => _ownershipVerificationRepository.Value;
@@ -29,9 +35,18 @@ namespace KwikNestaProperty.Infrastructure
         public IPropertyLocationRepository PropertyLocation => _propertyLocationRepository.Value;
         public IPropertyMediaRepository PropertyMedia => _propertyMediaRepository.Value;
         public IViewingRequestRepository ViewingRequest => _viewngRequestRepository.Value;
+        public IOwnershipDocumentRepository OwnershipDocument => _ownershipDocumentRepository.Value;
+        public IPropertyPriceHistoryRepository PropertyPriceHistory => _propertyPriceHistoryRepository.Value;
+        public IPropertyInquiryRepository PropertyInquiry => _propertyInquiryRepository.Value;
 
         public async Task BeginTransaction(Func<Task> action)
         {
+            if (_context.Database.CurrentTransaction != null)
+            {
+                await action();
+                return;
+            }
+
             await using var transaction = await _context.Database.BeginTransactionAsync();
             try
             {

@@ -1,4 +1,5 @@
-﻿namespace KwikNesta.Shared.Responses
+﻿
+namespace KwikNesta.Shared.Responses
 {
     public static class IdentityResponse
     {

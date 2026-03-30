@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using KwikNesta.Shared.Helpers;
 using KwikNesta.Shared.ServiceCommands.Identity;
 
 namespace KwikNestaIdentity.Application.Validations

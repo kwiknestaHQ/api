@@ -1,10 +1,6 @@
 ﻿using FluentValidation;
+using KwikNesta.Shared.Helpers;
 using KwikNesta.Shared.ServiceCommands.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace KwikNestaIdentity.Application.Validations
 {

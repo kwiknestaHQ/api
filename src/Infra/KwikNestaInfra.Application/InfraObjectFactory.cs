@@ -4,7 +4,7 @@ using KwikNestaInfra.Domain.Entities;
 
 namespace KwikNestaInfra.Application
 {
-    internal class ObjectFactory
+    internal class InfraObjectFactory
     {
         public static KNCountry Map(CsCountry client)
         {

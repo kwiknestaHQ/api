@@ -20,7 +20,7 @@ namespace KwikNestaIdentity.Application.Handlers
                 return Response<CurrentUserDto>.Fail(IdentityResponse.UserNotFoundWithId, 404);
             }
 
-            return Response<CurrentUserDto>.Ok(ObjectFactory.Map(user));
+            return Response<CurrentUserDto>.Ok(IdentityObjectFactory.Map(user));
         }
     }
 }

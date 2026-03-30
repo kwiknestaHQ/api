@@ -9,6 +9,8 @@ namespace KwikNesta.Shared.Models.Enumerations.Property
         [Description("Video")]
         Video,
         [Description("Document")]
-        Document
+        Document,
+        [Description("Audio")]
+        Audio
     }
 }

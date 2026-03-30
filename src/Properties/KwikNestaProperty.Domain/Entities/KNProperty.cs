@@ -10,10 +10,9 @@ namespace KwikNestaProperty.Domain.Entities
         public decimal Price { get; set; }
         public string Currency { get; set; } = default!;
         public EPropertyType Type { get; set; }
+        public EListingType ListingType { get; set; }
+        public EPriceFrequency PriceFrequency { get; set; }
         public EListingStatus Status { get; set; } = EListingStatus.Draft;
-        public bool IsOwnerShipVerified { get; set; }
-        public string? StatusReason { get; set; }
-
         public int Bedrooms { get; set; }
         public int Bathrooms { get; set; }
         public double AreaSize { get; set; }
@@ -24,7 +23,9 @@ namespace KwikNestaProperty.Domain.Entities
         public string OwnerId { get; set; } = default!;
 
         public PropertyLocation Location { get; set; } = default!;
-        public ICollection<PropertyFeatureLink> PropertyFeatureLinks { get; set; } = [];
+        public ICollection<PropertyFeatureLink> FeatureLinks { get; set; } = [];
+        public ICollection<PropertyPriceHistory> PriceHistories { get; set; } = [];
+        public ICollection<PropertyInquiry> Inquiries { get; set; } = [];
         public ICollection<PropertyMedia> Media { get; set; } = [];
         public ICollection<ViewingRequest> ViewingRequests { get; set; } = [];
         public ICollection<OwnershipVerificationRequest> OwnershipVerificationRequests { get; set; } = [];

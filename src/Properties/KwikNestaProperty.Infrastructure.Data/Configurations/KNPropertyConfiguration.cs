@@ -21,7 +21,8 @@ namespace KwikNestaProperty.Infrastructure.Data.Configurations
                    .HasMaxLength(2000);
 
             builder.Property(x => x.Price)
-                   .HasPrecision(18, 2);
+                   .HasPrecision(18, 2)
+                   .IsRequired();
 
             builder.Property(x => x.Currency)
                    .IsRequired()
@@ -35,11 +36,13 @@ namespace KwikNestaProperty.Infrastructure.Data.Configurations
                 .HasConversion<string>()
                    .IsRequired();
 
-            builder.Property(x => x.IsOwnerShipVerified)
+            builder.Property(x => x.ListingType)
+                .HasConversion<string>()
                    .IsRequired();
 
-            builder.Property(x => x.StatusReason)
-                   .HasMaxLength(500);
+            builder.Property(x => x.PriceFrequency)
+                .HasConversion<string>()
+                   .IsRequired();
 
             builder.Property(x => x.Bedrooms)
                    .IsRequired();
@@ -66,9 +69,6 @@ namespace KwikNestaProperty.Infrastructure.Data.Configurations
                    .HasFilter($"\"Status\" = '{EListingStatus.Available}'");
 
             builder.HasIndex(x => new { x.Type, x.Bedrooms, x.Bathrooms })
-                   .HasFilter($"\"Status\" = '{EListingStatus.Available}'");
-
-            builder.HasIndex(x => x.IsOwnerShipVerified)
                    .HasFilter($"\"Status\" = '{EListingStatus.Available}'");
         }
     }

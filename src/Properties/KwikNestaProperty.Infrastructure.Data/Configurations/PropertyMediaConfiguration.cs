@@ -15,6 +15,7 @@ namespace KwikNestaProperty.Infrastructure.Data.Configurations
                 .IsRequired();
 
             builder.Property(x => x.Url)
+                .IsRequired()
                 .HasMaxLength(250);
 
             builder.HasOne(x => x.Property)

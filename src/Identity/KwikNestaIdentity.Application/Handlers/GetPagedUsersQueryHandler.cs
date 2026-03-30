@@ -36,7 +36,7 @@ namespace KwikNestaIdentity.Application.Handlers
 
             var data = users
                 .OrderByDescending(a => a.CreatedOn)
-                .Select(ObjectFactory.Map)
+                .Select(IdentityObjectFactory.Map)
                 .Paginate(request.Page, request.PageSize);
 
             await Task.CompletedTask;

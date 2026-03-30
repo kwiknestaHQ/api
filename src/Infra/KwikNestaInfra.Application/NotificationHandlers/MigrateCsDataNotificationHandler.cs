@@ -52,7 +52,7 @@ namespace KwikNestaInfra.Application.NotificationHandlers
                         continue;
                     }
 
-                    countryToAdd = ObjectFactory.Map(countryRequest.Country);
+                    countryToAdd = InfraObjectFactory.Map(countryRequest.Country);
                     await _repository.Country.AddAsync(countryToAdd);
 
                     var timeZones = ParseTimeZones(countryRequest.Country.TimeZones, countryToAdd.Id);
@@ -92,7 +92,7 @@ namespace KwikNestaInfra.Application.NotificationHandlers
                         continue;
                     }
 
-                    var stateToAdd = ObjectFactory.Map(countryToAdd.Id, stateRequest.State);
+                    var stateToAdd = InfraObjectFactory.Map(countryToAdd.Id, stateRequest.State);
                     statesToAdd.Add(stateToAdd);
                     var (Cities, CitySuccess) = await _csApiService.GetCitiesAsync(country.ISO2, state.ISO2);
                     if (!CitySuccess)
@@ -101,7 +101,7 @@ namespace KwikNestaInfra.Application.NotificationHandlers
                         continue;
                     }
 
-                    citiesToAdd.AddRange(ObjectFactory.Map(stateToAdd.Id, countryToAdd.Id, Cities));
+                    citiesToAdd.AddRange(InfraObjectFactory.Map(stateToAdd.Id, countryToAdd.Id, Cities));
                     _logger.LogInformation($"===[MigrateCsDataNotificationHandler] Migrated {state.Name}, {country.Name}===");
                 }
 

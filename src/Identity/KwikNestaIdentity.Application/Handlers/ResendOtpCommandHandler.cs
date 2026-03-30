@@ -71,7 +71,7 @@ namespace KwikNestaIdentity.Application.Handlers
                 tokenHash = TokenHelper.Encrypt(token, _jwtSettings.Key);
             }
 
-            var otpEntry = ObjectFactory.InitializeOtp(user.Id,
+            var otpEntry = IdentityObjectFactory.InitializeOtp(user.Id,
                     otpHash,
                     request.Type,
                     tokenHash,

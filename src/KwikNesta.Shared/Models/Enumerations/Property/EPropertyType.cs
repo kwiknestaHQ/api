@@ -2,6 +2,9 @@
 
 namespace KwikNesta.Shared.Models.Enumerations.Property
 {
+    /// <summary>
+    /// Property types
+    /// </summary>
     public enum EPropertyType
     {
         [Description("Other")]

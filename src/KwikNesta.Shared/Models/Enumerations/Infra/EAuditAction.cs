@@ -20,6 +20,21 @@ namespace KwikNesta.Shared.Models.Enumerations.Infra
         [Description("Migrated Location Data")]
         MigratedLocationData,
         [Description("Toggled Location Active Status")]
-        LocationToggle
+        LocationToggle = 1200,
+
+        [Description("Added New Property")]
+        AddedProperty,
+        [Description("Added/Updated Property Features")]
+        AddOrUpdatePropertyFeature,
+        [Description("Uploaded Property Image(s)")]
+        UploadedPropertyImage,
+        [Description("Submitted Property Verification Request")]
+        PropertyVerificationRequest,
+        [Description("Property Verification Request Reviewed")]
+        PropertyVerificationReviewed,
+        [Description("Updated Property Location")]
+        UpdatedPropertyLocation,
+        [Description("Updated Property Basic Info")]
+        UpdatedPropertyInfo
     }
 }

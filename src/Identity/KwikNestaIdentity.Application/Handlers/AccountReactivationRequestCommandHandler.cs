@@ -43,7 +43,7 @@ namespace KwikNestaIdentity.Application.Handlers
 
             var otp = TokenHelper.GenerateOtp(8);
             var otpHash = TokenHelper.HashToken(otp, _jwtSettings.Key);
-            var otpEntry = ObjectFactory.InitializeOtp(user.Id, 
+            var otpEntry = IdentityObjectFactory.InitializeOtp(user.Id, 
                     otpHash,
                     EOtpType.AccountReactivation,
                     expirationMinutes: OtpExpirationMinute);

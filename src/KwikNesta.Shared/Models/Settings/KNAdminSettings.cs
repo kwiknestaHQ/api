@@ -7,5 +7,6 @@
         public string Phone { get; set; } = default!;
         public string BaseUrl { get; set; } = default!;
         public string SupportEmail { get; set; } = default!;
+        public string GeocodeEndpoint { get; set; } = default!;
     }
 }

@@ -27,7 +27,7 @@ namespace KwikNestaInfra.Application.Handlers
             }
 
             var data = countryQuery.OrderBy(c => c.Name)
-                .Select(c => ObjectFactory.Map(c))
+                .Select(c => InfraObjectFactory.Map(c))
                 .Paginate(request.Page, request.PageSize);
 
             await Task.CompletedTask;

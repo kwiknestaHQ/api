@@ -1,10 +1,21 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using KwikNesta.Shared.Models;
+using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 
 namespace KwikNesta.Shared.Extensions
 {
     public static class HttpContextExtension
     {
+        public static UserContext GetContext(this HttpContext context)
+        {
+            return new UserContext
+            {
+                Id = context.User.GetLoggedInUserId()!,
+                Email = context.User.GetLoggedInUserEmail()!,
+                IpAddress = context.GetUserIp()
+            };
+        }
+
         public static string? GetLoggedInUserId(this ClaimsPrincipal user)
         {
             return user?

@@ -18,7 +18,7 @@ namespace KwikNestaInfra.Application.Handlers
                 return Response<CountryDto>.Fail(InfraResponses.RecordNotFound, 404);
             }
 
-            return Response<CountryDto>.Ok(ObjectFactory.Map(country));
+            return Response<CountryDto>.Ok(InfraObjectFactory.Map(country));
         }
     }
 }

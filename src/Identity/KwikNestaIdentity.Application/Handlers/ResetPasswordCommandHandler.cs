@@ -52,7 +52,7 @@ namespace KwikNestaIdentity.Application.Handlers
             var otpHash = TokenHelper.HashToken(otp, _jwtSettings.Key);
             var token = await _userManager.GeneratePasswordResetTokenAsync(user);
             var tokenHash = TokenHelper.Encrypt(token, _jwtSettings.Key);
-            var otpEntry = ObjectFactory.InitializeOtp(user.Id,
+            var otpEntry = IdentityObjectFactory.InitializeOtp(user.Id,
                     otpHash,
                     EOtpType.PasswordReset,
                     tokenHash,

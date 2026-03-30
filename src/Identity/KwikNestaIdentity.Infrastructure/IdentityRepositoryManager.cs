@@ -18,6 +18,12 @@ namespace KwikNestaIdentity.Infrastructure
 
         public async Task BeginTransaction(Func<Task> action)
         {
+            if (_context.Database.CurrentTransaction != null)
+            {
+                await action();
+                return;
+            }
+
             await using var transaction = await _context.Database.BeginTransactionAsync();
             try
             {

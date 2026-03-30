@@ -1,12 +1,12 @@
-﻿using KwikNesta.Shared.Models.Enumerations.Identity;
+﻿using KwikNesta.Shared.Helpers;
+using KwikNesta.Shared.Models.Enumerations.Identity;
 using KwikNesta.Shared.ServiceCommands.Identity;
 using KwikNesta.Shared.ServiceDTOs.Identity;
-using KwikNestaIdentity.Application.Validations;
 using KwikNestaIdentity.Domain.Entities;
 
 namespace KwikNestaIdentity.Application
 {
-    internal class ObjectFactory
+    internal class IdentityObjectFactory
     {
         public static OtpEntry InitializeOtp(string userId,
                                 string otpHash,

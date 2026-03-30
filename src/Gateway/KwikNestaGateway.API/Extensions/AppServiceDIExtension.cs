@@ -6,21 +6,25 @@ using Hangfire.RecurringJobExtensions;
 using KwikNesta.Mediator.Cores.Abstractions;
 using KwikNesta.Mediator.Cores.Extensions;
 using KwikNesta.Mediator.Cores.Implementations.Pipelines;
+using KwikNesta.Mediator.Hangfire.Extensions;
 using KwikNesta.Shared.Constants;
 using KwikNesta.Shared.Contracts;
 using KwikNesta.Shared.Implementations;
 using KwikNesta.Shared.Models.Settings;
 using KwikNestaIdentity.Application;
 using KwikNestaIdentity.Infrastructure;
+using KwikNestaInfra.Application;
+using KwikNestaInfra.Infrastructure;
+using KwikNestaProperty.Application;
+using KwikNestaProperty.Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Refit;
 using System.Reflection;
-using KwikNestaInfra.Infrastructure;
 using System.Text;
-using KwikNestaInfra.Application;
-using KwikNesta.Mediator.Hangfire.Extensions;
-using KwikNestaProperty.Infrastructure;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace KwikNestaGateway.API.Extensions
 {
@@ -40,6 +44,7 @@ namespace KwikNestaGateway.API.Extensions
                 .ConfigureDbContexts(configuration)
                 .ConfigureHangfire(configuration)
                 .AddOtherServices()
+                .ConfigureRefit(configuration)
                 .AddControllers();
         }
 
@@ -82,7 +87,8 @@ namespace KwikNestaGateway.API.Extensions
             return services
                 .ConfigureKNMediators(
                     typeof(IdentityAppAssemblyMarker).Assembly, 
-                    typeof(InfraAppAssemblyMarker).Assembly)
+                    typeof(InfraAppAssemblyMarker).Assembly,
+                    typeof(PropertyAppAssemblyMarker).Assembly)
                 .AddTransient(typeof(IKNPipelineBehavior<,>), typeof(LoggingBehavior<,>))
                 .AddTransient(typeof(IKNNotificationBehavior<>), typeof(NotificationLoggingBehavior<>))
                 .ConfigureKNBackgroundMediators();
@@ -243,6 +249,36 @@ namespace KwikNestaGateway.API.Extensions
             return services.AddScoped<INotificationService, NotificationService>()
                 .AddScoped<IIdentityRepositoryManager, IdentityRepositoryManager>()
                 .AddScoped<IUploadService, UploadService>();
+        }
+
+        private static IServiceCollection ConfigureRefit(this IServiceCollection services,
+                                                        IConfiguration configuration)
+        {
+            var options = new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                PropertyNameCaseInsensitive = true,
+                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+            };
+
+            var refitSettings = new RefitSettings
+            {
+                ContentSerializer = new SystemTextJsonContentSerializer(options)
+            };
+
+            var appAdminSetting = configuration.GetSection("AppAdmin")
+                .Get<KNAdminSettings>() ??
+                throw new ArgumentNullException("AppAdmin");
+
+            services.AddRefitClient<IReverseGeocodeService>(refitSettings)
+                .ConfigureHttpClient(c =>
+                {
+                    c.BaseAddress = new Uri(appAdminSetting.GeocodeEndpoint);
+                    c.Timeout = TimeSpan.FromSeconds(60);
+                    c.DefaultRequestHeaders.UserAgent.ParseAdd("KwikNesta-Inc/1.0");
+                });
+
+            return services;
         }
     }
 }

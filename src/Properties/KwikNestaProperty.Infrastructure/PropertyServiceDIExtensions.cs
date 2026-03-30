@@ -1,4 +1,5 @@
 ﻿using KwikNestaProperty.Infrastructure.Data;
+using KwikNestaProperty.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,7 +16,8 @@ namespace KwikNestaProperty.Infrastructure
 
             services.AddDbContext<PropertyServiceDbContext>(options =>
                 options.UseNpgsql(connectionString))
-                .AddScoped<IPropertyRepositotyManager, PropertyRepositotyManager>();
+                .AddScoped<IPropertyRepositotyManager, PropertyRepositotyManager>()
+                .AddScoped<BackgroundLocationVerificationService>();
             return services;
         }
     }

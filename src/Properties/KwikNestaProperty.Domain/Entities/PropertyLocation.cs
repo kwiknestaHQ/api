@@ -1,4 +1,5 @@
 ﻿using KwikNesta.Shared.Models;
+using KwikNesta.Shared.Models.Enumerations.Property;
 
 namespace KwikNestaProperty.Domain.Entities
 {
@@ -11,10 +12,9 @@ namespace KwikNestaProperty.Domain.Entities
         public string City { get; set; } = default!;
         public string State { get; set; } = default!;
         public string Country { get; set; } = default!;
-        public long Longitude { get; set; }
-        public long Latitude { get; set; }
-
-        //public Point Coordinates { get; set; } = default!;
-        public bool IsVerified { get; set; }
+        public double Longitude { get; set; }
+        public double Latitude { get; set; }
+        public string PostalCode { get; set; } = default!;
+        public ELocationVerificationStatus VerificationStatus { get; set; } = ELocationVerificationStatus.Pending;
     }
 }

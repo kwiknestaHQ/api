@@ -14,6 +14,9 @@ namespace KwikNestaProperty.Infrastructure.Data
         public DbSet<PropertyMedia> PropertyMedias { get; set; }
         public DbSet<PropertyFeature> PropertyFeatures { get; set; }
         public DbSet<OwnershipVerificationRequest> OwnershipVerificationRequests { get; set; }
+        public DbSet<OwnershipDocument> OwnershipDocuments { get; set; }
+        public DbSet<PropertyInquiry> PropertyInquiries { get; set; }
+        public DbSet<PropertyPriceHistory> PropertyPriceHistories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -26,6 +29,9 @@ namespace KwikNestaProperty.Infrastructure.Data
             builder.ApplyConfiguration(new KNPropertyConfiguration());
             builder.ApplyConfiguration(new PropertyFeatureLinkConfiguration());
             builder.ApplyConfiguration(new PropertyFeatureSeederConfiguration());
+            builder.ApplyConfiguration(new OwnershipDocumentConfiguration());
+            builder.ApplyConfiguration(new PropertyInquiryConfiguration());
+            builder.ApplyConfiguration(new PropertyPriceHistoryConfiguration());
 
             base.OnModelCreating(builder);
         }

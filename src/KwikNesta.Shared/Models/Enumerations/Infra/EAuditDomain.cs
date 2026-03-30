@@ -11,6 +11,8 @@ namespace KwikNesta.Shared.Models.Enumerations.Infra
         [Description("System Admin.")]
         SystemAdmin,
         [Description("Location")]
-        Location
+        Location,
+        [Description("Property")]
+        Property
     }
 }

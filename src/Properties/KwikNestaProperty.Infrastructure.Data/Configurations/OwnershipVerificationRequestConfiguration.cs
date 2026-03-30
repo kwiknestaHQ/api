@@ -14,10 +14,7 @@ namespace KwikNestaProperty.Infrastructure.Data.Configurations
                 .HasConversion<string>()
                 .IsRequired();
 
-            builder.Property(x => x.OwnerId)
-                .IsRequired();
-
-            builder.Property(x => x.AdminComment)
+            builder.Property(x => x.RejectionReason)
                 .HasMaxLength(500);
 
             builder.HasOne(x => x.Property)

@@ -10,6 +10,8 @@ namespace KwikNesta.Shared.Models.Enumerations.Property
         Pending,
         [Description("Available")]
         Available,
+        [Description("Pending Payment ")]
+        PendingPayment,
         [Description("Sold")]
         Sold,
         [Description("Rented")]

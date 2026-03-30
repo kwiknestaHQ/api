@@ -17,7 +17,7 @@ namespace KwikNestaProperty.Infrastructure.Data.Configurations
                    .HasMaxLength(200);
 
             builder.HasOne(x => x.Property)
-                   .WithMany(p => p.PropertyFeatureLinks)
+                   .WithMany(p => p.FeatureLinks)
                    .HasForeignKey(x => x.PropertyId);
 
             builder.HasOne(x => x.Feature)

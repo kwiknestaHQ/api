@@ -4,7 +4,7 @@
     {
         private int _minPage = 1;
         private int _minPageSize = 5;
-        private int _maxPageSize = 200;
+        private int _maxPageSize = 50;
         public int Page
         {
             get => _minPage;
