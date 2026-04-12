@@ -1,4 +1,6 @@
-﻿namespace KwikNesta.Shared.Responses
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace KwikNesta.Shared.Responses
 {
     public static class Pagination
     {
@@ -20,6 +22,19 @@
                 .Skip((page - 1) * size)
                 .Take(size)
                 .ToList();
+
+            return new PagedResponse<T>(data, page, size, count);
+        }
+
+        public static async Task<PagedResponse<T>> PaginateAsync<T>(this IQueryable<T> query, int page, int size, 
+            CancellationToken cancellationToken = default)
+        {
+            var count = await query.CountAsync(cancellationToken);
+
+            var data = await query
+                .Skip((page - 1) * size)
+                .Take(size)
+                .ToListAsync(cancellationToken);
 
             return new PagedResponse<T>(data, page, size, count);
         }

@@ -10,5 +10,10 @@ namespace KwikNestaProperty.Domain.Entities
         public string UserId { get; set; } = default!;
         public DateTime RequestedDate { get; set; }
         public EViewingStatus Status { get; set; } = EViewingStatus.Pending;
+        public EViewingType Type { get; set; }
+        public string? Note { get; set; }
+        // Virtual only
+        public string? MeetingLink { get; set; }
+        public DateTime? RespondedAt { get; set; }
     }
 }

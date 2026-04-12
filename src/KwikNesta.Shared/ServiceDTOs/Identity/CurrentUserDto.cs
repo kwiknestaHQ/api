@@ -14,6 +14,7 @@ namespace KwikNesta.Shared.ServiceDTOs.Identity
         public EGender Gender { get; set; }
         public string GenderText => Gender.GetDescription();
         public EUserStatus Status { get; set; }
+        public bool IsVerified { get; set; }
         public string StatusText => Status.GetDescription();
     }
 }

@@ -27,6 +27,8 @@ namespace KwikNestaProperty.Infrastructure
           new(() => new PropertyInquiryRepository(context));
         private readonly Lazy<IPropertyPriceHistoryRepository> _propertyPriceHistoryRepository =
            new(() => new PropertyPriceHistoryRepository(context));
+        private readonly Lazy<IPropertyViewRepository> _propertyViewRepository = 
+            new(() => new PropertyViewRepository(context));
 
         public IKNPropertyRepository Property => _propertyRepository.Value;
         public IOwnershipVerificationRepository OwnershipVerification => _ownershipVerificationRepository.Value;
@@ -38,6 +40,7 @@ namespace KwikNestaProperty.Infrastructure
         public IOwnershipDocumentRepository OwnershipDocument => _ownershipDocumentRepository.Value;
         public IPropertyPriceHistoryRepository PropertyPriceHistory => _propertyPriceHistoryRepository.Value;
         public IPropertyInquiryRepository PropertyInquiry => _propertyInquiryRepository.Value;
+        public IPropertyViewRepository PropertyView => _propertyViewRepository.Value;
 
         public async Task BeginTransaction(Func<Task> action)
         {

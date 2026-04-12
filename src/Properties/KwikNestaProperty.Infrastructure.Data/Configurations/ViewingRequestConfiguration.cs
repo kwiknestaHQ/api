@@ -14,6 +14,10 @@ namespace KwikNestaProperty.Infrastructure.Data.Configurations
                 .HasConversion<string>()
                 .IsRequired();
 
+            builder.Property(x => x.Type)
+                .HasConversion<string>()
+                .IsRequired();
+
             builder.Property(x => x.UserId)
                 .IsRequired();
 

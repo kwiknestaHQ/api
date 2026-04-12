@@ -11,6 +11,10 @@ namespace KwikNesta.Shared.Models.Enumerations.Property
         [Description("Rejected")]
         Rejected,
         [Description("Completed")]
-        Completed
+        Completed,
+        [Description("Cancelled")]
+        Cancelled,
+        [Description("No Show")]
+        NoShow
     }
 }

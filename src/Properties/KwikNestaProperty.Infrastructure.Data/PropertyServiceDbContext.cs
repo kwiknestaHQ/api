@@ -17,6 +17,7 @@ namespace KwikNestaProperty.Infrastructure.Data
         public DbSet<OwnershipDocument> OwnershipDocuments { get; set; }
         public DbSet<PropertyInquiry> PropertyInquiries { get; set; }
         public DbSet<PropertyPriceHistory> PropertyPriceHistories { get; set; }
+        public DbSet<PropertyView> PropertyViews { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -32,6 +33,7 @@ namespace KwikNestaProperty.Infrastructure.Data
             builder.ApplyConfiguration(new OwnershipDocumentConfiguration());
             builder.ApplyConfiguration(new PropertyInquiryConfiguration());
             builder.ApplyConfiguration(new PropertyPriceHistoryConfiguration());
+            builder.ApplyConfiguration(new PropertyViewConfiguration());
 
             base.OnModelCreating(builder);
         }

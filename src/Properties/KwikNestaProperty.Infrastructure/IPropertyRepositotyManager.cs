@@ -14,6 +14,7 @@ namespace KwikNestaProperty.Infrastructure
         IOwnershipDocumentRepository OwnershipDocument { get; }
         IPropertyPriceHistoryRepository PropertyPriceHistory { get; }
         IPropertyInquiryRepository PropertyInquiry { get; }
+        IPropertyViewRepository PropertyView { get; }
 
         Task BeginTransaction(Func<Task> action);
         Task SaveAsync();

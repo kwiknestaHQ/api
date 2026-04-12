@@ -8,5 +8,6 @@ namespace KwikNestaProperty.Domain.Entities
         public KNProperty Property { get; set; } = default!;
         public string UserId { get; set; } = default!;
         public decimal OfferedPrice { get; set; }
+        public string Message { get; set; } = default!;
     }
 }

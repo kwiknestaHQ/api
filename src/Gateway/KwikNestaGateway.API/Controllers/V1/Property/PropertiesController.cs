@@ -4,8 +4,10 @@ using KwikNesta.Shared.Extensions;
 using KwikNesta.Shared.Responses;
 using KwikNesta.Shared.ServiceCommands.Property;
 using KwikNesta.Shared.ServiceDTOs.Property;
+using KwikNesta.Shared.ServiceQueries.Property;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace KwikNestaGateway.API.Controllers.V1.Property
 {
@@ -15,6 +17,34 @@ namespace KwikNestaGateway.API.Controllers.V1.Property
     public class PropertiesController(IKNMediator mediator) : ControllerBase
     {
         private readonly IKNMediator _mediator = mediator;
+
+        /// <summary>
+        /// Endpoint to search for properties
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [ProducesResponseType(typeof(PagedResponse<PropertyCardDto>), 200)]
+        public async Task<IActionResult> Search([FromQuery] PropertySearchQuery query)
+        {
+            return Ok(await _mediator.SendAsync(query));
+        }
+
+        /// <summary>
+        /// Gets property details by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet("{id}")]
+        [ProducesResponseType(typeof(Response<PropertyDetailsDto>), 200)]
+        public async Task<IActionResult> GetDetails([FromRoute] Guid id)
+        {
+            return Ok(await _mediator.SendAsync(new GetPropertyDetailsQuery
+            {
+                Id = id,
+                Context = HttpContext.GetContext()
+            }));
+        }
 
         /// <summary>
         /// Create property draft

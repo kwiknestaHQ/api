@@ -28,6 +28,11 @@ namespace KwikNesta.Shared.Implementations
             return await _context.Set<TEntity>().AnyAsync(predicate);
         }
 
+        public async Task<int> CountAsync(Expression<Func<TEntity, bool>> predicate)
+        {
+            return await _context.Set<TEntity>().CountAsync(predicate);
+        }
+
         public async Task<IEnumerable<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate)
         {
             return await _context.Set<TEntity>().Where(predicate).ToListAsync();

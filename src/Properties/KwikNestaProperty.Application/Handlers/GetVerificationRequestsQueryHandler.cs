@@ -15,7 +15,7 @@ namespace KwikNestaProperty.Application.Handlers
         {
             var data = _repository.OwnershipVerification
                 .Get(or => or.Status == request.Status)
-                .OrderByDescending(or => or.CreatedOn)
+                .OrderBy(or => or.CreatedOn)
                 .Select(or => new VerificationRequestLeanDto
                 {
                     Id = or.Id,

@@ -28,6 +28,7 @@ namespace KwikNestaProperty.Domain.Entities
         public ICollection<PropertyInquiry> Inquiries { get; set; } = [];
         public ICollection<PropertyMedia> Media { get; set; } = [];
         public ICollection<ViewingRequest> ViewingRequests { get; set; } = [];
+        public ICollection<PropertyView> PropertyViews { get; set; } = [];
         public ICollection<OwnershipVerificationRequest> OwnershipVerificationRequests { get; set; } = [];
     }
 }

@@ -10,11 +10,25 @@
             var dLon = ToRadians(lon2 - lon1);
 
             var a = Math.Sin(dLat / 2) * Math.Sin(dLat / 2) +
-                    Math.Cos(ToRadians(lat1)) * Math.Cos(ToRadians(lat2)) *
+                    Math.Cos(ToRadians(lat1)) * 
+                    Math.Cos(ToRadians(lat2)) *
                     Math.Sin(dLon / 2) * Math.Sin(dLon / 2);
 
             var c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
             return R * c;
+        }
+
+        public static (double MinLat, double MaxLat, double MinLng, double MaxLng) GetBoundingBox(double lat, double lng, double radiusKm)
+        {
+            var latDelta = radiusKm / 111.0;
+            var lngDelta = radiusKm / (111.0 * Math.Cos(lat * Math.PI / 180));
+
+            var minLat = lat - latDelta;
+            var maxLat = lat + latDelta;
+            var minLng = lng - lngDelta;
+            var maxLng = lng + lngDelta;
+
+            return (minLat, maxLat, minLng, maxLng);
         }
 
         private static double ToRadians(double deg) => deg * Math.PI / 180;
