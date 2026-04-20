@@ -32,7 +32,11 @@ COPY ["src/Properties/KwikNestaProperty.Application/KwikNestaProperty.Applicatio
 COPY ["src/Properties/KwikNestaProperty.Domain/KwikNestaProperty.Domain.csproj", "Properties/KwikNestaProperty.Domain/"]
 COPY ["src/Properties/KwikNestaProperty.Infrastructure/KwikNestaProperty.Infrastructure.csproj", "Properties/KwikNestaProperty.Infrastructure/"]
 COPY ["src/Properties/KwikNestaProperty.Infrastructure.Data/KwikNestaProperty.Infrastructure.Data.csproj", "Properties/KwikNestaProperty.Infrastructure.Data/"]
-
+# Payments
+COPY ["src/Payments/KwikNestaPayment.Application/KwikNestaPayment.Application.csproj", "Payments/KwikNestaPayment.Application/"]
+COPY ["src/Payments/KwikNestaPayment.Domain/KwikNestaPayment.Domain.csproj", "Payments/KwikNestaPayment.Domain/"]
+COPY ["src/Payments/KwikNestaPayment.Infrastructure/KwikNestaPayment.Infrastructure.csproj", "Payments/KwikNestaPayment.Infrastructure/"]
+COPY ["src/Payments/KwikNestaPayment.Infrastructure.Data/KwikNestaPayment.Infrastructure.Data.csproj", "Payments/KwikNestaPayment.Infrastructure.Data/"]
 # Restore deps
 RUN dotnet restore "Gateway/KwikNestaGateway.API/KwikNestaGateway.API.csproj"
 COPY src/ .
