@@ -19,5 +19,17 @@ namespace KwikNesta.Shared.Extensions
             }
             throw new ArgumentException("Item not found.", nameof(value));
         }
+
+        public static bool TryParse<TEnum>(this string value, out TEnum? @enum) where TEnum : Enum
+        {
+            @enum = default;
+            if(Enum.TryParse(typeof(TEnum), value, out var result))
+            {
+                @enum = (TEnum)result;
+                return true;
+            }
+
+            return false;
+        }
     }
 }

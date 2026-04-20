@@ -82,6 +82,61 @@ namespace KwikNesta.Shared.Helpers
             return Encoding.UTF8.GetString(plainBytes);
         }
 
+        public static string GenerateViewRequestToken(Guid requestId,
+                                          string secret,
+                                          int validationInHours = 24)
+        {
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret));
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+            var claims = new[]
+            {
+                new Claim("requestId", requestId.ToString()),
+            };
+
+            var token = new JwtSecurityToken(
+                claims: claims,
+                notBefore: DateTime.UtcNow,
+                expires: DateTime.UtcNow.AddMinutes(validationInHours),
+                signingCredentials: creds
+            );
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
+        public static (Guid requestId, string error) ValidateViewRequestToken(string token,
+                                                                  string secret)
+        {
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret));
+
+            var tokenHandler = new JwtSecurityTokenHandler();
+            try
+            {
+                var parameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = key,
+                    ValidateLifetime = true
+                };
+
+                var principal = tokenHandler.ValidateToken(token, parameters, out var validatedToken);
+
+                var requestId = Guid.Parse(principal.Claims.First(c => c.Type == "requestId").Value);
+
+                return (requestId, string.Empty);
+            }
+            catch (SecurityTokenExpiredException)
+            {
+                return (Guid.Empty, "TokenExpired");
+            }
+            catch
+            {
+                return (Guid.Empty, "InvalidToken");
+            }
+        }
+
         #region Private Methods
         private static string Base64UrlEncode(byte[] input)
         {

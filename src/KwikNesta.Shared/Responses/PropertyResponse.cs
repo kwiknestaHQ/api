@@ -25,5 +25,8 @@
         public static readonly string PropertyDeclineInformationMessage = "We’ve reviewed your property verification request, but unfortunately, we were unable to approve it at this time.<br><br>Reason:<br>{0}<br><br>Please review the feedback above and submit a new verification request with the required or corrected documents.<br>If you need help, our support team is available to assist you.";
         public static readonly string PropertyLocationUpdated = "Property Location successfully updated.";
         public static readonly string PropertyInfoUpdated = "Property info successfully updated.";
+        public static readonly string ViewRequestSubject = "Inspection Request Scheduled for Your Property";
+        public static readonly string ViewRequestMessage = "You have a new inspection request for your property.<br><br><b>Property:</b> {0}<br><b>Location:</b> {1}<br><b>Requested Date & Time:</b> {2}<br><b>Mode:</b> {3}<br>Kindly note that this request will expire within the next {4} hours. Delayed responses may result in the requester exploring other available properties.";
+        public static readonly string ConflictingViewRequest = "There is an existing inspection request for the property within the selected time frame. Please select a different time or date to continue.";
     }
 }

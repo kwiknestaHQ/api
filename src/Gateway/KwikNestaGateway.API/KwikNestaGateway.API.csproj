@@ -31,6 +31,8 @@
     <ProjectReference Include="..\..\Infra\KwikNestaInfra.Infrastructure\KwikNestaInfra.Infrastructure.csproj" />
     <ProjectReference Include="..\..\KwikNesta.Mediator\KwikNesta.Mediator.csproj" />
     <ProjectReference Include="..\..\KwikNesta.Shared\KwikNesta.Shared.csproj" />
+    <ProjectReference Include="..\..\Payments\KwikNestaPayment.Application\KwikNestaPayment.Application.csproj" />
+    <ProjectReference Include="..\..\Payments\KwikNestaPayment.Infrastructure\KwikNestaPayment.Infrastructure.csproj" />
     <ProjectReference Include="..\..\Properties\KwikNestaProperty.Application\KwikNestaProperty.Application.csproj" />
     <ProjectReference Include="..\..\Properties\KwikNestaProperty.Infrastructure\KwikNestaProperty.Infrastructure.csproj" />
   </ItemGroup>

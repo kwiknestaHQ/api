@@ -101,13 +101,13 @@ namespace KwikNestaProperty.Application.Handlers
             if(property.OwnerId != request.Context.Id)
             {
                 BackgroundJob.Enqueue(()
-                    => TryAddUseriew(request.Id, request.Context));
+                    => TryAddUserView(request.Id, request.Context));
             }
 
             return Response<PropertyDetailsDto>.Ok(property);
         }
 
-        public async Task TryAddUseriew(Guid propertyId, UserContext context)
+        public async Task TryAddUserView(Guid propertyId, UserContext context)
         {
             var now = DateTime.UtcNow;
             var window = now.AddMinutes(-30);

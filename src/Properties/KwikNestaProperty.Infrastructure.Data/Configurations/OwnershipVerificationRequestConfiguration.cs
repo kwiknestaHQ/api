@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace KwikNestaProperty.Infrastructure.Data.Configurations
 {
-    internal class OwnershipVerificationRequestConfiguration : IEntityTypeConfiguration<OwnershipVerificationRequest>
+    public class OwnershipVerificationRequestConfiguration : IEntityTypeConfiguration<OwnershipVerificationRequest>
     {
         public void Configure(EntityTypeBuilder<OwnershipVerificationRequest> builder)
         {

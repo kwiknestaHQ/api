@@ -8,5 +8,6 @@
         public string BaseUrl { get; set; } = default!;
         public string SupportEmail { get; set; } = default!;
         public string GeocodeEndpoint { get; set; } = default!;
+        public int ViewSessionDurationMinutes { get; set; }
     }
 }

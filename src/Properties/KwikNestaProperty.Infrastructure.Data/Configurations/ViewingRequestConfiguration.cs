@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace KwikNestaProperty.Infrastructure.Data.Configurations
 {
-    internal class ViewingRequestConfiguration : IEntityTypeConfiguration<ViewingRequest>
+    public class ViewingRequestConfiguration : IEntityTypeConfiguration<ViewingRequest>
     {
         public void Configure(EntityTypeBuilder<ViewingRequest> builder)
         {
@@ -14,7 +14,15 @@ namespace KwikNestaProperty.Infrastructure.Data.Configurations
                 .HasConversion<string>()
                 .IsRequired();
 
+            builder.Property(x => x.Fee)
+                .HasPrecision(18, 2)
+                .IsRequired();
+
             builder.Property(x => x.Type)
+                .HasConversion<string>()
+                .IsRequired();
+
+            builder.Property(x => x.PaymentStatus)
                 .HasConversion<string>()
                 .IsRequired();
 

@@ -1,6 +1,4 @@
 ﻿using KwikNestaProperty.Domain.Entities;
-using KwikNestaProperty.Infrastructure.Data.Configurations;
-using KwikNestaProperty.Infrastructure.Data.Configurations.DbSeeder;
 using Microsoft.EntityFrameworkCore;
 
 namespace KwikNestaProperty.Infrastructure.Data
@@ -13,28 +11,19 @@ namespace KwikNestaProperty.Infrastructure.Data
         public DbSet<ViewingRequest> ViewingRequests { get; set; }
         public DbSet<PropertyMedia> PropertyMedias { get; set; }
         public DbSet<PropertyFeature> PropertyFeatures { get; set; }
+        public DbSet<PropertyFeatureLink> PropertyFeatureLinks { get; set; }
         public DbSet<OwnershipVerificationRequest> OwnershipVerificationRequests { get; set; }
         public DbSet<OwnershipDocument> OwnershipDocuments { get; set; }
         public DbSet<PropertyInquiry> PropertyInquiries { get; set; }
         public DbSet<PropertyPriceHistory> PropertyPriceHistories { get; set; }
         public DbSet<PropertyView> PropertyViews { get; set; }
+        public DbSet<ViewingSession> ViewingSessions { get; set; }
+        public DbSet<SessionParticipant> SessionParticipants { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.HasDefaultSchema("kn-property-svc");
-            builder.ApplyConfiguration(new PropertyLocationConfiguration());
-            builder.ApplyConfiguration(new PropertyFeatureConfiguration());
-            builder.ApplyConfiguration(new PropertyMediaConfiguration());
-            builder.ApplyConfiguration(new ViewingRequestConfiguration());
-            builder.ApplyConfiguration(new OwnershipVerificationRequestConfiguration());
-            builder.ApplyConfiguration(new KNPropertyConfiguration());
-            builder.ApplyConfiguration(new PropertyFeatureLinkConfiguration());
-            builder.ApplyConfiguration(new PropertyFeatureSeederConfiguration());
-            builder.ApplyConfiguration(new OwnershipDocumentConfiguration());
-            builder.ApplyConfiguration(new PropertyInquiryConfiguration());
-            builder.ApplyConfiguration(new PropertyPriceHistoryConfiguration());
-            builder.ApplyConfiguration(new PropertyViewConfiguration());
-
+            builder.ApplyConfigurationsFromAssembly(typeof(PropertyServiceDbContext).Assembly);
             base.OnModelCreating(builder);
         }
     }

@@ -5,12 +5,10 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace KwikNestaProperty.Infrastructure.Data.Configurations
 {
-    internal class KNPropertyConfiguration : IEntityTypeConfiguration<KNProperty>
+    public class KNPropertyConfiguration : IEntityTypeConfiguration<KNProperty>
     {
         public void Configure(EntityTypeBuilder<KNProperty> builder)
         {
-            builder.ToTable("Properties");
-
             builder.HasKey(x => x.Id);
 
             builder.Property(x => x.Title)

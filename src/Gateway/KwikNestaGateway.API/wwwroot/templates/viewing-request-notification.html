@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<html>
+<body style="margin:0;background:#f4f7fb;font-family:Inter,Arial,sans-serif;">
+
+    <table width="100%" cellpadding="0" cellspacing="0" style="background:#f4f7fb;">
+        <tr>
+            <td align="center" style="padding:24px 5px;">
+
+                <table width="100%" cellpadding="0" cellspacing="0"
+                       style="max-width:600px;background:#ffffff;border-radius:14px;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,0.06);">
+
+                    <tr>
+                        <td style="background:linear-gradient(90deg,#0f3b63,#1a5a94);height:6px;"></td>
+                    </tr>
+
+                    <tr>
+                        <td style="padding:24px 24px;text-align:center;">
+                            <img src="https://res.cloudinary.com/dctevxse1/image/upload/v1755309471/lbllx0uwgmgqucq8h83u.png"
+                                 width="105"
+                                 style="max-width:100%;height:auto;display:block;margin:0 auto;"
+                                 alt="{{APP_NAME}}">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="padding:0 18px 12px 18px;color:#4a5568;font-size:15px;line-height:1.7;">
+                            Hi {{USER_NAME}},<br>
+                            You’ve received a new viewing request for your property.<br><br>
+
+                            <strong>Property:</strong> {{PROPERTY_TITLE}}<br>
+                            <strong>Location:</strong> {{PROPERTY_LOCATION}}<br><br>
+
+                            <strong>Requested Viewing Details:</strong><br>
+                            • Date & Time: {{SCHEDULED_DATETIME}}<br>
+                            • Mode: {{VIEWING_MODE}}<br>
+                            <br>
+                            The prospective tenant would like to schedule a viewing at the time above.
+                            Please review the request and confirm if it works for you.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center" style="padding:16px 18px 24px 18px;">
+
+                            <table cellpadding="0" cellspacing="0" style="margin:auto;">
+                                <tr>
+                                    <td align="center" bgcolor="#0f3b63" style="border-radius:6px;">
+                                        <a href="{{VIEW_REQUEST_LINK}}"
+                                           style="display:inline-block;padding:12px 26px;font-size:14px;color:#ffffff;text-decoration:none;font-weight:600;border-radius:6px;">
+                                            Review & Respond
+                                        </a>
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding:0 20px 20px 20px;text-align:center;font-size:13px;color:#9aa6b2;">
+                            This request may expire if not attended to promptly.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="border-top:1px solid #eef2f7;"></td>
+                    </tr>
+
+                    <tr>
+                        <td style="padding:20px 18px 28px 18px;text-align:center;">
+                            <p style="margin:0;font-size:13px;color:#7a8797;">
+                                You’re receiving this message for informational purposes only. If you weren’t expecting it, please contact us at <a href="mailto:{{SUPPORT_EMAIL}}" style="color:#1a73e8;text-decoration:none;">{{SUPPORT_EMAIL}}</a>.
+                            </p>
+
+                            <p style="margin-top:12px;font-size:12px;color:#9aa6b2;">
+                                The <span style="color:#0f3b63;font-weight:bolder;">{{APP_NAME}}</span>
+                                <span style="color:#ff8a00;font-weight:bolder;"> Team</span><br><br>
+                                © {{YEAR}} {{APP_NAME}}. All rights reserved.<br><br>
+                                Please do not reply to this email; replies to this address are not monitored.
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

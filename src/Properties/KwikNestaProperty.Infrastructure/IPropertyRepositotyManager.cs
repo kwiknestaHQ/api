@@ -1,8 +1,9 @@
-﻿using KwikNestaProperty.Infrastructure.Contracts;
+﻿using KwikNesta.Shared.Contracts;
+using KwikNestaProperty.Infrastructure.Contracts;
 
 namespace KwikNestaProperty.Infrastructure
 {
-    public interface IPropertyRepositotyManager
+    public interface IPropertyRepositotyManager : IBaseRepositoryManager
     {
         IKNPropertyRepository Property { get; }
         IOwnershipVerificationRepository OwnershipVerification {  get; }
@@ -15,8 +16,7 @@ namespace KwikNestaProperty.Infrastructure
         IPropertyPriceHistoryRepository PropertyPriceHistory { get; }
         IPropertyInquiryRepository PropertyInquiry { get; }
         IPropertyViewRepository PropertyView { get; }
-
-        Task BeginTransaction(Func<Task> action);
-        Task SaveAsync();
+        ISessionParticipantRepository SessionParticipant { get; }
+        IViewingSessionRepository ViewingSession { get; }
     }
 }

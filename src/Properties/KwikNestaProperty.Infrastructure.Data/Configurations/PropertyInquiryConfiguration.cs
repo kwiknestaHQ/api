@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace KwikNestaProperty.Infrastructure.Data.Configurations
 {
-    internal class PropertyInquiryConfiguration : IEntityTypeConfiguration<PropertyInquiry>
+    public class PropertyInquiryConfiguration : IEntityTypeConfiguration<PropertyInquiry>
     {
         public void Configure(EntityTypeBuilder<PropertyInquiry> builder)
         {

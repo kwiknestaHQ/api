@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace KwikNestaProperty.Infrastructure.Data.Configurations
 {
-    internal class OwnershipDocumentConfiguration : IEntityTypeConfiguration<OwnershipDocument>
+    public class OwnershipDocumentConfiguration : IEntityTypeConfiguration<OwnershipDocument>
     {
         public void Configure(EntityTypeBuilder<OwnershipDocument> builder)
         {

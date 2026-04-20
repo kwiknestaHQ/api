@@ -11,10 +11,13 @@ using KwikNesta.Shared.Constants;
 using KwikNesta.Shared.Contracts;
 using KwikNesta.Shared.Implementations;
 using KwikNesta.Shared.Models.Settings;
+using KwikNestaGateway.API.Services;
 using KwikNestaIdentity.Application;
 using KwikNestaIdentity.Infrastructure;
 using KwikNestaInfra.Application;
 using KwikNestaInfra.Infrastructure;
+using KwikNestaPayment.Application;
+using KwikNestaPayment.Infrastructure;
 using KwikNestaProperty.Application;
 using KwikNestaProperty.Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -88,7 +91,8 @@ namespace KwikNestaGateway.API.Extensions
                 .ConfigureKNMediators(
                     typeof(IdentityAppAssemblyMarker).Assembly, 
                     typeof(InfraAppAssemblyMarker).Assembly,
-                    typeof(PropertyAppAssemblyMarker).Assembly)
+                    typeof(PropertyAppAssemblyMarker).Assembly,
+                    typeof(PaymentAppAssemblyMarker).Assembly)
                 .AddTransient(typeof(IKNPipelineBehavior<,>), typeof(LoggingBehavior<,>))
                 .AddTransient(typeof(IKNNotificationBehavior<>), typeof(NotificationLoggingBehavior<>))
                 .ConfigureKNBackgroundMediators();
@@ -206,7 +210,8 @@ namespace KwikNestaGateway.API.Extensions
         {
             services.ConfigureIdentityServiceDbContexts(configuration)
                 .ConfigureInfraServices(configuration)
-                .ConfigurePropertyServices(configuration);
+                .ConfigurePropertyServices(configuration)
+                .ConfigurePaymentInfraServices(configuration);
             return services;
         }
 
@@ -223,10 +228,10 @@ namespace KwikNestaGateway.API.Extensions
                         opt.UseNpgsqlConnection(configuration.GetConnectionString("DefaultConnection"));
                     }, new PostgreSqlStorageOptions
                     {
-                        SchemaName = "my-gov-pay-hangfire",
+                        SchemaName = "kn-hangfire",
                         PrepareSchemaIfNecessary = true
                     })
-                    .UseRecurringJob(typeof(IRecurringJobsService))
+                    //.UseRecurringJob(typeof(IRecurringJobService))
                     .UseConsole()
                     .UseFilter(new AutomaticRetryAttribute()
                     {
@@ -239,7 +244,7 @@ namespace KwikNestaGateway.API.Extensions
                 opt.Queues = new[] { HangfireQueues.Recurring, HangfireQueues.Default };
                 opt.SchedulePollingInterval = TimeSpan.FromSeconds(30);
                 opt.WorkerCount = 5;
-            });
+            }).AddScoped<IRecurringJobService, RecurringJobService>();
 
             return services;
         }

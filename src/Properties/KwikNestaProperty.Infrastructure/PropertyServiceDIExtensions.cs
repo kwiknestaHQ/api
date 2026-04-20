@@ -1,8 +1,10 @@
 ﻿using KwikNestaProperty.Infrastructure.Data;
 using KwikNestaProperty.Infrastructure.Services;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace KwikNestaProperty.Infrastructure
 {
@@ -19,6 +21,18 @@ namespace KwikNestaProperty.Infrastructure
                 .AddScoped<IPropertyRepositotyManager, PropertyRepositotyManager>()
                 .AddScoped<BackgroundLocationVerificationService>();
             return services;
+        }
+
+        public static WebApplication RunPropertyServiceMigrations(this WebApplication app)
+        {
+            if (!app.Environment.IsDevelopment())
+            {
+                using var scope = app.Services.CreateScope();
+                var db = scope.ServiceProvider.GetRequiredService<PropertyServiceDbContext>();
+                db.Database.Migrate();
+            }
+
+            return app;
         }
     }
 }

@@ -35,6 +35,20 @@ namespace KwikNesta.Shared.Models.Enumerations.Infra
         [Description("Updated Property Location")]
         UpdatedPropertyLocation,
         [Description("Updated Property Basic Info")]
-        UpdatedPropertyInfo
+        UpdatedPropertyInfo = 1500,
+
+        [Description("Property Inspection Requested")]
+        ViewRequested,
+        [Description("Property Inspection Request Fee Paid")]
+        ViewRequestPaid,
+        [Description("Property Inspection Approved")]
+        ViewRequestApproved,
+        [Description("Property Inspection Declined")]
+        ViewRequestDeclined = 1800,
+
+        [Description("Initialized Payment")]
+        InitializedPayment,
+        [Description("Added Payment Intent")]
+        AddedPaymentIntent
     }
 }

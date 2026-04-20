@@ -52,6 +52,7 @@ namespace KwikNesta.Shared.ServiceDTOs.Property
         public double Longitude { get; set; }
         public bool IsVerified { get; set; }
     }
+
     public class LandlordDto
     {
         public string Id { get; set; } = default!;

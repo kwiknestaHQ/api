@@ -19,4 +19,15 @@ namespace KwikNesta.Shared.ServiceDTOs.Property
         [JsonIgnore]
         public string OwnerId { get; set; } = default!;
     }
+
+    public class PropertyVeryLeanDto
+    {
+        public Guid Id { get; set; }
+        public string OwnerId { get; set; } = default!;
+        public string Title { get; set; } = default!;
+        public string Address { get; set; } = default!;
+        public decimal Price { get; set; }
+        public string OwnerFirstName { get; set; } = default!;
+        public string OwnerEmail { get; set; } = default!;
+    }
 }

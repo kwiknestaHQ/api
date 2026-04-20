@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace KwikNestaProperty.Infrastructure.Data.Configurations.DbSeeder
 {
-    internal class PropertyFeatureSeederConfiguration : IEntityTypeConfiguration<PropertyFeature>
+    public class PropertyFeatureSeederConfiguration : IEntityTypeConfiguration<PropertyFeature>
     {
         public void Configure(EntityTypeBuilder<PropertyFeature> builder)
         {

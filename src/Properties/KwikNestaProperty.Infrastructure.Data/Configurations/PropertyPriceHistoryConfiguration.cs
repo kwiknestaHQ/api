@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace KwikNestaProperty.Infrastructure.Data.Configurations
 {
-    internal class PropertyPriceHistoryConfiguration : IEntityTypeConfiguration<PropertyPriceHistory>
+    public class PropertyPriceHistoryConfiguration : IEntityTypeConfiguration<PropertyPriceHistory>
     {
         public void Configure(EntityTypeBuilder<PropertyPriceHistory> builder)
         {

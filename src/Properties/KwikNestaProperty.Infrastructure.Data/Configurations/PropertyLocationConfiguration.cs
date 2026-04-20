@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace KwikNestaProperty.Infrastructure.Data.Configurations
 {
-    internal class PropertyLocationConfiguration : IEntityTypeConfiguration<PropertyLocation>
+    public class PropertyLocationConfiguration : IEntityTypeConfiguration<PropertyLocation>
     {
         public void Configure(EntityTypeBuilder<PropertyLocation> builder)
         {

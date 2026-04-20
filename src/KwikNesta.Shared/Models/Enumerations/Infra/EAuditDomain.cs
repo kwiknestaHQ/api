@@ -13,6 +13,10 @@ namespace KwikNesta.Shared.Models.Enumerations.Infra
         [Description("Location")]
         Location,
         [Description("Property")]
-        Property
+        Property,
+        [Description("Payment")]
+        Payment,
+        [Description("View Request")]
+        ViewRequest
     }
 }

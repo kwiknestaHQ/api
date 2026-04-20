@@ -4,6 +4,8 @@ using KwikNestaGateway.API.Filters;
 using KwikNestaGateway.API.Middlewares;
 using KwikNestaIdentity.Infrastructure;
 using KwikNestaInfra.Infrastructure;
+using KwikNestaPayment.Infrastructure;
+using KwikNestaProperty.Infrastructure;
 using Microsoft.AspNetCore.HttpOverrides;
 
 namespace KwikNestaGateway.API.Extensions
@@ -44,7 +46,9 @@ namespace KwikNestaGateway.API.Extensions
         {
 
             return app.RunIdentityServiceMigrations()
-                .RunInfraServiceMigrations();        
+                .RunInfraServiceMigrations()
+                .RunPropertyServiceMigrations()
+                .RunPaymentServiceMigrations();        
         }
 
         static async Task<IHost> RunDataSeedAsync(this IHost host)

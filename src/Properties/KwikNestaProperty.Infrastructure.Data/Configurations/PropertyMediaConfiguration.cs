@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace KwikNestaProperty.Infrastructure.Data.Configurations
 {
-    internal class PropertyMediaConfiguration : IEntityTypeConfiguration<PropertyMedia>
+    public class PropertyMediaConfiguration : IEntityTypeConfiguration<PropertyMedia>
     {
         public void Configure(EntityTypeBuilder<PropertyMedia> builder)
         {

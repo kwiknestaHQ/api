@@ -198,5 +198,27 @@ namespace KwikNestaGateway.API.Controllers.V1.Property
                 UserContext = HttpContext.GetContext()
             }));
         }
+
+        /// <summary>
+        /// Creates property inspection request
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [HttpPost("{id}/view-request")]
+        [Authorize(Roles = "Tenant")]
+        [ProducesResponseType(typeof(Response<string>), 200)]
+        public async Task<IActionResult> CreateViewRequest([FromRoute] Guid id, 
+                                                        CreateViewingRequestDto request)
+        {
+            return Ok(await _mediator.SendAsync(new CreateViewingRequestCommand
+            {
+                PropertyId = id,
+                Type = request.Type,
+                ScheduledDate = request.ScheduledDate,
+                Note = request.Note,
+                Context = HttpContext.GetContext()
+            }));
+        }
     }
 }
