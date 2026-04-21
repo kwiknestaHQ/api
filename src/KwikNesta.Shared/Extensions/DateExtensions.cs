@@ -16,14 +16,18 @@
                     $"{duration.Seconds}secs";
         }
 
-        public static string FormatAsWat(this DateTime utcDateTime)
+        public static string FormatAsWat(this DateTime utcDateTime, 
+                                    string format = "dddd, dd MMMM yyyy 'at' h:mm tt",
+                                    bool includeWatVerbiage = true)
         {
             if (utcDateTime.Kind != DateTimeKind.Utc)
                 utcDateTime = DateTime.SpecifyKind(utcDateTime, DateTimeKind.Utc);
 
-            var watTime = utcDateTime.AddHours(1); // UTC +1
+            var watTime = utcDateTime.AddHours(1);
 
-            return watTime.ToString("dddd, dd MMMM yyyy 'at' h:mm tt") + " (WAT)";
+            return includeWatVerbiage ? 
+                watTime.ToString(format) + " (WAT)" : 
+                watTime.ToString(format);
         }
     }
 }

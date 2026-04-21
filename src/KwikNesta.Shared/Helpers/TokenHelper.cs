@@ -83,6 +83,7 @@ namespace KwikNesta.Shared.Helpers
         }
 
         public static string GenerateViewRequestToken(Guid requestId,
+                                          string propertyOwnerId,
                                           string secret,
                                           int validationInHours = 24)
         {
@@ -92,19 +93,20 @@ namespace KwikNesta.Shared.Helpers
             var claims = new[]
             {
                 new Claim("requestId", requestId.ToString()),
+                new Claim("propertyOwnerId", propertyOwnerId),
             };
 
             var token = new JwtSecurityToken(
                 claims: claims,
                 notBefore: DateTime.UtcNow,
-                expires: DateTime.UtcNow.AddMinutes(validationInHours),
+                expires: DateTime.UtcNow.AddHours(validationInHours),
                 signingCredentials: creds
             );
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        public static (Guid requestId, string error) ValidateViewRequestToken(string token,
+        public static (Guid requestId, string propertyOwnerId, string error) ValidateViewRequestToken(string token,
                                                                   string secret)
         {
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret));
@@ -124,16 +126,17 @@ namespace KwikNesta.Shared.Helpers
                 var principal = tokenHandler.ValidateToken(token, parameters, out var validatedToken);
 
                 var requestId = Guid.Parse(principal.Claims.First(c => c.Type == "requestId").Value);
+                var propertyOwnerId = principal.Claims.First(c => c.Type == "propertyOwnerId").Value;
 
-                return (requestId, string.Empty);
+                return (requestId, propertyOwnerId, string.Empty);
             }
             catch (SecurityTokenExpiredException)
             {
-                return (Guid.Empty, "TokenExpired");
+                return (Guid.Empty, string.Empty, "Token Expired");
             }
             catch
             {
-                return (Guid.Empty, "InvalidToken");
+                return (Guid.Empty, string.Empty, "Invalid Token");
             }
         }
 

@@ -205,7 +205,7 @@ namespace KwikNestaGateway.API.Controllers.V1.Property
         /// <param name="id"></param>
         /// <param name="request"></param>
         /// <returns></returns>
-        [HttpPost("{id}/view-request")]
+        [HttpPost("{id}/view-requests")]
         [Authorize(Roles = "Tenant")]
         [ProducesResponseType(typeof(Response<string>), 200)]
         public async Task<IActionResult> CreateViewRequest([FromRoute] Guid id, 
@@ -218,6 +218,82 @@ namespace KwikNestaGateway.API.Controllers.V1.Property
                 ScheduledDate = request.ScheduledDate,
                 Note = request.Note,
                 Context = HttpContext.GetContext()
+            }));
+        }
+
+        /// <summary>
+        /// Get paginated list of property view requests
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [HttpGet("{id}/view-requests")]
+        [Authorize(Roles = "LandLord")]
+        [ProducesResponseType(typeof(PagedResponse<ViewRequestLeanDto>), 200)]
+        public async Task<IActionResult> GetViewRequests([FromRoute] Guid id,
+                                                        [FromQuery] GetPropertyViewRequest request)
+        {
+            return Ok(await _mediator.SendAsync(new GetPropertyViewRequestsQuery
+            {
+                PropertyId = id,
+                Page = request.Page,
+                PageSize = request.PageSize,
+                UserId = HttpContext.User.GetLoggedInUserId()!
+            }));
+        }
+
+        /// <summary>
+        /// Gets view request by property and request ids
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="requestId"></param>
+        /// <returns></returns>
+        [HttpGet("{id}/view-requests/{requestId}")]
+        [Authorize(Roles = "LandLord")]
+        [ProducesResponseType(typeof(Response<ViewRequestDto>), 200)]
+        public async Task<IActionResult> GetViewRequest([FromRoute] Guid id, [FromRoute] Guid requestId)
+        {
+            return Ok(await _mediator.SendAsync(new GetPropertyViewRequestQuery
+            {
+                PropertyId = id,
+                RequestId = requestId,
+                UserId = HttpContext.User.GetLoggedInUserId()!
+            }));
+        }
+
+        /// <summary>
+        /// Gets view request by and request id and token
+        /// </summary>
+        /// <param name="token"></param>
+        /// <param name="requestId"></param>
+        /// <returns></returns>
+        [HttpGet("view-requests/{requestId}")]
+        [ProducesResponseType(typeof(Response<ViewRequestDto>), 200)]
+        public async Task<IActionResult> GetViewRequestByToken([FromRoute] Guid requestId, [FromQuery] string token)
+        {
+            return Ok(await _mediator.SendAsync(new GetPropertyViewRequestByTokenQuery
+            {
+                RequestId = requestId,
+                Token = token
+            }));
+        }
+
+        /// <summary>
+        /// Gets view request by and request id and token
+        /// </summary>
+        /// <param name="token"></param>
+        /// <param name="requestId"></param>
+        /// <returns></returns>
+        [HttpPost("view-requests/{requestId}/approve")]
+        [ProducesResponseType(typeof(Response<ViewRequestDto>), 200)]
+        public async Task<IActionResult> ApproveViewRequest([FromRoute] Guid requestId, [FromQuery] string? token)
+        {
+            return Ok(await _mediator.SendAsync(new ViewRequestApprovalCommand
+            {
+                RequestId = requestId,
+                Token = token,
+                IpAddress = HttpContext.GetUserIp(),
+                LoggedInUserId = HttpContext.User.GetLoggedInUserId()!
             }));
         }
     }

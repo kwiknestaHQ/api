@@ -6,6 +6,7 @@ namespace KwikNesta.Shared.ServiceDTOs.Property
     {
         public Guid Id { get; set; }
         public decimal Fee { get; set; }
+        public Guid? SessionId { get; set; }
         public ViewRequestPropertyDto Property { get; set; } = default!;
         public ViewRequesterDto Requester { get; set; } = default!;
         public DateTime RequestedDate { get; set; }
@@ -16,6 +17,19 @@ namespace KwikNesta.Shared.ServiceDTOs.Property
         public string? Note { get; set; }
         public DateTime CreateAt { get; set; }
         public double ExpirationHours => 24 - (DateTime.UtcNow - CreateAt).TotalHours;
+    }
+
+    public class ViewRequestLeanDto
+    {
+        public Guid Id { get; set; }
+        public decimal Fee { get; set; }
+        public ViewRequesterDto Requester { get; set; } = default!;
+        public DateTime RequestedDate { get; set; }
+        public EViewingStatus Status { get; set; }
+        public EViewingPaymentStatus PaymentStatus { get; set; }
+        public DateTime? RespondedAt { get; set; }
+        public EViewingType Type { get; set; }
+        public string? Note { get; set; }
     }
 
     public class ViewRequesterDto

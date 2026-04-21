@@ -21,7 +21,7 @@ namespace KwikNestaPayment.Application.Handlers
             var viewRequest = await _mediator.SendAsync(new GetViewRequestByIdQuery
             {
                 Id = request.Id,
-            });
+            }, cancellationToken);
 
             if (!viewRequest.Success)
             {

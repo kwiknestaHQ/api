@@ -89,7 +89,7 @@ namespace KwikNestaProperty.Application.Handlers
             await _repository.SaveAsync();
 
             var property = propertyResponse.Data;
-            var token = TokenHelper.GenerateViewRequestToken(viewRequest.Id, Secret, TokenExpiryHours);
+            var token = TokenHelper.GenerateViewRequestToken(viewRequest.Id, property.OwnerId, Secret, TokenExpiryHours);
             var viewingLink = UrlHelpers.GetViewRequestResponseLink(_adminSettings.BaseUrl, viewRequest.Id, token);
 
             Notifications.SendEmail(property.OwnerEmail,

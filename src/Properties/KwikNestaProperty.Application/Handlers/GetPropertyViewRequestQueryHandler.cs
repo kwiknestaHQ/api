@@ -10,20 +10,22 @@ using Microsoft.EntityFrameworkCore;
 
 namespace KwikNestaProperty.Application.Handlers
 {
-    public class GetViewRequestByIdQueryHandler(IPropertyRepositotyManager repository, 
-                                            IKNMediator mediator) 
-        : IKNRequestHandler<GetViewRequestByIdQuery, Response<ViewRequestDto>>
+    internal class GetPropertyViewRequestQueryHandler(IPropertyRepositotyManager repository, 
+                                                    IKNMediator mediator) 
+        : IKNRequestHandler<GetPropertyViewRequestQuery, Response<ViewRequestDto>>
     {
         private readonly IPropertyRepositotyManager _repository = repository;
         private readonly IKNMediator _mediator = mediator;
 
-        public async Task<Response<ViewRequestDto>> HandleAsync(GetViewRequestByIdQuery request, CancellationToken cancellationToken)
+        public async Task<Response<ViewRequestDto>> HandleAsync(GetPropertyViewRequestQuery request, CancellationToken cancellationToken)
         {
             var viewRequest = await _repository.ViewingRequest
-                .FirstOrDefault(v => v.Id == request.Id);
+                .FirstOrDefault(v => v.Id == request.RequestId && 
+                                v.PropertyId == request.PropertyId && 
+                                v.Property.OwnerId == request.UserId);
             if (viewRequest == null)
             {
-                return Response<ViewRequestDto>.Fail(string.Format(PropertyResponse.RecordNotFound, "View Request"), 
+                return Response<ViewRequestDto>.Fail(string.Format(PropertyResponse.RecordNotFound, "View Request"),
                     StatusCodes.Status404NotFound);
             }
 
@@ -49,7 +51,7 @@ namespace KwikNestaProperty.Application.Handlers
             var userResult = await _mediator.SendAsync(new LoggedInUserQuery
             {
                 UserId = viewRequest.UserId,
-            }, cancellationToken);
+            });
 
             if (!userResult.Success)
             {
@@ -63,6 +65,7 @@ namespace KwikNestaProperty.Application.Handlers
                 Fee = viewRequest.Fee,
                 Status = viewRequest.Status,
                 Type = viewRequest.Type,
+                SessionId = viewRequest.SessionId,
                 PaymentStatus = viewRequest.PaymentStatus,
                 RespondedAt = viewRequest.RespondedAt,
                 RequestedDate = viewRequest.RequestedDate,
