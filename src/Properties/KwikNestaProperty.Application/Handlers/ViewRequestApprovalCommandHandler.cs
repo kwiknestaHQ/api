@@ -160,7 +160,7 @@ namespace KwikNestaProperty.Application.Handlers
             foreach ( var user in users.WithProgress(context))
             {
                 Notifications.SendEmail(user.Email,
-                    PropertyResponse.ViewRequestSubject,
+                    PropertyResponse.ViewRequestSessionSubject,
                     _host.GetViewingSessionNotification(user.FirstName,
                                 viewRequest.Property.Title,
                                 _supportEmail, 
@@ -220,7 +220,7 @@ namespace KwikNestaProperty.Application.Handlers
             foreach (var user in users.WithProgress(context))
             {
                 Notifications.SendEmail(user.Email,
-                    PropertyResponse.ViewRequestSubject,
+                    PropertyResponse.ViewRequestSessionReminderSubject,
                     _host.GetViewingSessionReminderNotification(user.FirstName,
                                 _supportEmail,
                                 link,

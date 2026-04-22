@@ -33,5 +33,7 @@ namespace KwikNesta.Shared.Responses
         public static readonly string ViewRequestAlreadyApproved = "View request already approved.";
         public static readonly string ViewRequestApproved = "View session successfully approved.";
         public static readonly string ViewRequestWasCancelled = "View request had already been cancelled.";
+        public static readonly string ViewRequestSessionSubject = "Property Inspection Scheduled";
+        public static readonly string ViewRequestSessionReminderSubject = "[Reminder] Property Inspection Coming Up";
     }
 }
