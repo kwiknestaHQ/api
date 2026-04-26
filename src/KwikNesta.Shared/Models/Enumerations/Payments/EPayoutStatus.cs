@@ -3,6 +3,7 @@
     public enum EPayoutStatus
     {
         Pending,
+        Processing,
         Success,
         Failed
     }

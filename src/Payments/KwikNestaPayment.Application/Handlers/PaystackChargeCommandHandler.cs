@@ -54,14 +54,14 @@ namespace KwikNestaPayment.Application.Handlers
             });
 
             var response = await _http.SendAsync(httpRequest, cancellationToken);
+            var content = await response.Content.ReadAsStringAsync(cancellationToken);
             if (!response.IsSuccessStatusCode)
             {
-                _logger.LogError("=== Payment Initialization failed with response: {Content} ===", response.Content);
+                _logger.LogError("=== Payment Initialization failed with response: {content} ===", content);
                 return Response<PaystackInitResult>.Fail(PaymentResponses.PaymentInitFailed, (int)response.StatusCode);
             }
-            var content = await response.Content.ReadAsStringAsync(cancellationToken);
-            var data = JsonSerializer.Deserialize<PaystackInitResult>(content)!;
 
+            var data = JsonSerializer.Deserialize<PaystackInitResult>(content)!;
             AppAudit.Write(request.Context.Id,
                 request.Context.Email,
                 EAuditAction.InitializedPayment,

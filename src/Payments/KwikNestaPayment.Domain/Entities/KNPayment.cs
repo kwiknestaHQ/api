@@ -12,6 +12,7 @@ namespace KwikNestaPayment.Domain.Entities
         public string Currency { get; set; } = "NGN";
         public EPaymentStatus Status { get; set; } = EPaymentStatus.Pending;
         public EPaymentPurpose Purpose { get; set; }
+        public EPaymentProvider Provider { get; set; } = EPaymentProvider.Paystack;
         public Guid ReferenceId { get; set; }
         public DateTime? PaidAt { get; set; }
     }

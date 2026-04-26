@@ -2,7 +2,6 @@
 using KwikNesta.Shared.Helpers;
 using KwikNesta.Shared.Implementations;
 using KwikNesta.Shared.Models.Settings;
-using KwikNesta.Shared.Responses;
 using KwikNestaIdentity.Domain.Entities;
 using KwikNestaIdentity.Infrastructure;
 using Microsoft.AspNetCore.Identity;
@@ -13,6 +12,7 @@ using KwikNesta.Shared.Constants;
 using KwikNesta.Shared.ServiceCommands.Identity;
 using KwikNesta.Shared.Models.Enumerations.Identity;
 using Microsoft.EntityFrameworkCore;
+using KwikNesta.Shared.Responses;
 
 namespace KwikNestaIdentity.Application.Handlers
 {

@@ -26,7 +26,7 @@ namespace KwikNesta.Shared.Responses
             return new PagedResponse<T>(data, page, size, count);
         }
 
-        public static async Task<PagedResponse<T>> PaginateAsync<T>(this IQueryable<T> query, int page, int size, 
+        public static async Task<PagedResponse<T>> PaginateAsync<T>(this IQueryable<T> query, int page, int size,
             CancellationToken cancellationToken = default)
         {
             var count = await query.CountAsync(cancellationToken);

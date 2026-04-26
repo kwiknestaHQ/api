@@ -1,4 +1,5 @@
-﻿using KwikNestaPayment.Domain.Entities;
+﻿using KwikNesta.Shared.Models.Enumerations.Payments;
+using KwikNestaPayment.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -16,6 +17,11 @@ namespace KwikNestaPayment.Infrastructure.Data.Configurations
 
             builder.Property(x => x.Purpose)
                    .IsRequired()
+                   .HasConversion<string>();
+
+            builder.Property(x => x.Provider)
+                   .IsRequired()
+                   .HasDefaultValue(EPaymentProvider.Paystack)
                    .HasConversion<string>();
 
             builder.Property(x => x.Reference)
