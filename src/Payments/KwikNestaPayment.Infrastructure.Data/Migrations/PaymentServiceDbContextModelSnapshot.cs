@@ -91,7 +91,7 @@ namespace KwikNestaPayment.Infrastructure.Data.Migrations
                             Id = new Guid("86724d52-6968-4b42-ba1d-897d14bd704a"),
                             AppliesTo = "Viewing",
                             CalculationType = "Percentage",
-                            CreatedOn = new DateTime(2026, 4, 20, 21, 28, 1, 510, DateTimeKind.Utc).AddTicks(418),
+                            CreatedOn = new DateTime(2026, 4, 30, 11, 6, 51, 653, DateTimeKind.Utc).AddTicks(8645),
                             IsActive = true,
                             IsDeprecated = false,
                             MaxCap = 8500m,
@@ -106,7 +106,7 @@ namespace KwikNestaPayment.Infrastructure.Data.Migrations
                             Id = new Guid("86724d52-6968-4b42-ba1d-897d14bd704b"),
                             AppliesTo = "Rent",
                             CalculationType = "Percentage",
-                            CreatedOn = new DateTime(2026, 4, 20, 21, 28, 1, 510, DateTimeKind.Utc).AddTicks(452),
+                            CreatedOn = new DateTime(2026, 4, 30, 11, 6, 51, 653, DateTimeKind.Utc).AddTicks(8687),
                             IsActive = true,
                             IsDeprecated = false,
                             Name = "Rent Commission",
@@ -150,6 +150,12 @@ namespace KwikNestaPayment.Infrastructure.Data.Migrations
                     b.Property<decimal>("PlatformFee")
                         .HasColumnType("numeric");
 
+                    b.Property<string>("Provider")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("text")
+                        .HasDefaultValue("Paystack");
+
                     b.Property<string>("Purpose")
                         .IsRequired()
                         .HasColumnType("text");
@@ -166,12 +172,132 @@ namespace KwikNestaPayment.Infrastructure.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.HasKey("Id");
 
                     b.HasIndex("Reference")
                         .IsUnique();
 
                     b.ToTable("Payments", "kn-payment-svc");
+                });
+
+            modelBuilder.Entity("KwikNestaPayment.Domain.Entities.KNPayoutAccount", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("AccountName")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.Property<string>("AccountNumber")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("character varying(30)");
+
+                    b.Property<string>("BankCode")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("BankName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsActive")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(true);
+
+                    b.Property<bool>("IsDeprecated")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime?>("LastUpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("RecipientCode")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BankCode", "AccountNumber")
+                        .IsUnique();
+
+                    b.ToTable("PayoutAccounts", "kn-payment-svc");
+                });
+
+            modelBuilder.Entity("KwikNestaPayment.Domain.Entities.KNRefund", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<decimal>("Amount")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("numeric(18,2)");
+
+                    b.Property<DateTime?>("CompletedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime?>("ExpectedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsDeprecated")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime?>("LastUpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Provider")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("ProviderReference")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<string>("Reason")
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.Property<string>("Reference")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Reference")
+                        .IsUnique();
+
+                    b.ToTable("Refunds", "kn-payment-svc");
                 });
 
             modelBuilder.Entity("KwikNestaPayment.Domain.Entities.KNSettlement", b =>
@@ -214,6 +340,67 @@ namespace KwikNestaPayment.Infrastructure.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Settlements", "kn-payment-svc");
+                });
+
+            modelBuilder.Entity("KwikNestaPayment.Domain.Entities.KNTransfer", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<decimal>("Amount")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("numeric(18,2)");
+
+                    b.Property<DateTime?>("CompletedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsDeprecated")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime?>("LastUpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Provider")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Reason")
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.Property<string>("Recipient")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<string>("Reference")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("TransferCode")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Reference")
+                        .IsUnique();
+
+                    b.ToTable("Transfers", "kn-payment-svc");
                 });
 #pragma warning restore 612, 618
         }

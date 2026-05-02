@@ -1,9 +1,6 @@
-﻿using Amazon.Runtime.Internal.Transform;
-using Amazon.S3.Model;
-using KwikNesta.Shared.Constants;
+﻿using KwikNesta.Shared.Constants;
 using KwikNesta.Shared.Models.Enumerations.Property;
 using Microsoft.Extensions.Hosting;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace KwikNesta.Shared.Extensions
 {

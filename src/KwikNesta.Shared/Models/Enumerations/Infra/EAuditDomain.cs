@@ -17,6 +17,8 @@ namespace KwikNesta.Shared.Models.Enumerations.Infra
         [Description("Payment")]
         Payment,
         [Description("View Request")]
-        ViewRequest
+        ViewRequest,
+        [Description("Refund")]
+        Refund
     }
 }

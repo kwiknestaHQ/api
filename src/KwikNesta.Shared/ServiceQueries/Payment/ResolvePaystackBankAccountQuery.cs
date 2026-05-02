@@ -4,7 +4,7 @@ using KwikNesta.Shared.ServiceDTOs.Payment;
 
 namespace KwikNesta.Shared.ServiceQueries.Payment
 {
-    public class ResolvePaystackBankAccountQuery : IKNRequest<Response<PaystackAccountResolutionResponse>>
+    public class ResolvePaystackBankAccountQuery : IKNRequest<Response<PaystackAccountResolutionResult>>
     {
         public string AccountNumber { get; set; } = default!;
         public string BankCode { get; set; } = default!;

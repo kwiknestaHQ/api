@@ -4,7 +4,7 @@ using KwikNesta.Shared.ServiceDTOs.Payment;
 
 namespace KwikNesta.Shared.ServiceCommands.Payment
 {
-    public class InitiatePaystackRefundCommand : IKNRequest<Response<PaystackRefundInitiationResponse>>
+    public class InitiatePaystackRefundCommand : IKNRequest<Response<PaystackRefundInitiationResponseData>>
     {
         public decimal Amount { get; set; }
         public string PaymentReference { get; set; } = default!;

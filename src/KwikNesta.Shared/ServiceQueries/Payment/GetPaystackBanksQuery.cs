@@ -4,5 +4,5 @@ using KwikNesta.Shared.ServiceDTOs.Payment;
 
 namespace KwikNesta.Shared.ServiceQueries.Payment
 {
-    public record GetPaystackBanksQuery() : IKNRequest<Response<PaystackBanksResponse>>;
+    public record GetPaystackBanksQuery() : IKNRequest<Response<List<PaystackBanksResponseData>>>;
 }

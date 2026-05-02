@@ -105,7 +105,7 @@ namespace KwikNestaProperty.Application.Handlers
             var userResponse = await _mediator.SendAsync(new GetUserByIdQuery
             {
                 Id = viewRequest.UserId
-            });
+            }, cancellationToken);
 
             if (userResponse.Success)
             {

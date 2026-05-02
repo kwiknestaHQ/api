@@ -36,7 +36,7 @@ namespace KwikNestaProperty.Application.Handlers
 
         public async Task<Response<string>> HandleAsync(ViewRequestApprovalCommand request, CancellationToken cancellationToken)
         {
-            if(string.IsNullOrWhiteSpace(request.LoggedInUserId) && string.IsNullOrWhiteSpace(request.Token))
+            if(string.IsNullOrWhiteSpace(request.Token))
             {
                 return Response<string>.Fail("Not authenticated", StatusCodes.Status403Forbidden);
             }

@@ -14,18 +14,18 @@ namespace KwikNestaPayment.Application.Handlers
     public class GetPaystackRefundByIdQueryHandler(IOptions<KNApplicationSettings> options, 
                                                 HttpClient http, 
                                                 ILogger<GetPaystackRefundByIdQueryHandler> logger) 
-        : IKNRequestHandler<GetPaystackRefundByIdQuery, Response<PaystackRefundQueryResponse>>
+        : IKNRequestHandler<GetPaystackRefundByIdQuery, Response<PaystackRefundQueryResponseData>>
     {
         private readonly PaystackSettings _paystackSettings = options.Value.Paystack ?? 
             throw new ArgumentNullException(nameof(PaystackSettings));
         private readonly HttpClient _http = http;
         private readonly ILogger<GetPaystackRefundByIdQueryHandler> _logger = logger;
 
-        public async Task<Response<PaystackRefundQueryResponse>> HandleAsync(GetPaystackRefundByIdQuery request, CancellationToken cancellationToken)
+        public async Task<Response<PaystackRefundQueryResponseData>> HandleAsync(GetPaystackRefundByIdQuery request, CancellationToken cancellationToken)
         {
             if (string.IsNullOrWhiteSpace(request.RefundId))
             {
-                return Response<PaystackRefundQueryResponse>.Fail(PaymentResponses.InvalidRequest, 
+                return Response<PaystackRefundQueryResponseData>.Fail(PaymentResponses.InvalidRequest, 
                     StatusCodes.Status400BadRequest);
             }
 
@@ -37,13 +37,19 @@ namespace KwikNestaPayment.Application.Handlers
             if (!response.IsSuccessStatusCode)
             {
                 _logger.LogError("=== Payment Refund Query failed with response: {content} ===", content);
-                return Response<PaystackRefundQueryResponse>.Fail(string.Format(PaymentResponses.RefundQueryFailed,
+                return Response<PaystackRefundQueryResponseData>.Fail(string.Format(PaymentResponses.RefundQueryFailed,
                     request.RefundId),
                     (int)response.StatusCode);
             }
 
             var data = JsonSerializer.Deserialize<PaystackRefundQueryResponse>(content)!;
-            return Response<PaystackRefundQueryResponse>.Ok(data);
+            if(data == null || !data.Status)
+            {
+                return Response<PaystackRefundQueryResponseData>.Fail(data?.Message ?? PaymentResponses.InvalidRequest,
+                    StatusCodes.Status400BadRequest);
+            }
+
+            return Response<PaystackRefundQueryResponseData>.Ok(data.Data);
         }
     }
 }

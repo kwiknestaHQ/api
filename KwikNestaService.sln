@@ -32,6 +32,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KwikNestaInfra.Infrastructure.Data", "src\Infra\KwikNestaInfra.Infrastructure.Data\KwikNestaInfra.Infrastructure.Data.csproj", "{79644A48-A209-47C6-A7D0-B4D7E2555DB2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Properties", "Properties", "{F7B1F6BA-9C26-4F3B-93B5-EBA7FD7A8CC0}"
+	ProjectSection(SolutionItems) = preProject
+		src\Payments\KwikNestaPayment.Infrastructure.Data\Configurations\KNSettlementConfiguration.cs = src\Payments\KwikNestaPayment.Infrastructure.Data\Configurations\KNSettlementConfiguration.cs
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KwikNestaProperty.Application", "src\Properties\KwikNestaProperty.Application\KwikNestaProperty.Application.csproj", "{7DAF2D98-1B72-4B6F-820F-44392656C27C}"
 EndProject
@@ -45,13 +48,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KwikNesta.Mediator", "src\K
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Payments", "Payments", "{63E5FA0D-08DE-4740-85C4-45B1EDC6690D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KwikNestaPayment.Domain", "src\Payments\KwikNestaPayment.Domain\KwikNestaPayment.Domain.csproj", "{826EDCBB-3CDC-42A0-B3EB-40A37D1516A5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KwikNestaPayment.Domain", "src\Payments\KwikNestaPayment.Domain\KwikNestaPayment.Domain.csproj", "{826EDCBB-3CDC-42A0-B3EB-40A37D1516A5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KwikNestaPayment.Infrastructure", "src\Payments\KwikNestaPayment.Infrastructure\KwikNestaPayment.Infrastructure.csproj", "{2FB756E8-25D1-4262-95EE-136C6CC3789F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KwikNestaPayment.Infrastructure", "src\Payments\KwikNestaPayment.Infrastructure\KwikNestaPayment.Infrastructure.csproj", "{2FB756E8-25D1-4262-95EE-136C6CC3789F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KwikNestaPayment.Application", "src\Payments\KwikNestaPayment.Application\KwikNestaPayment.Application.csproj", "{58FC7F6F-9879-405E-BFE0-0C35925D4167}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KwikNestaPayment.Application", "src\Payments\KwikNestaPayment.Application\KwikNestaPayment.Application.csproj", "{58FC7F6F-9879-405E-BFE0-0C35925D4167}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KwikNestaPayment.Infrastructure.Data", "src\Payments\KwikNestaPayment.Infrastructure.Data\KwikNestaPayment.Infrastructure.Data.csproj", "{0CAACCFB-4ED7-49A8-BFD3-52B8A80CC28F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KwikNestaPayment.Infrastructure.Data", "src\Payments\KwikNestaPayment.Infrastructure.Data\KwikNestaPayment.Infrastructure.Data.csproj", "{0CAACCFB-4ED7-49A8-BFD3-52B8A80CC28F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

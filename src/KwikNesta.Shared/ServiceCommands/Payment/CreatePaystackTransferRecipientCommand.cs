@@ -4,7 +4,7 @@ using KwikNesta.Shared.ServiceDTOs.Payment;
 
 namespace KwikNesta.Shared.ServiceCommands.Payment
 {
-    public class CreatePaystackTransferRecipientCommand : IKNRequest<Response<CreatePaystackTransferResponse>>
+    public class CreatePaystackTransferRecipientCommand : IKNRequest<Response<CreatePaystackTransferResponseData>>
     {
         public string AccountType { get; set; } = default!;
         public string BankName { get; set; } = default!;

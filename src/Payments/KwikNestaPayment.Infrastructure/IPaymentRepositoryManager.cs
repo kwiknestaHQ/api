@@ -8,5 +8,8 @@ namespace KwikNestaPayment.Infrastructure
         IPaymentRepository Payment {  get; }
         ISettlementRepository Settlement { get; }
         IFeeRuleRepository FeeRule { get; }
+        IPayoutAccountRepository PayoutAccount { get; }
+        IRefundRepository Refund { get; }
+        ITransferRepository Transfer { get; }
     }
 }

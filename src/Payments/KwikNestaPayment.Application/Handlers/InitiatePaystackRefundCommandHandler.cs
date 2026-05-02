@@ -21,19 +21,19 @@ namespace KwikNestaPayment.Application.Handlers
     public class InitiatePaystackRefundCommandHandler(IOptions<KNApplicationSettings> options,
                                                     HttpClient http,
                                                     ILogger<InitiatePaystackRefundCommandHandler> logger) 
-        : IKNRequestHandler<InitiatePaystackRefundCommand, Response<PaystackRefundInitiationResponse>>
+        : IKNRequestHandler<InitiatePaystackRefundCommand, Response<PaystackRefundInitiationResponseData>>
     {
         private readonly HttpClient _http = http;
         private readonly ILogger<InitiatePaystackRefundCommandHandler> _logger = logger;
         private readonly PaystackSettings _paystackSettings = options.Value.Paystack ?? 
             throw new ArgumentNullException(nameof(PaystackSettings));
 
-        public async Task<Response<PaystackRefundInitiationResponse>> HandleAsync(InitiatePaystackRefundCommand request, CancellationToken cancellationToken)
+        public async Task<Response<PaystackRefundInitiationResponseData>> HandleAsync(InitiatePaystackRefundCommand request, CancellationToken cancellationToken)
         {
             var validator = new InitiatePaystackRefundCommandValidator().Validate(request);
             if (!validator.IsValid)
             {
-                return Response<PaystackRefundInitiationResponse>.Fail(validator.Errors.FirstOrDefault()?.ErrorMessage ?? 
+                return Response<PaystackRefundInitiationResponseData>.Fail(validator.Errors.FirstOrDefault()?.ErrorMessage ?? 
                     PaymentResponses.InvalidRequest,
                     StatusCodes.Status400BadRequest);
             }
@@ -56,21 +56,27 @@ namespace KwikNestaPayment.Application.Handlers
             if (!response.IsSuccessStatusCode)
             {
                 _logger.LogError("=== Payment Refund failed with response: {content} ===", content);
-                return Response<PaystackRefundInitiationResponse>.Fail(string.Format(PaymentResponses.RefundFailed, 
+                return Response<PaystackRefundInitiationResponseData>.Fail(string.Format(PaymentResponses.RefundFailed, 
                     request.PaymentReference), 
                     (int)response.StatusCode);
             }
 
-            var data = JsonSerializer.Deserialize<PaystackRefundInitiationResponse>(content)!;
+            var data = JsonSerializer.Deserialize<PaystackRefundInitiationResponse>(content);
+            if(data == null || !data.Status)
+            {
+                return Response<PaystackRefundInitiationResponseData>.Fail(data?.Message ?? PaymentResponses.InvalidRequest,
+                    StatusCodes.Status400BadRequest);
+            }
+
             AppAudit.Write(request.UserId,
                 request.UserEmail,
-                EAuditAction.InitializedPayment,
-                EAuditDomain.Payment,
+                EAuditAction.InitializedRefund,
+                EAuditDomain.Refund,
                 request.PaymentReference,
                 string.Empty,
                 AppConstants.Initiator);
 
-            return Response<PaystackRefundInitiationResponse>.Ok(data);
+            return Response<PaystackRefundInitiationResponseData>.Ok(data.Data);
         }
     }
 }

@@ -14,18 +14,18 @@ namespace KwikNestaPayment.Application.Handlers
     public class ResolvePaystackBankAccountQueryHandler(IOptions<KNApplicationSettings> options,
                                                 HttpClient http,
                                                 ILogger<ResolvePaystackBankAccountQueryHandler> logger) 
-        : IKNRequestHandler<ResolvePaystackBankAccountQuery, Response<PaystackAccountResolutionResponse>>
+        : IKNRequestHandler<ResolvePaystackBankAccountQuery, Response<PaystackAccountResolutionResult>>
     {
         private readonly PaystackSettings _paystackSettings = options.Value.Paystack ??
             throw new ArgumentNullException(nameof(PaystackSettings));
         private readonly HttpClient _http = http;
         private readonly ILogger<ResolvePaystackBankAccountQueryHandler> _logger = logger;
 
-        public async Task<Response<PaystackAccountResolutionResponse>> HandleAsync(ResolvePaystackBankAccountQuery request, CancellationToken cancellationToken)
+        public async Task<Response<PaystackAccountResolutionResult>> HandleAsync(ResolvePaystackBankAccountQuery request, CancellationToken cancellationToken)
         {
             if (string.IsNullOrWhiteSpace(request.AccountNumber) || string.IsNullOrWhiteSpace(request.BankCode))
             {
-                return Response<PaystackAccountResolutionResponse>.Fail(PaymentResponses.InvalidRequest,
+                return Response<PaystackAccountResolutionResult>.Fail(PaymentResponses.InvalidRequest,
                     StatusCodes.Status400BadRequest);
             }
 
@@ -38,13 +38,21 @@ namespace KwikNestaPayment.Application.Handlers
             if (!response.IsSuccessStatusCode)
             {
                 _logger.LogError("=== Account Resolution Query failed with response: {content} ===", content);
-                return Response<PaystackAccountResolutionResponse>.Fail(string.Format(PaymentResponses.RefundQueryFailed,
+                return Response<PaystackAccountResolutionResult>.Fail(string.Format(PaymentResponses.RefundQueryFailed,
                     request.AccountNumber),
                     (int)response.StatusCode);
             }
 
             var data = JsonSerializer.Deserialize<PaystackAccountResolutionResponse>(content)!;
-            return Response<PaystackAccountResolutionResponse>.Ok(data);
+            if(data == null || !data.Status)
+            {
+                return Response<PaystackAccountResolutionResult>.Fail(data?.Message ?? PaymentResponses.InvalidRequest, 
+                    StatusCodes.Status400BadRequest);
+            }
+
+            return Response<PaystackAccountResolutionResult>.Ok(new PaystackAccountResolutionResult(
+                    data.Data.AccountNumber, data.Data.AccountName, request.BankCode
+                ));
         }
     }
 }

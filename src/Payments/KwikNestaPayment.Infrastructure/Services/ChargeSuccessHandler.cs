@@ -22,6 +22,7 @@ namespace KwikNestaPayment.Infrastructure.Services
 
         public async Task HandleAsync(PaystackWebhookDto payload)
         {
+            _logger.LogInformation("=== [ChargeSuccessHandler] Received {EventType} event. {payload}", EventType, payload);
             var reference = payload.Data.Reference;
 
             var payment = await _repository.Payment
@@ -74,6 +75,7 @@ namespace KwikNestaPayment.Infrastructure.Services
             }
 
             await _paymentRouter.Route(payment);
+            _logger.LogInformation("=== [ChargeSuccessHandler] {EventType} event successfully handled for {reference}.", EventType, reference);
         }
     }
 }

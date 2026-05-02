@@ -1,5 +1,6 @@
 ﻿using KwikNesta.Mediator.Cores.Abstractions;
 using KwikNesta.Shared.Models.Enumerations.Payments;
+using KwikNesta.Shared.Models.Enumerations.Property;
 using KwikNesta.Shared.ServiceCommands.Property;
 using KwikNestaPayment.Domain.Entities;
 
@@ -25,10 +26,31 @@ namespace KwikNestaPayment.Infrastructure.Services
 
         private async Task HandleInspection(KNPayment payment)
         {
-            await _mediator.PublishAsync(new FinalizeViewRequestNotification
+            switch (payment.Status)
             {
-                Reference = payment.Reference
-            });
+                case EPaymentStatus.Pending:
+                    break;
+                case EPaymentStatus.Successful:
+                    await _mediator.PublishAsync(new FinalizeViewRequestNotification
+                    {
+                        Reference = payment.Reference
+                    });
+                    break;
+                case EPaymentStatus.Failed:
+                    await _mediator.SendAsync(new UpdateViewingRequestPaymentStatusCommand
+                    {
+                        Id = payment.ReferenceId,
+                        NewStatus = EViewingPaymentStatus.Failed
+                    });
+                    break;
+                case EPaymentStatus.Refunded:
+                    await _mediator.SendAsync(new UpdateViewingRequestPaymentStatusCommand
+                    {
+                        Id = payment.ReferenceId,
+                        NewStatus = EViewingPaymentStatus.Refunded
+                    });
+                    break;
+            }
         }
 
         private async Task HandleRent(KNPayment payment)

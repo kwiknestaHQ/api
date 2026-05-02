@@ -9,6 +9,9 @@ namespace KwikNestaPayment.Infrastructure.Data
         public DbSet<KNPayment> Payments { get; set; }
         public DbSet<KNSettlement> Settlements { get; set; }
         public DbSet<FeeRule> FeeRules { get; set; }
+        public DbSet<KNRefund> Refunds { get; set; }
+        public DbSet<KNTransfer> Transfers { get; set; }
+        public DbSet<KNPayoutAccount> PayoutAccounts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

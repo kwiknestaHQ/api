@@ -279,13 +279,13 @@ namespace KwikNestaGateway.API.Controllers.V1.Property
         }
 
         /// <summary>
-        /// Gets view request by and request id and token
+        /// Approves view request
         /// </summary>
         /// <param name="token"></param>
         /// <param name="requestId"></param>
         /// <returns></returns>
         [HttpPost("view-requests/{requestId}/approve")]
-        [ProducesResponseType(typeof(Response<ViewRequestDto>), 200)]
+        [ProducesResponseType(typeof(Response<string>), 200)]
         public async Task<IActionResult> ApproveViewRequest([FromRoute] Guid requestId, [FromQuery] string? token)
         {
             return Ok(await _mediator.SendAsync(new ViewRequestApprovalCommand
@@ -294,6 +294,24 @@ namespace KwikNestaGateway.API.Controllers.V1.Property
                 Token = token,
                 IpAddress = HttpContext.GetUserIp(),
                 LoggedInUserId = HttpContext.User.GetLoggedInUserId()!
+            }));
+        }
+
+        /// <summary>
+        /// Rejects view request
+        /// </summary>
+        /// <param name="token"></param>
+        /// <param name="requestId"></param>
+        /// <returns></returns>
+        [HttpPost("view-requests/{requestId}/decline")]
+        [ProducesResponseType(typeof(Response<string>), 200)]
+        public async Task<IActionResult> DeclineViewRequest([FromRoute] Guid requestId, [FromQuery] string? token)
+        {
+            return Ok(await _mediator.SendAsync(new ViewRequestRejectionCommand
+            {
+                RequestId = requestId,
+                Token = token,
+                Context = HttpContext.GetContext()
             }));
         }
     }

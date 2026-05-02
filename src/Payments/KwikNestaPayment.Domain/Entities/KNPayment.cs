@@ -6,6 +6,7 @@ namespace KwikNestaPayment.Domain.Entities
     public class KNPayment : BaseEntity
     {
         public string Reference { get; set; } = default!;
+        public string UserId { get; set; } = default!;
         public decimal Amount { get; set; }
         public decimal PlatformFee { get; set; }
         public decimal NetAmount { get; set; }

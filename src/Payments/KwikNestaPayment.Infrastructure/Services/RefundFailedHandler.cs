@@ -1,28 +1,39 @@
-﻿using KwikNesta.Shared.ServiceDTOs.Payment;
+﻿using KwikNesta.Shared.Models.Enumerations.Payments;
+using KwikNesta.Shared.ServiceDTOs.Payment;
 using KwikNestaPayment.Infrastructure.Contracts;
+using Microsoft.Extensions.Logging;
 
 namespace KwikNestaPayment.Infrastructure.Services
 {
-    public class RefundFailedHandler : IPaystackWebhookHandler
+    public class RefundFailedHandler(IPaymentRepositoryManager paymentRepository,
+                                PaymentRouter paymentRouter,
+                                ILogger<RefundFailedHandler> logger) : IPaystackWebhookHandler
     {
+        private readonly IPaymentRepositoryManager _paymentRepository = paymentRepository;
+        private readonly PaymentRouter _paymentRouter = paymentRouter;
+        private readonly ILogger<RefundFailedHandler> _logger = logger;
+
         public string EventType => "refund.failed";
 
         public async Task HandleAsync(PaystackWebhookDto payload)
         {
-            //long refundId = data.id;
+            _logger.LogInformation("=== [RefundFailedHandler] Received {EventType} event. {payload}", EventType, payload);
+            var reference = payload.Data.Reference;
 
-            //var refund = await _refundRepo.GetByRefundId(refundId);
-            //if (refund == null) return;
+            var refund = await _paymentRepository.Refund
+                .FirstOrDefault(x => x.ProviderReference == reference, true);
 
-            //if (refund.Status == EPayoutStatus.Failed)
-            //    return;
+            if (refund == null)
+            {
+                _logger.LogError("=== [RefundFailedHandler] Refund record not found with refrence: {reference}", reference);
+                return;
+            }
 
-            //refund.Status = EPayoutStatus.Failed;
-            //refund.CompletedAt = DateTime.UtcNow;
+            refund.Status = EPayoutStatus.Failed;
+            refund.LastUpdatedOn = DateTime.UtcNow;
 
-            //await _refundRepo.Update(refund);
-
-            // Optional: alert admins / retry logic
+            await _paymentRepository.SaveAsync();
+            _logger.LogInformation("=== [RefundFailedHandler] {EventType} event successfully handled for {reference}.", EventType, reference);
         }
     }
 }

@@ -14,10 +14,19 @@ namespace KwikNestaPayment.Infrastructure
             => new SettlementRepository(context));
         private readonly Lazy<IFeeRuleRepository> _feeRule = new(()
             => new FeeRuleRepository(context));
+        private readonly Lazy<IPayoutAccountRepository> _payoutAccount = new(()
+            => new PayoutAccountRepository(context));
+        private readonly Lazy<ITransferRepository> _transfer = new(()
+            => new TransferRepository(context));
+        private readonly Lazy<IRefundRepository> _refund = new(()
+            => new RefundRepository(context));
 
         public IPaymentRepository Payment => _payment.Value;
         public ISettlementRepository Settlement => _settlement.Value;
         public IFeeRuleRepository FeeRule => _feeRule.Value;
+        public IPayoutAccountRepository PayoutAccount => _payoutAccount.Value;
+        public IRefundRepository Refund => _refund.Value;
+        public ITransferRepository Transfer => _transfer.Value;
 
         public async Task BeginTransaction(Func<Task> action)
         {

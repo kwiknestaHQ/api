@@ -49,6 +49,9 @@ namespace KwikNesta.Shared.Models.Enumerations.Infra
         [Description("Initialized Payment")]
         InitializedPayment,
         [Description("Added Payment Intent")]
-        AddedPaymentIntent
+        AddedPaymentIntent,
+        [Description("Added User Bank Account")]
+        AddedUserBankAccount,
+        InitializedRefund
     }
 }

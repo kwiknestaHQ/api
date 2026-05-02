@@ -7,9 +7,11 @@ using KwikNesta.Shared.Responses;
 using KwikNesta.Shared.ServiceCommands.Property;
 using KwikNesta.Shared.ServiceDTOs.Property;
 using KwikNesta.Shared.ServiceQueries.Infra;
+using KwikNesta.Shared.ServiceQueries.Payment;
 using KwikNestaProperty.Application.Validations;
 using KwikNestaProperty.Infrastructure;
 using KwikNestaProperty.Infrastructure.Services;
+using Microsoft.AspNetCore.Http;
 
 namespace KwikNestaProperty.Application.Handlers
 {
@@ -29,6 +31,22 @@ namespace KwikNestaProperty.Application.Handlers
             {
                 return Response<CreatePropertyResponseDto>.Fail(validator.Errors.FirstOrDefault()?.ErrorMessage ?? 
                     PropertyResponse.InvalidRequest, 400);
+            }
+
+            var userAccount = await _mediator.SendAsync(new GetUserBankAccountQuery
+            {
+                UserId = request.UserContext.Id
+            });
+
+            if (!userAccount.Success)
+            {
+                return Response<CreatePropertyResponseDto>.Fail(userAccount.Message, userAccount.StatusCode);
+            }
+
+            if(userAccount.Data == null || !userAccount.Data.IsActive)
+            {
+                return Response<CreatePropertyResponseDto>.Fail(PropertyResponse.UserHasNoBankAccount, 
+                    StatusCodes.Status400BadRequest);
             }
 
             var countryResponse = await _mediator.SendAsync(new GetCountryByIdQuery { Id = request.Location.CountryId }, cancellationToken);

@@ -35,5 +35,12 @@ namespace KwikNesta.Shared.Responses
         public static readonly string ViewRequestWasCancelled = "View request had already been cancelled.";
         public static readonly string ViewRequestSessionSubject = "Property Inspection Scheduled";
         public static readonly string ViewRequestSessionReminderSubject = "[Reminder] Property Inspection Coming Up";
+        public static readonly string UserHasNoBankAccount = "Please add a Bank Account before listing a property.";
+        public static readonly string RequestPaymentStatusAlreadyInStatus = "View request payment status already in the specified status.";
+        public static readonly string PaymentStatusUpdated = "Payment status successfully updated.";
+        public static readonly string ViewRequestAlreadyRejected = "Property view request already rejected.";
+        public static readonly string ViewRequestRejected = "Property view request successfully rejected.";
+        public static readonly string PropertyViewRequestDeclinedSubject = "Update on Your Property Viewing request";
+        public static readonly string PropertyViewRequestDeclinedMessage = "Thank you for your interest in the property {0} at {1}.<br><br>We regret to inform you that your request to schedule a viewing on {2} has been declined at this time. This may be due to availability constraints or other considerations from the property owner.<br><br>If you made any payment towards this request, please be assured that a refund has been initiated. Depending on your payment method, it may take a few business days for the funds to reflect in your account.<br><br>We understand this may be disappointing, and we encourage you to explore other available listings that may suit your preferences. If you would like assistance finding alternative options or submitting a new request, please feel free to reach out.<br><br>Thank you for your understanding.";
     }
 }

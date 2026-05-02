@@ -8,9 +8,8 @@ namespace KwikNestaPayment.Domain.Entities
     {
         public string Reference { get; set; } = default!;
         public decimal Amount { get; set; }
-        public EPayoutStatus Status { get; set; }
+        public EPayoutStatus Status { get; set; } = EPayoutStatus.Pending;
         public EPaymentProvider Provider { get; set; }
-        public DateTime CreatedAt { get; set; }
         public DateTime? CompletedAt { get; set; }
     }
 }

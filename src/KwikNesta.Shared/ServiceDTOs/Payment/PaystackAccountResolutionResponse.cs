@@ -19,4 +19,6 @@ namespace KwikNesta.Shared.ServiceDTOs.Payment
         [JsonPropertyName("account_name")]
         public string AccountName { get; set; } = default!;
     }
+
+    public record PaystackAccountResolutionResult(string Number, string Name, string Code);
 }

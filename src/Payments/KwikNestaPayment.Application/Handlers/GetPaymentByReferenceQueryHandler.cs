@@ -28,20 +28,7 @@ namespace KwikNestaPayment.Application.Handlers
                     StatusCodes.Status404NotFound);
             }
 
-            return Response<PaymentDto>.Ok(new PaymentDto
-            {
-                Id = payment.Id,
-                Reference = payment.Reference,
-                Amount = payment.Amount,
-                NetAmount = payment.NetAmount,
-                PaidAt = payment.PaidAt,
-                CreatedOn = payment.CreatedOn,
-                Currency = payment.Currency,
-                PlatformFee = payment.PlatformFee,
-                Purpose = payment.Purpose,
-                ReferenceId = payment.ReferenceId,
-                Status = payment.Status
-            });
+            return Response<PaymentDto>.Ok(payment.Map());
         }
     }
 }
