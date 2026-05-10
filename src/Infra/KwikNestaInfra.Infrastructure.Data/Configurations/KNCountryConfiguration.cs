@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace KwikNestaInfra.Infrastructure.Data.Configurations
 {
-    internal class KNCountryConfiguration : IEntityTypeConfiguration<KNCountry>
+    public class KNCountryConfiguration : IEntityTypeConfiguration<KNCountry>
     {
         public void Configure(EntityTypeBuilder<KNCountry> builder)
         {

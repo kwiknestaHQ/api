@@ -2,7 +2,6 @@
 using Hangfire;
 using Hangfire.Console;
 using Hangfire.PostgreSql;
-using Hangfire.RecurringJobExtensions;
 using KwikNesta.Mediator.Cores.Abstractions;
 using KwikNesta.Mediator.Cores.Extensions;
 using KwikNesta.Mediator.Cores.Implementations.Pipelines;

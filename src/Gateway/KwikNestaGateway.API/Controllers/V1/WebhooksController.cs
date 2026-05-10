@@ -2,10 +2,12 @@
 using Hangfire;
 using KwikNesta.Shared.Extensions;
 using KwikNesta.Shared.Models.Settings;
+using KwikNestaInfra.Infrastructure.Contracts;
 using KwikNestaPayment.Infrastructure.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System.Text;
+using System.Text.Json;
 
 namespace KwikNestaGateway.API.Controllers.V1
 {
@@ -15,9 +17,10 @@ namespace KwikNestaGateway.API.Controllers.V1
     public class WebhooksController(IOptions<KNApplicationSettings> options) : ControllerBase
     {
         private readonly string paystackSecret = options.Value.Paystack.PrivateKey;
+        private readonly string agoraSecret = options.Value.Agora.WebhookSecret;
 
         [HttpPost("paystack")]
-        public async Task<IActionResult> HandleWebhook()
+        public async Task<IActionResult> HandlePaystackWebhook()
         {
             var body = await ReadBody(Request);
 
@@ -30,6 +33,22 @@ namespace KwikNestaGateway.API.Controllers.V1
 
             BackgroundJob.Enqueue<IPaymentWebhookService>(job 
                 => job.ProcessPaystackWebhook(body, null!));
+
+            return Ok();
+        }
+
+        [HttpPost("agora")]
+        public async Task<IActionResult> HandleAgoraWebhook()
+        {
+            var body = await ReadBody(Request);
+            var signature = Request.Headers["Agora-Signature-V2"].ToString();
+            if (!PaymentExtensions.VerifySignature(body, agoraSecret, signature))
+            {
+                return Unauthorized();
+            }
+
+            BackgroundJob.Enqueue<IVirtualMediaCallService>(job
+               => job.ProcessAgoraWebhook(body, null!));
 
             return Ok();
         }

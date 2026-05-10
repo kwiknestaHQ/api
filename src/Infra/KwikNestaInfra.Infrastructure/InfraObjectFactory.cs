@@ -1,11 +1,37 @@
-﻿using KwikNesta.Shared.Models.CsApis;
+﻿using KwikNesta.Shared.Extensions;
+using KwikNesta.Shared.Models.CsApis;
+using KwikNesta.Shared.Models.Enumerations.Infra;
 using KwikNesta.Shared.ServiceDTOs.Infra;
 using KwikNestaInfra.Domain.Entities;
 
-namespace KwikNestaInfra.Application
+namespace KwikNestaInfra.Infrastructure
 {
-    internal class InfraObjectFactory
+    public class InfraObjectFactory
     {
+        public static AgoraWebhookEventLog Initialize(string id,
+                                            string channel,
+                                            EAgoraEvent type,
+                                            long ts,
+                                            EAgoraModule module,
+                                            EAgoraPlatform platform = EAgoraPlatform.Undefined,
+                                            uint? uid = null,
+                                            int? duration = null,
+                                            int? reason = null)
+        {
+            return new AgoraWebhookEventLog
+            {
+                Id = id,
+                Channel = channel,
+                Type = type,
+                Module = module,
+                UId = uid,
+                Timestamp = ts.ToUtcDateTime(),
+                Platform = platform,
+                Duration = duration,
+                Reason = reason
+            };
+        }
+
         public static KNCountry Map(CsCountry client)
         {
             return new KNCountry
@@ -47,8 +73,8 @@ namespace KwikNestaInfra.Application
             };
         }
 
-        public static List<KNCity> Map(Guid stateId, 
-                                    Guid countryId, 
+        public static List<KNCity> Map(Guid stateId,
+                                    Guid countryId,
                                     List<CsCity> cities)
         {
             var result = new List<KNCity>();

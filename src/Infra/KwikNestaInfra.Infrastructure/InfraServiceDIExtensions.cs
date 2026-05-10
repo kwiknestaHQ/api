@@ -4,6 +4,8 @@ using KwikNesta.Shared.Models.Settings;
 using KwikNestaInfra.Infrastructure.Contracts;
 using KwikNestaInfra.Infrastructure.Data;
 using KwikNestaInfra.Infrastructure.External;
+using KwikNestaInfra.Infrastructure.Services;
+using KwikNestaInfra.Infrastructure.Services.AgoraHandlers.Inspection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -26,7 +28,8 @@ namespace KwikNestaInfra.Infrastructure
             return services.AddScoped<IInfraRepositoryManager, InfraRepositoryManager>()
                 .AddScoped<IAppAuditService, AppAuditService>()
                 .AddScoped<ICsApiService, CsApiService>()
-                .ConfigureHttpClients(configuration);
+                .ConfigureHttpClients(configuration)
+                .ConfigureAgoraServices();
         }
 
         public static WebApplication RunInfraServiceMigrations(this WebApplication app)
@@ -39,6 +42,19 @@ namespace KwikNestaInfra.Infrastructure
             }
 
             return app;
+        }
+
+        private static IServiceCollection ConfigureAgoraServices(this IServiceCollection services)
+        {
+            return services
+                .AddScoped<IVirtualMediaCallService, VirtualMediaCallService>()
+                .AddScoped<AgoraWebhookEventDispatcher>()
+                .AddScoped<IAgoraModuleHandler, ChannelCreatedHandler>()
+                .AddScoped<IAgoraModuleHandler, ChannelDestroyedHandler>()
+                .AddScoped<IAgoraModuleHandler, HostJoinsHandler>()
+                .AddScoped<IAgoraModuleHandler, HostLeavesHandler>()
+                .AddScoped<IAgoraModuleHandler, AudienceJoinsHandler>()
+                .AddScoped<IAgoraModuleHandler, AudienceLeavesHandler>();
         }
 
         private static IServiceCollection ConfigureHttpClients(this IServiceCollection services, 

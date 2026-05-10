@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace KwikNestaInfra.Infrastructure.Data.Configurations
 {
-    internal class KNTimeZoneConfiguration : IEntityTypeConfiguration<KNTimeZone>
+    public class KNTimeZoneConfiguration : IEntityTypeConfiguration<KNTimeZone>
     {
         public void Configure(EntityTypeBuilder<KNTimeZone> builder)
         {

@@ -139,6 +139,25 @@ namespace KwikNesta.Shared.Extensions
                 Encoding.UTF8.GetBytes(paystackSignature));
         }
 
+        public static bool VerifySignature(string rawBody, string secret, string signature)
+        {
+            if (string.IsNullOrEmpty(rawBody) ||
+               string.IsNullOrEmpty(secret) ||
+               string.IsNullOrEmpty(signature))
+            {
+                return false;
+            }
+
+            var keyBytes = Encoding.UTF8.GetBytes(secret);
+            var bodyBytes = Encoding.UTF8.GetBytes(rawBody);
+
+            using var hmac = new HMACSHA256(keyBytes);
+            var hash = hmac.ComputeHash(bodyBytes);
+            var computed = Convert.ToHexString(hash).ToLower();
+
+            return computed == signature;
+        }
+
         static string CalculateCheckDigits(string number)
         {
             int remainder = 0;

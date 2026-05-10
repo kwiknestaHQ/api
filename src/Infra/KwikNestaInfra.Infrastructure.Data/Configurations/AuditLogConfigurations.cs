@@ -2,9 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace KwikNestaIdentity.Infrastructure.Data.Configurations
+namespace KwikNestaInfra.Infrastructure.Data.Configurations
 {
-    internal class AuditLogConfigurations : IEntityTypeConfiguration<AuditLog>
+    public class AuditLogConfigurations : IEntityTypeConfiguration<AuditLog>
     {
         public void Configure(EntityTypeBuilder<AuditLog> builder)
         {

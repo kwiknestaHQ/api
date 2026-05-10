@@ -16,6 +16,8 @@ namespace KwikNestaInfra.Infrastructure
            new(() => new KNCityRepository(context));
         private readonly Lazy<IKNTimeZoneRepository> _kNTimeZoneRepository =
            new(() => new KNTimeZoneRepository(context));
+        private readonly Lazy<IAgoraWebhookLogsRepository> _agoraWebhookLogs = 
+            new(() => new AgoraWebhookLogsRepository(context));
 
         private readonly InfraServiceDbContext _context = context;
 
@@ -24,6 +26,8 @@ namespace KwikNestaInfra.Infrastructure
         public IKNStateRepository State => _kNStateRepository.Value;
         public IKNCityRepository City => _kNCityRepository.Value;
         public IKNTimeZoneRepository TimeZone => _kNTimeZoneRepository.Value;
+        public IAgoraWebhookLogsRepository AgoraWebhookLogs => _agoraWebhookLogs.Value;
+
         public async Task BeginTransaction(Func<Task> action)
         {
             if (_context.Database.CurrentTransaction != null)

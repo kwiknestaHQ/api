@@ -132,7 +132,7 @@ namespace KwikNestaInfra.Application.NotificationHandlers
                                         _host.EnvironmentName,
                                         notification.LoggedInUserIpAddress,
                                         startTime.FormatDate(),
-                                        startTime.FormatDureation(DateTime.UtcNow)),
+                                        startTime.FormatDuration(DateTime.UtcNow)),
                                     _supportEmail));
 
             _logger.LogInformation("===[MigrateCsDataNotificationHandler] Migration Completed===");

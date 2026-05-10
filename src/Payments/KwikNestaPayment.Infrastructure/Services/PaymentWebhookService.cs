@@ -7,14 +7,12 @@ using System.Text.Json.Serialization;
 
 namespace KwikNestaPayment.Infrastructure.Services
 {
-    public class PaymentWebhookService(IPaymentRepositoryManager repository,
-                                    PaystackWebhookDispatcher dispatcher) : IPaymentWebhookService
+    public class PaymentWebhookService(PaystackWebhookDispatcher dispatcher) : IPaymentWebhookService
     {
-        private readonly IPaymentRepositoryManager _repository = repository;
         private readonly PaystackWebhookDispatcher _dispatcher = dispatcher;
 
         public async Task ProcessPaystackWebhook(string body, PerformContext context)
-       {
+        {
             context.WriteLine("[ProcessPaystackWebhook] Process running...");
             var payload = JsonSerializer.Deserialize<PaystackWebhookDto>(body, new JsonSerializerOptions
             {

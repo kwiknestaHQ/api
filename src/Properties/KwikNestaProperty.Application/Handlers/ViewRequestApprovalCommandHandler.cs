@@ -75,7 +75,9 @@ namespace KwikNestaProperty.Application.Handlers
             var session = new ViewingSession
             {
                 ViewingRequestId = viewRequest.Id,
-                ChannelName = $"viewing-{viewRequest.Id}",
+                ChannelName = AgoraChannelName.Generate(_host.EnvironmentName, 
+                                                    EAgoraModule.Inspection, 
+                                                    viewRequest.Id.ToString()),
                 ScheduledStart = viewRequest.RequestedDate
             };
 

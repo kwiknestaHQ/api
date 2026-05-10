@@ -8,7 +8,7 @@
             return date.ToString(format);
         }
 
-        public static string FormatDureation(this DateTime start, DateTime end)
+        public static string FormatDuration(this DateTime start, DateTime end)
         {
             var duration = end - start;
             return $"{(int)duration.TotalHours}hr " +
@@ -29,5 +29,11 @@
                 watTime.ToString(format) + " (WAT)" : 
                 watTime.ToString(format);
         }
+
+        public static DateTime ToUtcDateTime(this long ts)
+        {
+            return DateTimeOffset.FromUnixTimeSeconds(ts).UtcDateTime;
+        }
+    
     }
 }

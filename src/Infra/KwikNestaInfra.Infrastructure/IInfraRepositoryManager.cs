@@ -10,5 +10,6 @@ namespace KwikNestaInfra.Infrastructure
         IKNStateRepository State { get; }
         IKNCityRepository City { get; }
         IKNTimeZoneRepository TimeZone { get; }
+        IAgoraWebhookLogsRepository AgoraWebhookLogs { get; }
     }
 }

@@ -5,7 +5,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-
+	<ItemGroup>
+		<PackageReference Include="AgoraDynamicKey" Version="1.0.0" />
+	</ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\KwikNesta.Shared\KwikNesta.Shared.csproj" />
     <ProjectReference Include="..\KwikNestaInfra.Domain\KwikNestaInfra.Domain.csproj" />
