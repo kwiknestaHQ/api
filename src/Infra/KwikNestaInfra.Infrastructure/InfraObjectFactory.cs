@@ -13,7 +13,7 @@ namespace KwikNestaInfra.Infrastructure
                                             EAgoraEvent type,
                                             long ts,
                                             EAgoraModule module,
-                                            EAgoraPlatform platform = EAgoraPlatform.Undefined,
+                                            EAgoraPlatform platform = EAgoraPlatform.Other,
                                             uint? uid = null,
                                             int? duration = null,
                                             int? reason = null)

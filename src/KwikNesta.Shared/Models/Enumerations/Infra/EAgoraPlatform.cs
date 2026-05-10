@@ -18,8 +18,6 @@ namespace KwikNesta.Shared.Models.Enumerations.Infra
         [Description("Web")]
         Web,
         [Description("macOS")]
-        MacOs,
-        [Description("Undefined")]
-        Undefined = 99
+        MacOs
     }
 }

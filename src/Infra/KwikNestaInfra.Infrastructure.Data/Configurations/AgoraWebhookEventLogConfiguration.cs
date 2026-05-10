@@ -1,4 +1,5 @@
-﻿using KwikNestaInfra.Domain.Entities;
+﻿using KwikNesta.Shared.Models.Enumerations.Infra;
+using KwikNestaInfra.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -26,7 +27,7 @@ namespace KwikNestaInfra.Infrastructure.Data.Configurations
 
             builder.Property(x => x.Platform)
                .HasConversion<string>()
-              .IsRequired(false);
+              .HasDefaultValue(EAgoraPlatform.Other);
 
             builder.Property(x => x.CreatedAt)
                 .HasDefaultValueSql("NOW()")
