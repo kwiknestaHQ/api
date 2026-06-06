@@ -9,5 +9,6 @@ namespace KwikNesta.Shared.ServiceCommands.Infra
         public string ChannelName { get; set; } = default!;
         public uint UId { get; set; }
         public bool IsPublisher { get; set; }
+        public DateTime SessionScheduledTime { get; set; }
     }
 }

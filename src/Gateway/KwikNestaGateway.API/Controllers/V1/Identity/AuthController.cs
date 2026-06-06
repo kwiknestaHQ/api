@@ -43,7 +43,7 @@ namespace KwikNestaGateway.API.Controllers.V1.Identity
         }
 
         /// <summary>
-        /// Verify account
+        /// VerifyLocation account
         /// </summary>
         /// <param name="command"></param>
         /// <returns></returns>

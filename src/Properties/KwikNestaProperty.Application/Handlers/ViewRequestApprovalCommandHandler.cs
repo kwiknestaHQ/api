@@ -21,13 +21,13 @@ using Microsoft.Extensions.Options;
 
 namespace KwikNestaProperty.Application.Handlers
 {
-    public class ViewRequestApprovalCommandHandler(IPropertyRepositotyManager repository,
+    public class ViewRequestApprovalCommandHandler(IPropertyRepositoryManager repository,
                                             IHostEnvironment host,
                                             IKNMediator mediator,
                                             IOptions<KNApplicationSettings> options) 
         : IKNRequestHandler<ViewRequestApprovalCommand, Response<string>>
     {
-        private readonly IPropertyRepositotyManager _repository = repository;
+        private readonly IPropertyRepositoryManager _repository = repository;
         private readonly IHostEnvironment _host = host;
         private readonly IKNMediator _mediator = mediator;
         private readonly string _supportEmail = options.Value.AppAdmin.SupportEmail;
@@ -77,19 +77,22 @@ namespace KwikNestaProperty.Application.Handlers
                 ViewingRequestId = viewRequest.Id,
                 ChannelName = AgoraChannelName.Generate(_host.EnvironmentName, 
                                                     EAgoraModule.Inspection, 
-                                                    viewRequest.Id.ToString()),
+                                                    viewRequest.Id.ToString(),
+                                                    _secretKey),
                 ScheduledStart = viewRequest.RequestedDate
             };
 
             session.Participants.Add(new SessionParticipant
             {
                 UserId = viewRequest.UserId,
-                Role = ESessionParticipantRole.Subscriber
+                Role = ESessionParticipantRole.Subscriber,
+                UId = viewRequest.UserId.ToUId()
             });
 
             session.Participants.Add(new SessionParticipant
             {
                 UserId = landlord.Id,
+                UId = landlord.Id.ToUId(),
                 Role = ESessionParticipantRole.Publisher
             });
 
@@ -119,7 +122,11 @@ namespace KwikNestaProperty.Application.Handlers
             return Response<string>.Ok(PropertyResponse.ViewRequestApproved);
         }
 
-        public async Task NotifyUsers(Guid requestId, Guid propertyId, CurrentUserDto landlord, string requesterId, PerformContext context)
+        public async Task NotifyUsers(Guid requestId, 
+                            Guid propertyId, 
+                            CurrentUserDto landlord, 
+                            string requesterId, 
+                            PerformContext context)
         {
             var viewRequestResult = await _mediator.SendAsync(new GetPropertyViewRequestQuery
             {

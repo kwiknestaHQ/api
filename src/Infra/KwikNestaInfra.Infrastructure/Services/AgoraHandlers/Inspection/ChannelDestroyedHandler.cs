@@ -1,18 +1,34 @@
-﻿using KwikNesta.Shared.Models.Enumerations.Infra;
+﻿using KwikNesta.Mediator.Cores.Abstractions;
+using KwikNesta.Shared.Models.Enumerations.Infra;
 using KwikNesta.Shared.ServiceDTOs.Infra;
-using KwikNestaInfra.Infrastructure.Contracts;
 
 namespace KwikNestaInfra.Infrastructure.Services.AgoraHandlers.Inspection
 {
-    public class ChannelDestroyedHandler : IAgoraModuleHandler
+    public class ChannelDestroyedHandler(IInfraRepositoryManager repository, 
+                                    IKNMediator mediator) : AgoraModuleHandler<Agora102Payload>
     {
-        public EAgoraModule Module => EAgoraModule.Inspection;
+        private readonly IInfraRepositoryManager _repository = repository;
+        private readonly IKNMediator _mediator = mediator;
 
-        public EAgoraEvent Event => EAgoraEvent.ChannelDestroyed;
+        public override EAgoraModule Module => EAgoraModule.Inspection;
+        public override EAgoraEvent Event => EAgoraEvent.ChannelDestroyed;
 
-        public Task HandleAsync(string noticeId, string entityId, AgoraPayloadBase payload)
+        public async override Task HandleAsync(string noticeId, string entityId, Agora102Payload payload)
         {
-            throw new NotImplementedException();
+            var model = InfraObjectFactory.Initialize(noticeId, 
+                            payload.ChannelName, 
+                            Event, 
+                            payload.Timestamp, 
+                            Module, 
+                            uid: payload.LastUid);
+
+            var notProcessed = await _repository
+                .AgoraWebhookLogs.TryInsertAsync(model);
+
+            if (!notProcessed)
+            {
+                return;
+            }
         }
     }
 }

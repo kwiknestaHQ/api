@@ -10,7 +10,6 @@ using KwikNesta.Shared.Constants;
 using KwikNesta.Shared.Contracts;
 using KwikNesta.Shared.Implementations;
 using KwikNesta.Shared.Models.Settings;
-using KwikNestaGateway.API.Services;
 using KwikNestaIdentity.Application;
 using KwikNestaIdentity.Infrastructure;
 using KwikNestaInfra.Application;
@@ -230,7 +229,6 @@ namespace KwikNestaGateway.API.Extensions
                         SchemaName = "kn-hangfire",
                         PrepareSchemaIfNecessary = true
                     })
-                    //.UseRecurringJob(typeof(IRecurringJobService))
                     .UseConsole()
                     .UseFilter(new AutomaticRetryAttribute()
                     {
@@ -243,7 +241,7 @@ namespace KwikNestaGateway.API.Extensions
                 opt.Queues = new[] { HangfireQueues.Recurring, HangfireQueues.Default };
                 opt.SchedulePollingInterval = TimeSpan.FromSeconds(30);
                 opt.WorkerCount = 5;
-            }).AddScoped<IRecurringJobService, RecurringJobService>();
+            });
 
             return services;
         }

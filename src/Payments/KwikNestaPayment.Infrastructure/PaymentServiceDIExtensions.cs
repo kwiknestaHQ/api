@@ -1,6 +1,8 @@
-﻿using KwikNestaPayment.Infrastructure.Contracts;
+﻿using Hangfire;
+using KwikNestaPayment.Infrastructure.Contracts;
 using KwikNestaPayment.Infrastructure.Data;
 using KwikNestaPayment.Infrastructure.Services;
+using KwikNestaPayment.Infrastructure.Services.Background;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -25,6 +27,7 @@ namespace KwikNestaPayment.Infrastructure
                 .AddScoped<IPaystackWebhookHandler, ChargeFailedHandler>()
                 .AddScoped<IPaystackWebhookHandler, TransferSuccessHandler>()
                 .AddScoped<IPaystackWebhookHandler, TransferFailedHandler>()
+                .AddScoped<IPaymentBackgroundService, PaymentBackgroundService>()
                 .AddScoped<PaystackWebhookDispatcher>()
                 .AddScoped<PaymentRouter>();
             return services;
@@ -38,6 +41,23 @@ namespace KwikNestaPayment.Infrastructure
                 var db = scope.ServiceProvider.GetRequiredService<PaymentServiceDbContext>();
                 db.Database.Migrate();
             }
+
+            return app;
+        }
+
+        public static WebApplication RegisterPaymentRecurringJobs(this WebApplication app)
+        {
+            app.Lifetime.ApplicationStarted
+                .Register(() =>
+                {
+                    RecurringJob.AddOrUpdate<IPaymentBackgroundService>(
+                        "RunPaymentVerificationsAsync", 
+                        x => x.RunPaymentVerificationsAsync(null!, CancellationToken.None), "*/5 * * * *");
+
+                    RecurringJob.AddOrUpdate<IPaymentBackgroundService>(
+                        "ProcessSettlementsAsync", 
+                        x => x.ProcessSettlementsAsync(null!, CancellationToken.None), "*/5 * * * *");
+                });
 
             return app;
         }

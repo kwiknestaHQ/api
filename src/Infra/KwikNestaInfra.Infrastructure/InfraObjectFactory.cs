@@ -15,7 +15,7 @@ namespace KwikNestaInfra.Infrastructure
                                             EAgoraModule module,
                                             EAgoraPlatform platform = EAgoraPlatform.Other,
                                             uint? uid = null,
-                                            int? duration = null,
+                                            long? duration = null,
                                             int? reason = null)
         {
             return new AgoraWebhookEventLog

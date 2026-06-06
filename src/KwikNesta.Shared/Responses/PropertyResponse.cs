@@ -42,5 +42,13 @@ namespace KwikNesta.Shared.Responses
         public static readonly string ViewRequestRejected = "Property view request successfully rejected.";
         public static readonly string PropertyViewRequestDeclinedSubject = "Update on Your Property Viewing request";
         public static readonly string PropertyViewRequestDeclinedMessage = "Thank you for your interest in the property {0} at {1}.<br><br>We regret to inform you that your request to schedule a viewing on {2} has been declined at this time. This may be due to availability constraints or other considerations from the property owner.<br><br>If you made any payment towards this request, please be assured that a refund has been initiated. Depending on your payment method, it may take a few business days for the funds to reflect in your account.<br><br>We understand this may be disappointing, and we encourage you to explore other available listings that may suit your preferences. If you would like assistance finding alternative options or submitting a new request, please feel free to reach out.<br><br>Thank you for your understanding.";
+        public static readonly string SessionMarkedInProgress = "Session successfully moved to In-Progress";
+        public static readonly string ViewSessionUserJoined = "{0} successfully marked as joined.";
+        public static readonly string ViewSessionUserLeft = "{0} successfully marked as left.";
+        public static readonly string SettlementHandledForChannel = "Settlement already initiated for channel {0}";
+        public static readonly string SettlementSuccessfullyScheduled = "Settlement successfully scheduled for channel {0}";
+        public static readonly string SessionNotExpiredYet = "Session not yet expired for channel {0}";
+        public static readonly string InvalidSessionId = "Invalid session id";
+        public static readonly string NotAllowedToJoinNotAPaticipant = "You are not allowed to join this session because you're not a participant.";
     }
 }

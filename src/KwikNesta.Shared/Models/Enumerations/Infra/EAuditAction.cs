@@ -43,6 +43,8 @@ namespace KwikNesta.Shared.Models.Enumerations.Infra
         ViewRequestPaid,
         [Description("Property Inspection Approved")]
         ViewRequestApproved,
+        [Description("Joined View Session")]
+        JoinedViewSession,
         [Description("Property Inspection Declined")]
         ViewRequestDeclined = 1800,
 

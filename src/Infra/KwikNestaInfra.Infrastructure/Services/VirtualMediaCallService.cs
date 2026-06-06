@@ -1,5 +1,6 @@
 ﻿using Hangfire.Console;
 using Hangfire.Server;
+using KwikNesta.Shared.Extensions;
 using KwikNesta.Shared.Models.Enumerations.Infra;
 using KwikNesta.Shared.ServiceDTOs.Infra;
 using KwikNestaInfra.Infrastructure.Contracts;
@@ -14,49 +15,34 @@ namespace KwikNestaInfra.Infrastructure.Services
         public async Task ProcessAgoraWebhook(string body, PerformContext context)
         {
             context.WriteLine("[ProcessAgoraWebhook] Process running... Payload: {body}", body);
-            var eventType = JsonSerializer
-                .Deserialize<JsonElement>(body)
-                .GetProperty("eventType")
-                .GetInt32();
+            var root = JsonSerializer.Deserialize<JsonElement>(body);
+            var eventType = root.GetProperty("eventType").GetInt32();
 
             switch ((EAgoraEvent)eventType)
             {
                 case EAgoraEvent.ChannelCreated:
-                    var payload101 = JsonSerializer
-                        .Deserialize<AgoraWebhookPayload<Agora101Payload>>(body) ?? 
-                            throw new ArgumentNullException(nameof(AgoraWebhookPayload<Agora101Payload>));
-                    
-                    await _dispatcher.DispatchAsync(payload101);
+                    await _dispatcher.DispatchAsync(
+                        root.DeserializeObject<AgoraWebhookPayload<Agora101Payload>>());
                     break;
                 case EAgoraEvent.ChannelDestroyed:
-                    var payload102 = JsonSerializer.Deserialize<AgoraWebhookPayload<Agora102Payload>>(body) ??
-                            throw new ArgumentNullException(nameof(AgoraWebhookPayload<Agora102Payload>));
-
-                    await _dispatcher.DispatchAsync(payload102);
+                    await _dispatcher.DispatchAsync(
+                        root.DeserializeObject<AgoraWebhookPayload<Agora102Payload>>());
                     break;
                 case EAgoraEvent.HostJoins:
-                    var payload103 = JsonSerializer.Deserialize<AgoraWebhookPayload<Agora103Payload>>(body) ??
-                            throw new ArgumentNullException(nameof(AgoraWebhookPayload<Agora103Payload>));
-
-                    await _dispatcher.DispatchAsync(payload103);
+                    await _dispatcher.DispatchAsync(
+                        root.DeserializeObject<AgoraWebhookPayload<Agora103Payload>>());
                     break;
                 case EAgoraEvent.HostLeaves:
-                    var payload104 = JsonSerializer.Deserialize<AgoraWebhookPayload<Agora104Payload>>(body) ??
-                            throw new ArgumentNullException(nameof(AgoraWebhookPayload<Agora104Payload>));
-
-                    await _dispatcher.DispatchAsync(payload104);
+                    await _dispatcher.DispatchAsync(
+                        root.DeserializeObject<AgoraWebhookPayload<Agora104Payload>>());
                     break;
                 case EAgoraEvent.AudienceJoins:
-                    var payload105 = JsonSerializer.Deserialize<AgoraWebhookPayload<Agora105Payload>>(body) ??
-                            throw new ArgumentNullException(nameof(AgoraWebhookPayload<Agora105Payload>));
-
-                    await _dispatcher.DispatchAsync(payload105);
+                    await _dispatcher.DispatchAsync(
+                        root.DeserializeObject<AgoraWebhookPayload<Agora105Payload>>());
                     break;
                 case EAgoraEvent.AudienceLeaves:
-                    var payload106 = JsonSerializer.Deserialize<AgoraWebhookPayload<Agora106Payload>>(body) ??
-                            throw new ArgumentNullException(nameof(AgoraWebhookPayload<Agora106Payload>));
-
-                    await _dispatcher.DispatchAsync(payload106);
+                    await _dispatcher.DispatchAsync(
+                        root.DeserializeObject<AgoraWebhookPayload<Agora106Payload>>());
                     break;
             }
         }

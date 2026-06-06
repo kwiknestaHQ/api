@@ -14,5 +14,7 @@ namespace KwikNestaIdentity.Domain.Entities
         public DateTime? LastUpdatedOn { get; set; }
         public DateTime? LastLogin { get; set; }
         public DateTime? StatusChangedAt { get; set; }
+        public int NoShowCount { get; set; }
+        public DateTime? LastNoShowAt { get; set; }
     }
 }

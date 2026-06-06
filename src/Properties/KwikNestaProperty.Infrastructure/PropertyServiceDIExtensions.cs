@@ -1,5 +1,7 @@
-﻿using KwikNestaProperty.Infrastructure.Data;
+﻿using Hangfire;
+using KwikNestaProperty.Infrastructure.Data;
 using KwikNestaProperty.Infrastructure.Services;
+using KwikNestaProperty.Infrastructure.Services.Abstraction;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -18,8 +20,8 @@ namespace KwikNestaProperty.Infrastructure
 
             services.AddDbContext<PropertyServiceDbContext>(options =>
                 options.UseNpgsql(connectionString))
-                .AddScoped<IPropertyRepositotyManager, PropertyRepositotyManager>()
-                .AddScoped<BackgroundLocationVerificationService>();
+                .AddScoped<IPropertyRepositoryManager, PropertyRepositoryManager>()
+                .AddScoped<IPropertyBackgroundService, PropertyBackgroundService>();
             return services;
         }
 
@@ -31,6 +33,19 @@ namespace KwikNestaProperty.Infrastructure
                 var db = scope.ServiceProvider.GetRequiredService<PropertyServiceDbContext>();
                 db.Database.Migrate();
             }
+
+            return app;
+        }
+
+        public static WebApplication RegisterPropertyRecurringJobs(this WebApplication app)
+        {
+            app.Lifetime.ApplicationStarted
+                .Register(() =>
+                {
+                    RecurringJob.AddOrUpdate<IPropertyBackgroundService>(
+                        "RunSettlementsInitiationAsync",
+                        x => x.RunSettlementsInitiationAsync(null!, CancellationToken.None), Cron.Hourly);
+                });
 
             return app;
         }

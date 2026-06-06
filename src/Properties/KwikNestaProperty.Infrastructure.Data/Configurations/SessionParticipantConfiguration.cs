@@ -17,6 +17,8 @@ namespace KwikNestaProperty.Infrastructure.Data.Configurations
                 .HasConversion<string>()
                 .IsRequired();
 
+            builder.HasIndex(x => new { x.ViewingSessionId, x.UId });
+
             builder.HasOne(x => x.ViewingSession)
                .WithMany(x => x.Participants)
                .HasForeignKey(x => x.ViewingSessionId)

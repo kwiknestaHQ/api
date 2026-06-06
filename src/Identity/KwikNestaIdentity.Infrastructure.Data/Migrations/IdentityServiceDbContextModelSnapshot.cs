@@ -144,6 +144,9 @@ namespace KwikNestaIdentity.Infrastructure.Data.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
+                    b.Property<DateTime?>("LastNoShowAt")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<DateTime?>("LastUpdatedOn")
                         .HasColumnType("timestamp with time zone");
 
@@ -152,6 +155,9 @@ namespace KwikNestaIdentity.Infrastructure.Data.Migrations
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("NoShowCount")
+                        .HasColumnType("integer");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)

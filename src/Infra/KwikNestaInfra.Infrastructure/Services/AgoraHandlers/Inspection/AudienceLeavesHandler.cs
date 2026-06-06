@@ -1,18 +1,62 @@
-﻿using KwikNesta.Shared.Models.Enumerations.Infra;
+﻿using KwikNesta.Mediator.Cores.Abstractions;
+using KwikNesta.Shared.Extensions;
+using KwikNesta.Shared.Models.Enumerations.Infra;
+using KwikNesta.Shared.Models.Enumerations.Property;
+using KwikNesta.Shared.ServiceCommands.Property;
 using KwikNesta.Shared.ServiceDTOs.Infra;
-using KwikNestaInfra.Infrastructure.Contracts;
+using Microsoft.Extensions.Logging;
 
 namespace KwikNestaInfra.Infrastructure.Services.AgoraHandlers.Inspection
 {
-    public class AudienceLeavesHandler : IAgoraModuleHandler
+    public class AudienceLeavesHandler(IInfraRepositoryManager repository,
+                                IKNMediator mediator,
+                                ILogger<HostLeavesHandler> logger) 
+        : AgoraModuleHandler<Agora106Payload>
     {
-        public EAgoraModule Module => EAgoraModule.Inspection;
+        private readonly IInfraRepositoryManager _repository = repository;
+        private readonly IKNMediator _mediator = mediator;
+        private readonly ILogger<HostLeavesHandler> _logger = logger;
 
-        public EAgoraEvent Event => EAgoraEvent.AudienceLeaves;
+        public override EAgoraModule Module => EAgoraModule.Inspection;
+        public override EAgoraEvent Event => EAgoraEvent.AudienceLeaves;
 
-        public Task HandleAsync(string noticeId, string entityId, AgoraPayloadBase payload)
+        public async override Task HandleAsync(string noticeId, string entityId, Agora106Payload payload)
         {
-            throw new NotImplementedException();
+            var model = InfraObjectFactory.Initialize(noticeId,
+                                payload.ChannelName,
+                                Event,
+                                payload.Timestamp,
+                                Module,
+                                payload.EPlatform,
+                                payload.Uid,
+                                payload.Duration,
+                                payload.Reason);
+
+            var notProcessed = await _repository
+                .AgoraWebhookLogs.TryInsertAsync(model);
+
+            if (!notProcessed)
+            {
+                return;
+            }
+
+            var response = await _mediator.SendAsync(new ViewSessionUserLeftCommand
+            {
+                ChannelName = payload.ChannelName,
+                UId = payload.Uid,
+                Timestamp = payload.Timestamp.ToUtcDateTime(),
+                Role = ESessionParticipantRole.Subscriber,
+                Duration = payload.Duration
+            });
+
+            if (!response.Success)
+            {
+                _logger.LogError(response.Message);
+            }
+            else
+            {
+                _logger.LogInformation(response.Message);
+            }
         }
     }
 }

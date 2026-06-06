@@ -16,12 +16,12 @@ using Microsoft.Extensions.Options;
 
 namespace KwikNestaProperty.Application.Handlers
 {
-    public class CreateViewingRequestCommandHandler(IPropertyRepositotyManager repository, 
+    public class CreateViewingRequestCommandHandler(IPropertyRepositoryManager repository, 
                                                 IKNMediator mediator,
                                                 IOptions<KNApplicationSettings> options) 
         : IKNRequestHandler<CreateViewingRequestCommand, Response<ViewingRequestResult>>
     {
-        private readonly IPropertyRepositotyManager _repository = repository;
+        private readonly IPropertyRepositoryManager _repository = repository;
         private readonly IKNMediator _mediator = mediator;
         private readonly KNAdminSettings _adminSettings = options.Value.AppAdmin;
 

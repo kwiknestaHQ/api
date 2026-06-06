@@ -9,15 +9,15 @@ using KwikNesta.Shared.ServiceCommands.Property;
 using KwikNesta.Shared.ServiceQueries.Infra;
 using KwikNestaProperty.Application.Validations;
 using KwikNestaProperty.Infrastructure;
-using KwikNestaProperty.Infrastructure.Services;
+using KwikNestaProperty.Infrastructure.Services.Abstraction;
 
 namespace KwikNestaProperty.Application.Handlers
 {
-    public class UpdatePropertyLocationCommandHandler(IPropertyRepositotyManager repository, 
+    public class UpdatePropertyLocationCommandHandler(IPropertyRepositoryManager repository, 
                                                     IKNMediator mediator) 
         : IKNRequestHandler<UpdatePropertyLocationCommand, Response<string>>
     {
-        private readonly IPropertyRepositotyManager _repository = repository;
+        private readonly IPropertyRepositoryManager _repository = repository;
         private readonly IKNMediator _mediator = mediator;
         private const double MaxDistanceTolerance = 0.2;
 
@@ -76,8 +76,8 @@ namespace KwikNestaProperty.Application.Handlers
             await _repository.SaveAsync();
             if(location.VerificationStatus == ELocationVerificationStatus.RequiresReverification)
             {
-                BackgroundJob.Enqueue<BackgroundLocationVerificationService>(s
-                   => s.Verify(location.PropertyId, null!));
+                BackgroundJob.Enqueue<IPropertyBackgroundService>(s
+                   => s.VerifyLocation(location.PropertyId, null!));
             }
 
             AppAudit.Write(request.UserContext.Id,

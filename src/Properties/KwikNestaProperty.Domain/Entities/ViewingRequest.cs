@@ -18,5 +18,17 @@ namespace KwikNestaProperty.Domain.Entities
 
         public Guid? SessionId { get; set; }
         public ViewingSession Session { get; set; } = default!;
+
+        public void MarkCompleted()
+        {
+            Status = EViewingStatus.Completed;
+            LastUpdatedOn = DateTime.UtcNow;
+        }
+
+        public void MarkNoShow()
+        {
+            Status = EViewingStatus.NoShow;
+            LastUpdatedOn = DateTime.UtcNow;
+        }
     }
 }

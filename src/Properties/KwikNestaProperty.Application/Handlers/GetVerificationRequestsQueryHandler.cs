@@ -6,10 +6,10 @@ using KwikNestaProperty.Infrastructure;
 
 namespace KwikNestaProperty.Application.Handlers
 {
-    public class GetVerificationRequestsQueryHandler(IPropertyRepositotyManager repository) 
+    public class GetVerificationRequestsQueryHandler(IPropertyRepositoryManager repository) 
         : IKNRequestHandler<GetVerificationRequestsQuery, PagedResponse<VerificationRequestLeanDto>>
     {
-        private readonly IPropertyRepositotyManager _repository = repository;
+        private readonly IPropertyRepositoryManager _repository = repository;
 
         public async Task<PagedResponse<VerificationRequestLeanDto>> HandleAsync(GetVerificationRequestsQuery request, CancellationToken cancellationToken)
         {

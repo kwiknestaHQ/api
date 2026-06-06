@@ -23,6 +23,43 @@ namespace KwikNestaInfra.Infrastructure.Data.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("KwikNestaInfra.Domain.Entities.AgoraToken", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Account")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("ChannelName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("ExpiresAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsDeprecated")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime?>("LastUpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Token")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ChannelName");
+
+                    b.ToTable("AgoraTokens", "kn-infra-svc");
+                });
+
             modelBuilder.Entity("KwikNestaInfra.Domain.Entities.AgoraWebhookEventLog", b =>
                 {
                     b.Property<string>("Id")
@@ -37,8 +74,8 @@ namespace KwikNestaInfra.Infrastructure.Data.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasDefaultValueSql("NOW()");
 
-                    b.Property<int?>("Duration")
-                        .HasColumnType("integer");
+                    b.Property<long?>("Duration")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Module")
                         .IsRequired()

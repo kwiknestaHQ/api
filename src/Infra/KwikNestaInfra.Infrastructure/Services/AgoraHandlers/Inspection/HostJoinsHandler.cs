@@ -1,18 +1,59 @@
-﻿using KwikNesta.Shared.Models.Enumerations.Infra;
+﻿using KwikNesta.Mediator.Cores.Abstractions;
+using KwikNesta.Shared.Extensions;
+using KwikNesta.Shared.Models.Enumerations.Infra;
+using KwikNesta.Shared.Models.Enumerations.Property;
+using KwikNesta.Shared.ServiceCommands.Property;
 using KwikNesta.Shared.ServiceDTOs.Infra;
-using KwikNestaInfra.Infrastructure.Contracts;
+using Microsoft.Extensions.Logging;
 
 namespace KwikNestaInfra.Infrastructure.Services.AgoraHandlers.Inspection
 {
-    public class HostJoinsHandler : IAgoraModuleHandler
+    public class HostJoinsHandler(IInfraRepositoryManager repository, 
+                            IKNMediator mediator,
+                            ILogger<HostJoinsHandler> logger) 
+        : AgoraModuleHandler<Agora103Payload>
     {
-        public EAgoraModule Module => EAgoraModule.Inspection;
+        private readonly IInfraRepositoryManager _repository = repository;
+        private readonly IKNMediator _mediator = mediator;
+        private readonly ILogger<HostJoinsHandler> _logger = logger;
 
-        public EAgoraEvent Event => EAgoraEvent.HostJoins;
+        public override EAgoraModule Module => EAgoraModule.Inspection;
+        public override EAgoraEvent Event => EAgoraEvent.HostJoins;
 
-        public Task HandleAsync(string noticeId, string entityId, AgoraPayloadBase payload)
+        public async override Task HandleAsync(string noticeId, string entityId, Agora103Payload payload)
         {
-            throw new NotImplementedException();
+            var model = InfraObjectFactory.Initialize(noticeId, 
+                                payload.ChannelName, 
+                                Event, 
+                                payload.Timestamp, 
+                                Module,
+                                payload.EPlatform, 
+                                payload.Uid);
+
+            var notProcessed = await _repository
+                .AgoraWebhookLogs.TryInsertAsync(model);
+
+            if (!notProcessed)
+            {
+                return;
+            }
+
+            var response = await _mediator.SendAsync(new ViewSessionUserJoinedCommand
+            {
+                ChannelName = payload.ChannelName,
+                UId = payload.Uid,
+                Timestamp = payload.Timestamp.ToUtcDateTime(),
+                Role = ESessionParticipantRole.Publisher
+            });
+
+            if (!response.Success)
+            {
+                _logger.LogError(response.Message);
+            }
+            else
+            {
+                _logger.LogInformation(response.Message);
+            }
         }
     }
 }

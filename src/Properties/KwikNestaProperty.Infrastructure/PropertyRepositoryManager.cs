@@ -4,7 +4,7 @@ using KwikNestaProperty.Infrastructure.Repositories;
 
 namespace KwikNestaProperty.Infrastructure
 {
-    public class PropertyRepositotyManager(PropertyServiceDbContext context) : IPropertyRepositotyManager
+    public class PropertyRepositoryManager(PropertyServiceDbContext context) : IPropertyRepositoryManager
     {
         private readonly PropertyServiceDbContext _context = context;
         private readonly Lazy<IKNPropertyRepository> _propertyRepository =

@@ -7,9 +7,9 @@ using KwikNestaProperty.Infrastructure;
 
 namespace KwikNestaProperty.Application.Handlers
 {
-    public class GetPropertyViewRequestsQueryHandler(IPropertyRepositotyManager repository) : IKNRequestHandler<GetPropertyViewRequestsQuery, PagedResponse<ViewRequestLeanDto>>
+    public class GetPropertyViewRequestsQueryHandler(IPropertyRepositoryManager repository) : IKNRequestHandler<GetPropertyViewRequestsQuery, PagedResponse<ViewRequestLeanDto>>
     {
-        private readonly IPropertyRepositotyManager _repository = repository;
+        private readonly IPropertyRepositoryManager _repository = repository;
 
         public async Task<PagedResponse<ViewRequestLeanDto>> HandleAsync(GetPropertyViewRequestsQuery request, CancellationToken cancellationToken)
         {

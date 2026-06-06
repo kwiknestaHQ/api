@@ -14,11 +14,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace KwikNestaProperty.Application.Handlers
 {
-    public class GetPropertyDetailsQueryHandler(IPropertyRepositotyManager repository, 
+    public class GetPropertyDetailsQueryHandler(IPropertyRepositoryManager repository, 
                                             IKNMediator mediator) 
         : IKNRequestHandler<GetPropertyDetailsQuery, Response<PropertyDetailsDto>>
     {
-        private readonly IPropertyRepositotyManager _repository = repository;
+        private readonly IPropertyRepositoryManager _repository = repository;
         private readonly IKNMediator _mediator = mediator;
 
         public async Task<Response<PropertyDetailsDto>> HandleAsync(GetPropertyDetailsQuery request, CancellationToken cancellationToken)

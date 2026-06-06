@@ -16,10 +16,10 @@ using KwikNestaProperty.Infrastructure;
 
 namespace KwikNestaProperty.Application.Handlers
 {
-    public class SubmitVerificationCommandHandler(IPropertyRepositotyManager repository, 
+    public class SubmitVerificationCommandHandler(IPropertyRepositoryManager repository, 
                                                 IUploadService uploadService) : IKNRequestHandler<SubmitVerificationCommand, Response<string>>
     {
-        private readonly IPropertyRepositotyManager _repository = repository;
+        private readonly IPropertyRepositoryManager _repository = repository;
         private readonly IUploadService _uploadService = uploadService;
 
         public async Task<Response<string>> HandleAsync(SubmitVerificationCommand request, CancellationToken cancellationToken)

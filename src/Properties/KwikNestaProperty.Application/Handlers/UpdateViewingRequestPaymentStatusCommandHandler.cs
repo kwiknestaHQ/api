@@ -7,10 +7,10 @@ using Microsoft.AspNetCore.Http;
 
 namespace KwikNestaProperty.Application.Handlers
 {
-    public class UpdateViewingRequestPaymentStatusCommandHandler(IPropertyRepositotyManager repository) :
+    public class UpdateViewingRequestPaymentStatusCommandHandler(IPropertyRepositoryManager repository) :
         IKNRequestHandler<UpdateViewingRequestPaymentStatusCommand, Response<string>>
     {
-        private readonly IPropertyRepositotyManager _repository = repository;
+        private readonly IPropertyRepositoryManager _repository = repository;
 
         public async Task<Response<string>> HandleAsync(UpdateViewingRequestPaymentStatusCommand request, CancellationToken cancellationToken)
         {

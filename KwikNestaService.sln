@@ -32,9 +32,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KwikNestaInfra.Infrastructure.Data", "src\Infra\KwikNestaInfra.Infrastructure.Data\KwikNestaInfra.Infrastructure.Data.csproj", "{79644A48-A209-47C6-A7D0-B4D7E2555DB2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Properties", "Properties", "{F7B1F6BA-9C26-4F3B-93B5-EBA7FD7A8CC0}"
-	ProjectSection(SolutionItems) = preProject
-		src\Payments\KwikNestaPayment.Infrastructure.Data\Configurations\KNSettlementConfiguration.cs = src\Payments\KwikNestaPayment.Infrastructure.Data\Configurations\KNSettlementConfiguration.cs
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KwikNestaProperty.Application", "src\Properties\KwikNestaProperty.Application\KwikNestaProperty.Application.csproj", "{7DAF2D98-1B72-4B6F-820F-44392656C27C}"
 EndProject

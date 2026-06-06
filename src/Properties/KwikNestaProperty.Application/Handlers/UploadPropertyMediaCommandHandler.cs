@@ -19,12 +19,12 @@ using System.Text;
 
 namespace KwikNestaProperty.Application.Handlers
 {
-    public class UploadPropertyMediaCommandHandler(IPropertyRepositotyManager repository,
+    public class UploadPropertyMediaCommandHandler(IPropertyRepositoryManager repository,
                                                 IUploadService uploadService) 
         : IKNRequestHandler<UploadPropertyMediaCommand, Response<CreatePropertyResponseDto>>
     {
         private const int MaxUploadCount = 5;
-        private readonly IPropertyRepositotyManager _repository = repository;
+        private readonly IPropertyRepositoryManager _repository = repository;
         private readonly IUploadService _uploadService = uploadService;
 
         public async Task<Response<CreatePropertyResponseDto>> HandleAsync(UploadPropertyMediaCommand request, CancellationToken cancellationToken)

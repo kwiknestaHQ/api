@@ -1,10 +1,10 @@
 ﻿using KwikNestaInfra.Domain.Entities;
-using KwikNestaInfra.Infrastructure.Data.Configurations;
 using Microsoft.EntityFrameworkCore;
 
 namespace KwikNestaInfra.Infrastructure.Data
 {
-    public class InfraServiceDbContext : DbContext
+    public class InfraServiceDbContext(DbContextOptions<InfraServiceDbContext> options) 
+        : DbContext(options)
     {
         public DbSet<AuditLog> AuditLogs { get; set; }
         public DbSet<KNCountry> Countries { get; set; }
@@ -12,8 +12,7 @@ namespace KwikNestaInfra.Infrastructure.Data
         public DbSet<KNCity> Cities { get; set; }
         public DbSet<KNTimeZone> TimeZones { get; set; }
         public DbSet<AgoraWebhookEventLog> AgoraWebhookEvents { get; set; }
-
-        public InfraServiceDbContext(DbContextOptions<InfraServiceDbContext> options) : base(options) { }
+        public DbSet<AgoraToken> AgoraTokens { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

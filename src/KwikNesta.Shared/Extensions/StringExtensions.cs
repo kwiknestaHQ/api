@@ -4,6 +4,11 @@ namespace KwikNesta.Shared.Extensions
 {
     public static class StringExtensions
     {
+        public static uint ToUId(this string str)
+        {
+            return (uint)Math.Abs(str.GetHashCode());
+        }
+
         public static string CapitalizeEachWord(this string text)
         {
             if (string.IsNullOrWhiteSpace(text))

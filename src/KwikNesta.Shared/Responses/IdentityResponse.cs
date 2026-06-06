@@ -54,5 +54,6 @@
         public static readonly string AccountRestorationInformationSubject = "Your Account Has Been Restored";
         public static readonly string AccountRestorationInformationMessage = "Good news — your account has been successfully restored. You can now access all features and services as usual.<br>If you have any questions or encounter any issues, please don’t hesitate to contact our support team.<br><br>Welcome back!";
         public static readonly string UserDetailsUpdated = "User details successfully updated.";
+        public static readonly string NoShowRecordedSuccessfully = "No-show recorded successfully.";
     }
 }

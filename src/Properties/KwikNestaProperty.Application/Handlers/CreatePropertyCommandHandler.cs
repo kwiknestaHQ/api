@@ -10,17 +10,17 @@ using KwikNesta.Shared.ServiceQueries.Infra;
 using KwikNesta.Shared.ServiceQueries.Payment;
 using KwikNestaProperty.Application.Validations;
 using KwikNestaProperty.Infrastructure;
-using KwikNestaProperty.Infrastructure.Services;
+using KwikNestaProperty.Infrastructure.Services.Abstraction;
 using Microsoft.AspNetCore.Http;
 
 namespace KwikNestaProperty.Application.Handlers
 {
-    public class CreatePropertyCommandHandler(IPropertyRepositotyManager repository,
+    public class CreatePropertyCommandHandler(IPropertyRepositoryManager repository,
                                             IKNMediator mediator, 
                                             IReverseGeocodeService geocodeService) 
         : IKNRequestHandler<CreatePropertyCommand, Response<CreatePropertyResponseDto>>
     {
-        private readonly IPropertyRepositotyManager _repository = repository;
+        private readonly IPropertyRepositoryManager _repository = repository;
         private readonly IKNMediator _mediator = mediator;
         private readonly IReverseGeocodeService _geocodeService = geocodeService;
 
@@ -88,8 +88,8 @@ namespace KwikNestaProperty.Application.Handlers
                 propertyToAdd.Id.ToString(),
                 request.UserContext.IpAddress);
 
-            BackgroundJob.Enqueue<BackgroundLocationVerificationService>(s
-                => s.Verify(propertyToAdd.Id, null!));
+            BackgroundJob.Enqueue<IPropertyBackgroundService>(s
+                => s.VerifyLocation(propertyToAdd.Id, null!));
 
             return Response<CreatePropertyResponseDto>.Ok(new CreatePropertyResponseDto(propertyToAdd.Id, propertyToAdd.Status));
         }

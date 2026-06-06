@@ -220,7 +220,7 @@ namespace KwikNestaProperty.Infrastructure.Data.Migrations
                         {
                             Id = new Guid("9bed23d9-8f16-4444-83d3-9a114a8e42f3"),
                             Category = "Interior",
-                            CreatedOn = new DateTime(2026, 4, 20, 21, 54, 11, 690, DateTimeKind.Utc).AddTicks(9927),
+                            CreatedOn = new DateTime(2026, 6, 6, 23, 22, 49, 201, DateTimeKind.Utc).AddTicks(7500),
                             IsDeprecated = false,
                             Name = "Air Conditioning",
                             NameNormalized = "air conditioning"
@@ -229,7 +229,7 @@ namespace KwikNestaProperty.Infrastructure.Data.Migrations
                         {
                             Id = new Guid("8bed23d9-8f16-4444-83d3-9a114a8e42f4"),
                             Category = "Interior",
-                            CreatedOn = new DateTime(2026, 4, 20, 21, 54, 11, 690, DateTimeKind.Utc).AddTicks(9974),
+                            CreatedOn = new DateTime(2026, 6, 6, 23, 22, 49, 201, DateTimeKind.Utc).AddTicks(7528),
                             IsDeprecated = false,
                             Name = "Furnished",
                             NameNormalized = "furnished"
@@ -238,7 +238,7 @@ namespace KwikNestaProperty.Infrastructure.Data.Migrations
                         {
                             Id = new Guid("7bed23d9-8f16-4444-83d3-9a114a8e42f5"),
                             Category = "Interior",
-                            CreatedOn = new DateTime(2026, 4, 20, 21, 54, 11, 690, DateTimeKind.Utc).AddTicks(9979),
+                            CreatedOn = new DateTime(2026, 6, 6, 23, 22, 49, 201, DateTimeKind.Utc).AddTicks(7531),
                             IsDeprecated = false,
                             Name = "Semi-Furnished",
                             NameNormalized = "semi-furnished"
@@ -247,7 +247,7 @@ namespace KwikNestaProperty.Infrastructure.Data.Migrations
                         {
                             Id = new Guid("6bed23d9-8f16-4444-83d3-9a114a8e42f6"),
                             Category = "Interior",
-                            CreatedOn = new DateTime(2026, 4, 20, 21, 54, 11, 690, DateTimeKind.Utc).AddTicks(9984),
+                            CreatedOn = new DateTime(2026, 6, 6, 23, 22, 49, 201, DateTimeKind.Utc).AddTicks(7533),
                             IsDeprecated = false,
                             Name = "Built-in Wardrobes",
                             NameNormalized = "built-in wardrobes"
@@ -256,7 +256,7 @@ namespace KwikNestaProperty.Infrastructure.Data.Migrations
                         {
                             Id = new Guid("5bed23d9-8f16-4444-83d3-9a114a8e42f7"),
                             Category = "Interior",
-                            CreatedOn = new DateTime(2026, 4, 20, 21, 54, 11, 690, DateTimeKind.Utc).AddTicks(9989),
+                            CreatedOn = new DateTime(2026, 6, 6, 23, 22, 49, 201, DateTimeKind.Utc).AddTicks(7535),
                             IsDeprecated = false,
                             Name = "Smart Home System",
                             NameNormalized = "smart home system"
@@ -265,7 +265,7 @@ namespace KwikNestaProperty.Infrastructure.Data.Migrations
                         {
                             Id = new Guid("4bed23d9-8f16-4444-83d3-9a114a8e42f8"),
                             Category = "Interior",
-                            CreatedOn = new DateTime(2026, 4, 20, 21, 54, 11, 690, DateTimeKind.Utc).AddTicks(9993),
+                            CreatedOn = new DateTime(2026, 6, 6, 23, 22, 49, 201, DateTimeKind.Utc).AddTicks(7536),
                             IsDeprecated = false,
                             Name = "Laundry Room",
                             NameNormalized = "laundry room"
@@ -274,7 +274,7 @@ namespace KwikNestaProperty.Infrastructure.Data.Migrations
                         {
                             Id = new Guid("3bed23d9-8f16-4444-83d3-9a114a8e42f9"),
                             Category = "Exterior",
-                            CreatedOn = new DateTime(2026, 4, 20, 21, 54, 11, 690, DateTimeKind.Utc).AddTicks(9997),
+                            CreatedOn = new DateTime(2026, 6, 6, 23, 22, 49, 201, DateTimeKind.Utc).AddTicks(7548),
                             IsDeprecated = false,
                             Name = "Balcony",
                             NameNormalized = "balcony"
@@ -283,7 +283,7 @@ namespace KwikNestaProperty.Infrastructure.Data.Migrations
                         {
                             Id = new Guid("2bed23d9-8f16-4444-83d3-9a114a8e42f0"),
                             Category = "Exterior",
-                            CreatedOn = new DateTime(2026, 4, 20, 21, 54, 11, 691, DateTimeKind.Utc).AddTicks(18),
+                            CreatedOn = new DateTime(2026, 6, 6, 23, 22, 49, 201, DateTimeKind.Utc).AddTicks(7550),
                             IsDeprecated = false,
                             Name = "Terrace",
                             NameNormalized = "terrace"
@@ -292,7 +292,7 @@ namespace KwikNestaProperty.Infrastructure.Data.Migrations
                         {
                             Id = new Guid("1bed23d9-8f16-4444-83d3-9a114a8e42f1"),
                             Category = "Exterior",
-                            CreatedOn = new DateTime(2026, 4, 20, 21, 54, 11, 691, DateTimeKind.Utc).AddTicks(24),
+                            CreatedOn = new DateTime(2026, 6, 6, 23, 22, 49, 201, DateTimeKind.Utc).AddTicks(7553),
                             IsDeprecated = false,
                             Name = "Garden",
                             NameNormalized = "garden"
@@ -301,7 +301,7 @@ namespace KwikNestaProperty.Infrastructure.Data.Migrations
                         {
                             Id = new Guid("0bed23d9-8f16-4444-83d3-9a114a8e42f2"),
                             Category = "Exterior",
-                            CreatedOn = new DateTime(2026, 4, 20, 21, 54, 11, 691, DateTimeKind.Utc).AddTicks(27),
+                            CreatedOn = new DateTime(2026, 6, 6, 23, 22, 49, 201, DateTimeKind.Utc).AddTicks(7554),
                             IsDeprecated = false,
                             Name = "Fence",
                             NameNormalized = "fence"
@@ -310,7 +310,7 @@ namespace KwikNestaProperty.Infrastructure.Data.Migrations
                         {
                             Id = new Guid("abed23d9-8f16-4444-83d3-9a114a8e42fa"),
                             Category = "Exterior",
-                            CreatedOn = new DateTime(2026, 4, 20, 21, 54, 11, 691, DateTimeKind.Utc).AddTicks(32),
+                            CreatedOn = new DateTime(2026, 6, 6, 23, 22, 49, 201, DateTimeKind.Utc).AddTicks(7556),
                             IsDeprecated = false,
                             Name = "Gated Compound",
                             NameNormalized = "gated compound"
@@ -319,7 +319,7 @@ namespace KwikNestaProperty.Infrastructure.Data.Migrations
                         {
                             Id = new Guid("bbed23d9-8f16-4444-83d3-9a114a8e42fb"),
                             Category = "Security",
-                            CreatedOn = new DateTime(2026, 4, 20, 21, 54, 11, 691, DateTimeKind.Utc).AddTicks(36),
+                            CreatedOn = new DateTime(2026, 6, 6, 23, 22, 49, 201, DateTimeKind.Utc).AddTicks(7558),
                             IsDeprecated = false,
                             Name = "CCTV",
                             NameNormalized = "cctv"
@@ -328,7 +328,7 @@ namespace KwikNestaProperty.Infrastructure.Data.Migrations
                         {
                             Id = new Guid("cbed23d9-8f16-4444-83d3-9a114a8e42fb"),
                             Category = "Security",
-                            CreatedOn = new DateTime(2026, 4, 20, 21, 54, 11, 691, DateTimeKind.Utc).AddTicks(40),
+                            CreatedOn = new DateTime(2026, 6, 6, 23, 22, 49, 201, DateTimeKind.Utc).AddTicks(7560),
                             IsDeprecated = false,
                             Name = "Security Doors",
                             NameNormalized = "security doors"
@@ -337,7 +337,7 @@ namespace KwikNestaProperty.Infrastructure.Data.Migrations
                         {
                             Id = new Guid("dbed23d9-8f16-4444-83d3-9a114a8e42fc"),
                             Category = "Security",
-                            CreatedOn = new DateTime(2026, 4, 20, 21, 54, 11, 691, DateTimeKind.Utc).AddTicks(44),
+                            CreatedOn = new DateTime(2026, 6, 6, 23, 22, 49, 201, DateTimeKind.Utc).AddTicks(7562),
                             IsDeprecated = false,
                             Name = "Burglar Alarm",
                             NameNormalized = "burglar alarm"
@@ -346,7 +346,7 @@ namespace KwikNestaProperty.Infrastructure.Data.Migrations
                         {
                             Id = new Guid("ebed23d9-8f16-4444-83d3-9a114a8e42fd"),
                             Category = "Security",
-                            CreatedOn = new DateTime(2026, 4, 20, 21, 54, 11, 691, DateTimeKind.Utc).AddTicks(47),
+                            CreatedOn = new DateTime(2026, 6, 6, 23, 22, 49, 201, DateTimeKind.Utc).AddTicks(7568),
                             IsDeprecated = false,
                             Name = "Gated Estate",
                             NameNormalized = "gated estate"
@@ -355,7 +355,7 @@ namespace KwikNestaProperty.Infrastructure.Data.Migrations
                         {
                             Id = new Guid("eced23d9-8f16-4444-83d3-9a114a8e42fe"),
                             Category = "Security",
-                            CreatedOn = new DateTime(2026, 4, 20, 21, 54, 11, 691, DateTimeKind.Utc).AddTicks(56),
+                            CreatedOn = new DateTime(2026, 6, 6, 23, 22, 49, 201, DateTimeKind.Utc).AddTicks(7570),
                             IsDeprecated = false,
                             Name = "Security",
                             NameNormalized = "security"
@@ -364,7 +364,7 @@ namespace KwikNestaProperty.Infrastructure.Data.Migrations
                         {
                             Id = new Guid("eded23d9-8f16-4444-83d3-9a114a8e420e"),
                             Category = "Utilities",
-                            CreatedOn = new DateTime(2026, 4, 20, 21, 54, 11, 691, DateTimeKind.Utc).AddTicks(60),
+                            CreatedOn = new DateTime(2026, 6, 6, 23, 22, 49, 201, DateTimeKind.Utc).AddTicks(7571),
                             IsDeprecated = false,
                             Name = "Electricity",
                             NameNormalized = "electricity"
@@ -373,7 +373,7 @@ namespace KwikNestaProperty.Infrastructure.Data.Migrations
                         {
                             Id = new Guid("eeed23d9-8f16-4444-83d3-9a114a8e421e"),
                             Category = "Utilities",
-                            CreatedOn = new DateTime(2026, 4, 20, 21, 54, 11, 691, DateTimeKind.Utc).AddTicks(65),
+                            CreatedOn = new DateTime(2026, 6, 6, 23, 22, 49, 201, DateTimeKind.Utc).AddTicks(7573),
                             IsDeprecated = false,
                             Name = "Prepaid Meter",
                             NameNormalized = "prepaid meter"
@@ -382,7 +382,7 @@ namespace KwikNestaProperty.Infrastructure.Data.Migrations
                         {
                             Id = new Guid("e0ed23d9-8f16-4444-83d3-9a114a8e422e"),
                             Category = "Utilities",
-                            CreatedOn = new DateTime(2026, 4, 20, 21, 54, 11, 691, DateTimeKind.Utc).AddTicks(69),
+                            CreatedOn = new DateTime(2026, 6, 6, 23, 22, 49, 201, DateTimeKind.Utc).AddTicks(7578),
                             IsDeprecated = false,
                             Name = "Boys Quarters",
                             NameNormalized = "boys quarters"
@@ -391,7 +391,7 @@ namespace KwikNestaProperty.Infrastructure.Data.Migrations
                         {
                             Id = new Guid("e1ed23d9-8f16-4444-83d3-9a114a8e423e"),
                             Category = "Utilities",
-                            CreatedOn = new DateTime(2026, 4, 20, 21, 54, 11, 691, DateTimeKind.Utc).AddTicks(73),
+                            CreatedOn = new DateTime(2026, 6, 6, 23, 22, 49, 201, DateTimeKind.Utc).AddTicks(7580),
                             IsDeprecated = false,
                             Name = "Generator",
                             NameNormalized = "generator"
@@ -400,7 +400,7 @@ namespace KwikNestaProperty.Infrastructure.Data.Migrations
                         {
                             Id = new Guid("e2ed23d9-8f16-4444-83d3-9a114a8e424e"),
                             Category = "Utilities",
-                            CreatedOn = new DateTime(2026, 4, 20, 21, 54, 11, 691, DateTimeKind.Utc).AddTicks(77),
+                            CreatedOn = new DateTime(2026, 6, 6, 23, 22, 49, 201, DateTimeKind.Utc).AddTicks(7582),
                             IsDeprecated = false,
                             Name = "Inverter",
                             NameNormalized = "inverter"
@@ -409,7 +409,7 @@ namespace KwikNestaProperty.Infrastructure.Data.Migrations
                         {
                             Id = new Guid("e3ed23d9-8f16-4444-83d3-9a114a8e425e"),
                             Category = "Utilities",
-                            CreatedOn = new DateTime(2026, 4, 20, 21, 54, 11, 691, DateTimeKind.Utc).AddTicks(81),
+                            CreatedOn = new DateTime(2026, 6, 6, 23, 22, 49, 201, DateTimeKind.Utc).AddTicks(7583),
                             IsDeprecated = false,
                             Name = "Borehole",
                             NameNormalized = "borehole"
@@ -418,7 +418,7 @@ namespace KwikNestaProperty.Infrastructure.Data.Migrations
                         {
                             Id = new Guid("e4ed23d9-8f16-4444-83d3-9a114a8e426e"),
                             Category = "Utilities",
-                            CreatedOn = new DateTime(2026, 4, 20, 21, 54, 11, 691, DateTimeKind.Utc).AddTicks(85),
+                            CreatedOn = new DateTime(2026, 6, 6, 23, 22, 49, 201, DateTimeKind.Utc).AddTicks(7587),
                             IsDeprecated = false,
                             Name = "Water Suply",
                             NameNormalized = "water suply"
@@ -427,7 +427,7 @@ namespace KwikNestaProperty.Infrastructure.Data.Migrations
                         {
                             Id = new Guid("e5ed23d9-8f16-4444-83d3-9a114a8e427e"),
                             Category = "Utilities",
-                            CreatedOn = new DateTime(2026, 4, 20, 21, 54, 11, 691, DateTimeKind.Utc).AddTicks(93),
+                            CreatedOn = new DateTime(2026, 6, 6, 23, 22, 49, 201, DateTimeKind.Utc).AddTicks(7589),
                             IsDeprecated = false,
                             Name = "Cable TV",
                             NameNormalized = "cable tv"
@@ -436,7 +436,7 @@ namespace KwikNestaProperty.Infrastructure.Data.Migrations
                         {
                             Id = new Guid("e6ed23d9-8f16-4444-83d3-9a114a8e428e"),
                             Category = "Utilities",
-                            CreatedOn = new DateTime(2026, 4, 20, 21, 54, 11, 691, DateTimeKind.Utc).AddTicks(97),
+                            CreatedOn = new DateTime(2026, 6, 6, 23, 22, 49, 201, DateTimeKind.Utc).AddTicks(7590),
                             IsDeprecated = false,
                             Name = "Internet",
                             NameNormalized = "internet"
@@ -445,7 +445,7 @@ namespace KwikNestaProperty.Infrastructure.Data.Migrations
                         {
                             Id = new Guid("e7ed23d9-8f16-4444-83d3-9a114a8e429e"),
                             Category = "Utilities",
-                            CreatedOn = new DateTime(2026, 4, 20, 21, 54, 11, 691, DateTimeKind.Utc).AddTicks(101),
+                            CreatedOn = new DateTime(2026, 6, 6, 23, 22, 49, 201, DateTimeKind.Utc).AddTicks(7592),
                             IsDeprecated = false,
                             Name = "Parking Space",
                             NameNormalized = "parking space"
@@ -454,7 +454,7 @@ namespace KwikNestaProperty.Infrastructure.Data.Migrations
                         {
                             Id = new Guid("e8ed23d9-8f16-4444-83d3-9a114a8e4200"),
                             Category = "Utilities",
-                            CreatedOn = new DateTime(2026, 4, 20, 21, 54, 11, 691, DateTimeKind.Utc).AddTicks(105),
+                            CreatedOn = new DateTime(2026, 6, 6, 23, 22, 49, 201, DateTimeKind.Utc).AddTicks(7594),
                             IsDeprecated = false,
                             Name = "Swimming Pool",
                             NameNormalized = "swimming pool"
@@ -463,7 +463,7 @@ namespace KwikNestaProperty.Infrastructure.Data.Migrations
                         {
                             Id = new Guid("e9ed23d9-8f16-4444-83d3-9a114a8e4201"),
                             Category = "Utilities",
-                            CreatedOn = new DateTime(2026, 4, 20, 21, 54, 11, 691, DateTimeKind.Utc).AddTicks(110),
+                            CreatedOn = new DateTime(2026, 6, 6, 23, 22, 49, 201, DateTimeKind.Utc).AddTicks(7596),
                             IsDeprecated = false,
                             Name = "Gym",
                             NameNormalized = "gym"
@@ -472,7 +472,7 @@ namespace KwikNestaProperty.Infrastructure.Data.Migrations
                         {
                             Id = new Guid("00ed23d9-8f16-4444-83d3-9a114a8e4202"),
                             Category = "Utilities",
-                            CreatedOn = new DateTime(2026, 4, 20, 21, 54, 11, 691, DateTimeKind.Utc).AddTicks(114),
+                            CreatedOn = new DateTime(2026, 6, 6, 23, 22, 49, 201, DateTimeKind.Utc).AddTicks(7597),
                             IsDeprecated = false,
                             Name = "Jacuzzi",
                             NameNormalized = "jacuzzi"
@@ -481,7 +481,7 @@ namespace KwikNestaProperty.Infrastructure.Data.Migrations
                         {
                             Id = new Guid("01ed23d9-8f16-4444-83d3-9a114a8e4203"),
                             Category = "Utilities",
-                            CreatedOn = new DateTime(2026, 4, 20, 21, 54, 11, 691, DateTimeKind.Utc).AddTicks(118),
+                            CreatedOn = new DateTime(2026, 6, 6, 23, 22, 49, 201, DateTimeKind.Utc).AddTicks(7599),
                             IsDeprecated = false,
                             Name = "Garage",
                             NameNormalized = "garage"
@@ -490,7 +490,7 @@ namespace KwikNestaProperty.Infrastructure.Data.Migrations
                         {
                             Id = new Guid("02ed23d9-8f16-4444-83d3-9a114a8e4204"),
                             Category = "Utilities",
-                            CreatedOn = new DateTime(2026, 4, 20, 21, 54, 11, 691, DateTimeKind.Utc).AddTicks(123),
+                            CreatedOn = new DateTime(2026, 6, 6, 23, 22, 49, 201, DateTimeKind.Utc).AddTicks(7603),
                             IsDeprecated = false,
                             Name = "Elevator",
                             NameNormalized = "elevator"
@@ -762,8 +762,8 @@ namespace KwikNestaProperty.Infrastructure.Data.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("DurationSeconds")
-                        .HasColumnType("integer");
+                    b.Property<long>("DurationSeconds")
+                        .HasColumnType("bigint");
 
                     b.Property<bool>("IsDeprecated")
                         .HasColumnType("boolean");
@@ -781,6 +781,9 @@ namespace KwikNestaProperty.Infrastructure.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<long>("UId")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("text");
@@ -790,7 +793,7 @@ namespace KwikNestaProperty.Infrastructure.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ViewingSessionId");
+                    b.HasIndex("ViewingSessionId", "UId");
 
                     b.ToTable("SessionParticipants", "kn-property-svc");
                 });
@@ -884,6 +887,12 @@ namespace KwikNestaProperty.Infrastructure.Data.Migrations
                     b.Property<DateTime>("ScheduledStart")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<string>("SetlementStatus")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("text")
+                        .HasDefaultValue("Pending");
+
                     b.Property<string>("Status")
                         .IsRequired()
                         .HasColumnType("text");
@@ -892,6 +901,9 @@ namespace KwikNestaProperty.Infrastructure.Data.Migrations
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ChannelName")
+                        .IsUnique();
 
                     b.HasIndex("ViewingRequestId")
                         .IsUnique();

@@ -3,7 +3,7 @@ using KwikNestaProperty.Infrastructure.Contracts;
 
 namespace KwikNestaProperty.Infrastructure
 {
-    public interface IPropertyRepositotyManager : IBaseRepositoryManager
+    public interface IPropertyRepositoryManager : IBaseRepositoryManager
     {
         IKNPropertyRepository Property { get; }
         IOwnershipVerificationRepository OwnershipVerification {  get; }

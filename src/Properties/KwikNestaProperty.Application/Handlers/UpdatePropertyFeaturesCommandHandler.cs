@@ -12,10 +12,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace KwikNestaProperty.Application.Handlers
 {
-    public class UpdatePropertyFeaturesCommandHandler(IPropertyRepositotyManager repository) 
+    public class UpdatePropertyFeaturesCommandHandler(IPropertyRepositoryManager repository) 
         : IKNRequestHandler<UpdatePropertyFeaturesCommand, Response<CreatePropertyResponseDto>>
     {
-        private readonly IPropertyRepositotyManager _repository = repository;
+        private readonly IPropertyRepositoryManager _repository = repository;
 
         public async Task<Response<CreatePropertyResponseDto>> HandleAsync(UpdatePropertyFeaturesCommand request, CancellationToken cancellationToken)
         {

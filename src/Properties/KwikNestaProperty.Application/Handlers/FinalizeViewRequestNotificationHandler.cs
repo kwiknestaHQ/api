@@ -18,14 +18,14 @@ using Microsoft.Extensions.Options;
 
 namespace KwikNestaProperty.Application.Handlers
 {
-    public class FinalizeViewRequestNotificationHandler(IPropertyRepositotyManager repository, 
+    public class FinalizeViewRequestNotificationHandler(IPropertyRepositoryManager repository, 
                                                 IHostEnvironment host,
                                                 IKNMediator mediator,
                                                 IOptions<KNApplicationSettings> options,
                                                 ILogger<FinalizeViewRequestNotificationHandler> logger) 
         : IKNNotificationHandler<FinalizeViewRequestNotification>
     {
-        private readonly IPropertyRepositotyManager _repository = repository;
+        private readonly IPropertyRepositoryManager _repository = repository;
         private readonly IHostEnvironment _host = host;
         private readonly IKNMediator _mediator = mediator;
         private readonly ILogger<FinalizeViewRequestNotificationHandler> _logger = logger;

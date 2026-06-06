@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace KwikNestaProperty.Application.Handlers
 {
-    public class GetPropertyLeanQueryHandler(IPropertyRepositotyManager repository, 
+    public class GetPropertyLeanQueryHandler(IPropertyRepositoryManager repository, 
                                             IKNMediator mediator) 
         : IKNRequestHandler<GetPropertyLeanQuery, Response<PropertyVeryLeanDto>>
     {
-        private readonly IPropertyRepositotyManager _repository = repository;
+        private readonly IPropertyRepositoryManager _repository = repository;
         private readonly IKNMediator _mediator = mediator;
 
         public async Task<Response<PropertyVeryLeanDto>> HandleAsync(GetPropertyLeanQuery request, CancellationToken cancellationToken)

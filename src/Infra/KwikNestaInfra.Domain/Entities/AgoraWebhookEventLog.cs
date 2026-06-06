@@ -1,5 +1,4 @@
-﻿using KwikNesta.Shared.Extensions;
-using KwikNesta.Shared.Models.Enumerations.Infra;
+﻿using KwikNesta.Shared.Models.Enumerations.Infra;
 
 namespace KwikNestaInfra.Domain.Entities
 {
@@ -12,7 +11,7 @@ namespace KwikNestaInfra.Domain.Entities
         public DateTime Timestamp { get; set; }
         public uint? UId { get; set; }
         public EAgoraPlatform Platform { get; set; }
-        public int? Duration { get; set; }
+        public long? Duration { get; set; }
         public int? Reason { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     }

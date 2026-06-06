@@ -10,11 +10,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace KwikNestaProperty.Application.Handlers
 {
-    public class GetVerificationRequestByIdQueryHandler(IPropertyRepositotyManager repository, 
+    public class GetVerificationRequestByIdQueryHandler(IPropertyRepositoryManager repository, 
                                                         IKNMediator mediator)
         : IKNRequestHandler<GetVerificationRequestByIdQuery, Response<VerificationRequestDto>>
     {
-        private readonly IPropertyRepositotyManager _repository = repository;
+        private readonly IPropertyRepositoryManager _repository = repository;
         private readonly IKNMediator _mediator = mediator;
 
         public async Task<Response<VerificationRequestDto>> HandleAsync(GetVerificationRequestByIdQuery request, CancellationToken cancellationToken)

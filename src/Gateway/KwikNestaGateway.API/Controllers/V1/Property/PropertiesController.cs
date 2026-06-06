@@ -314,5 +314,38 @@ namespace KwikNestaGateway.API.Controllers.V1.Property
                 Context = HttpContext.GetContext()
             }));
         }
+
+        /// <summary>
+        /// Get view request session by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet("view-sessions/{id}")]
+        [Authorize(Roles = "Tenant,LandLord")]
+        [ProducesResponseType(typeof(Response<string>), 200)]
+        public async Task<IActionResult> GetViewRequestSession([FromRoute] Guid id)
+        {
+            return Ok(await _mediator.SendAsync(new GetPropertyViewSessionByIdQuery
+            {
+               SessionId = id
+            }));
+        }
+
+        /// <summary>
+        /// Generates token the user uses to user call
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPost("view-sessions/{id}/join")]
+        [Authorize(Roles = "Tenant,LandLord")]
+        [ProducesResponseType(typeof(Response<string>), 200)]
+        public async Task<IActionResult> JoinSession([FromRoute] Guid id)
+        {
+            return Ok(await _mediator.SendAsync(new JoinViewSessionCallCommand
+            {
+                SessionId = id,
+                Context = HttpContext.GetContext()
+            }));
+        }
     }
 }

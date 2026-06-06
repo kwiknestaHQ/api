@@ -37,7 +37,9 @@ namespace KwikNestaGateway.API.Extensions
 
             app.MapControllers();
 
-            app.RunMigrations();
+            app.RunMigrations()
+                .RegisterRecurringJobs();
+
             app.RunDataSeedAsync().Wait();
             return app;
         }
@@ -49,6 +51,12 @@ namespace KwikNestaGateway.API.Extensions
                 .RunInfraServiceMigrations()
                 .RunPropertyServiceMigrations()
                 .RunPaymentServiceMigrations();        
+        }
+
+        static WebApplication RegisterRecurringJobs(this WebApplication app)
+        {
+            return app.RegisterPaymentRecurringJobs()
+                .RegisterPropertyRecurringJobs();
         }
 
         static async Task<IHost> RunDataSeedAsync(this IHost host)

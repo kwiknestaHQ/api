@@ -1,4 +1,5 @@
-﻿using KwikNestaProperty.Domain.Entities;
+﻿using KwikNesta.Shared.Models.Enumerations.Property;
+using KwikNestaProperty.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -18,8 +19,16 @@ namespace KwikNestaProperty.Infrastructure.Data.Configurations
                 .HasConversion<string>()
                 .IsRequired();
 
+            builder.Property(x => x.SetlementStatus)
+                .HasConversion<string>()
+                .HasDefaultValue(ESSessionettlementStatus.Pending)
+                .IsRequired();
+
             builder.Property(x => x.ScheduledStart)
                 .IsRequired();
+
+            builder.HasIndex(x => x.ChannelName)
+                .IsUnique();
 
             builder.HasOne(x => x.ViewingRequest)
                 .WithOne(p => p.Session)

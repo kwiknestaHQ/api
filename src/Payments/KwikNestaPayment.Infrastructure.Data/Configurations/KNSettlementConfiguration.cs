@@ -14,6 +14,10 @@ namespace KwikNestaPayment.Infrastructure.Data.Configurations
                    .IsRequired()
                    .HasConversion<string>();
 
+            builder.Property(x => x.Type)
+                  .IsRequired()
+                  .HasConversion<string>();
+
             builder.Property(x => x.Purpose)
                    .IsRequired()
                    .HasConversion<string>();

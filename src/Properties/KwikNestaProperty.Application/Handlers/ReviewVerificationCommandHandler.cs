@@ -16,13 +16,13 @@ using Microsoft.Extensions.Options;
 
 namespace KwikNestaProperty.Application.Handlers
 {
-    public class ReviewVerificationCommandHandler(IPropertyRepositotyManager repository, 
+    public class ReviewVerificationCommandHandler(IPropertyRepositoryManager repository, 
                                                 IKNMediator mediator, 
                                                 IHostEnvironment host,
                                                 IOptions<KNApplicationSettings> options) 
         : IKNRequestHandler<ReviewVerificationCommand, Response<string>>
     {
-        private readonly IPropertyRepositotyManager _repository = repository;
+        private readonly IPropertyRepositoryManager _repository = repository;
         private readonly IKNMediator _mediator = mediator;
         private readonly IHostEnvironment _host = host;
         private readonly string _supportEmail = options.Value.AppAdmin.SupportEmail;

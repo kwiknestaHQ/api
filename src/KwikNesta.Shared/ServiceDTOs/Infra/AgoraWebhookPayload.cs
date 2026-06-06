@@ -33,29 +33,27 @@ namespace KwikNesta.Shared.ServiceDTOs.Infra
     public abstract class AgoraPayloadBase
     {
         [JsonPropertyName("channelName")]
-        public string ChanelName { get; set; } = default!;
+        public string ChannelName { get; set; } = default!;
         [JsonPropertyName("ts")]
         public long Timestamp { get; set; }
     }
 
-    public abstract class AgoraJoinPayloadBase : AgoraPayloadBase
+    public abstract class AgoraJoinPayloadBase : AgoraUserPayloadBase { }
+
+    public abstract class AgoraLeavePayloadBase : AgoraUserPayloadBase
+    {
+        [JsonPropertyName("duration")]
+        public long Duration { get; set; }
+        [JsonPropertyName("reason")]
+        public int Reason { get; set; }
+    }
+
+    public abstract class AgoraUserPayloadBase : AgoraPayloadBase
     {
         [JsonPropertyName("uid")]
         public uint Uid { get; set; }
         [JsonPropertyName("platform")]
         public int Platform { get; set; }
         public EAgoraPlatform EPlatform => (EAgoraPlatform)Platform;
-    }
-
-    public abstract class AgoraLeavePayloadBase : AgoraPayloadBase
-    {
-        [JsonPropertyName("uid")]
-        public uint Uid { get; set; }
-        [JsonPropertyName("platform")]
-        public int Platform { get; set; }
-        [JsonPropertyName("duration")]
-        public int Duration { get; set; }
-        [JsonPropertyName("reason")]
-        public int Reason { get; set; }
     }
 }

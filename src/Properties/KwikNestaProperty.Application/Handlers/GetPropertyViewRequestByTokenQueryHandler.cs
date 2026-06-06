@@ -10,12 +10,12 @@ using Microsoft.Extensions.Options;
 
 namespace KwikNestaProperty.Application.Handlers
 {
-    public class GetPropertyViewRequestByTokenQueryHandler(IPropertyRepositotyManager repository, 
+    public class GetPropertyViewRequestByTokenQueryHandler(IPropertyRepositoryManager repository, 
                                                         IKNMediator mediator,
                                                         IOptions<KNApplicationSettings> options) 
         : IKNRequestHandler<GetPropertyViewRequestByTokenQuery, Response<ViewRequestDto>>
     {
-        private readonly IPropertyRepositotyManager _repository = repository;
+        private readonly IPropertyRepositoryManager _repository = repository;
         private readonly IKNMediator _mediator = mediator;
         private readonly string _secret = options.Value.Jwt.Key;
 

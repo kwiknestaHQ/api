@@ -91,7 +91,7 @@ namespace KwikNestaPayment.Infrastructure.Data.Migrations
                             Id = new Guid("86724d52-6968-4b42-ba1d-897d14bd704a"),
                             AppliesTo = "Viewing",
                             CalculationType = "Percentage",
-                            CreatedOn = new DateTime(2026, 4, 30, 11, 6, 51, 653, DateTimeKind.Utc).AddTicks(8645),
+                            CreatedOn = new DateTime(2026, 6, 6, 23, 18, 54, 246, DateTimeKind.Utc).AddTicks(4450),
                             IsActive = true,
                             IsDeprecated = false,
                             MaxCap = 8500m,
@@ -106,7 +106,7 @@ namespace KwikNestaPayment.Infrastructure.Data.Migrations
                             Id = new Guid("86724d52-6968-4b42-ba1d-897d14bd704b"),
                             AppliesTo = "Rent",
                             CalculationType = "Percentage",
-                            CreatedOn = new DateTime(2026, 4, 30, 11, 6, 51, 653, DateTimeKind.Utc).AddTicks(8687),
+                            CreatedOn = new DateTime(2026, 6, 6, 23, 18, 54, 246, DateTimeKind.Utc).AddTicks(4482),
                             IsActive = true,
                             IsDeprecated = false,
                             Name = "Rent Commission",
@@ -202,7 +202,8 @@ namespace KwikNestaPayment.Infrastructure.Data.Migrations
 
                     b.Property<string>("BankCode")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(30)
+                        .HasColumnType("character varying(30)");
 
                     b.Property<string>("BankName")
                         .IsRequired()
@@ -333,7 +334,14 @@ namespace KwikNestaPayment.Infrastructure.Data.Migrations
                     b.Property<DateTime?>("SettledAt")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<DateTime>("StartAfter")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Type")
                         .IsRequired()
                         .HasColumnType("text");
 

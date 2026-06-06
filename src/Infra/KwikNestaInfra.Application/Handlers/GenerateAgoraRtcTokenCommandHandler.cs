@@ -23,7 +23,8 @@ namespace KwikNestaInfra.Application.Handlers
                     StatusCodes.Status400BadRequest);
             }
 
-            uint expireTimestamp = (uint)(DateTimeOffset.UtcNow.ToUnixTimeSeconds() + _agora.ExpiryInSeconds);
+            
+            uint expireTimestamp = (uint)(new DateTimeOffset(request.SessionScheduledTime).ToUnixTimeSeconds() + _agora.ExpiryInSeconds);
             var role = request.IsPublisher ? RtcTokenBuilder.Role.RolePublisher : RtcTokenBuilder.Role.RoleSubscriber;
 
             var token = RtcTokenBuilder.buildTokenWithUID(

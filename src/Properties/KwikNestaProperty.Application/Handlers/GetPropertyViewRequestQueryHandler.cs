@@ -10,11 +10,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace KwikNestaProperty.Application.Handlers
 {
-    internal class GetPropertyViewRequestQueryHandler(IPropertyRepositotyManager repository, 
+    internal class GetPropertyViewRequestQueryHandler(IPropertyRepositoryManager repository, 
                                                     IKNMediator mediator) 
         : IKNRequestHandler<GetPropertyViewRequestQuery, Response<ViewRequestDto>>
     {
-        private readonly IPropertyRepositotyManager _repository = repository;
+        private readonly IPropertyRepositoryManager _repository = repository;
         private readonly IKNMediator _mediator = mediator;
 
         public async Task<Response<ViewRequestDto>> HandleAsync(GetPropertyViewRequestQuery request, CancellationToken cancellationToken)
@@ -51,7 +51,7 @@ namespace KwikNestaProperty.Application.Handlers
             var userResult = await _mediator.SendAsync(new LoggedInUserQuery
             {
                 UserId = viewRequest.UserId,
-            });
+            }, cancellationToken);
 
             if (!userResult.Success)
             {

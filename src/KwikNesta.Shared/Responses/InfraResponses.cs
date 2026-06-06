@@ -7,5 +7,6 @@
         public static readonly string RecordNotFound = "The requested resource not found.";
         public static readonly string CountryToggled = "{0} successfully {1}";
         public static readonly string InvalidRequest = "Invalid request. Please provide all reqquired fields";
+        public static readonly string TokenExpired = "Agora token expired.";
     }
 }

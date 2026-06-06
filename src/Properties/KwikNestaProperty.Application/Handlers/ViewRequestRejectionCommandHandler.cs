@@ -23,13 +23,13 @@ using Microsoft.Extensions.Options;
 
 namespace KwikNestaProperty.Application.Handlers
 {
-    public class ViewRequestRejectionCommandHandler(IPropertyRepositotyManager repository, 
+    public class ViewRequestRejectionCommandHandler(IPropertyRepositoryManager repository, 
                                         IKNMediator mediator,
                                         IOptions<KNApplicationSettings> options,
                                         IHostEnvironment host) 
         : IKNRequestHandler<ViewRequestRejectionCommand, Response<string>>
     {
-        private readonly IPropertyRepositotyManager _repository = repository;
+        private readonly IPropertyRepositoryManager _repository = repository;
         private readonly IKNMediator _mediator = mediator;
         private readonly IOptions<KNApplicationSettings> options = options;
         private readonly IHostEnvironment _host = host;
