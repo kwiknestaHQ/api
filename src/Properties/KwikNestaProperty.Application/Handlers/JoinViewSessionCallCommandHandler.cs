@@ -57,6 +57,16 @@ namespace KwikNestaProperty.Application.Handlers
                     StatusCodes.Status403Forbidden);
             }
 
+            var result = SessionJoinPolicy.Evaluate(
+                    session.ScheduledStart, 
+                    session.ScheduledStart.AddSeconds(_agoraSetting.ExpiryInSeconds));
+
+            if (!result.CanJoin && result.TooEarly)
+            {
+                return Response<AgoraSessionTokenDto>.Fail(result.Reason ?? "Joined too early",
+                    StatusCodes.Status403Forbidden);
+            }
+
             var existingToken = await _mediator.SendAsync(new GetAgoraTokenQuery
             {
                 Channel = session.ChannelName,
@@ -77,6 +87,12 @@ namespace KwikNestaProperty.Application.Handlers
                     UId = participant.UId,
                     Token = existingToken.Data.Token
                 });
+            }
+
+            if (!result.CanJoin && result.TooLate)
+            {
+                return Response<AgoraSessionTokenDto>.Fail(result.Reason ?? "Joined too late",
+                    StatusCodes.Status403Forbidden);
             }
 
             var newTokenResult = await _mediator.SendAsync(new GenerateAgoraRtcTokenCommand

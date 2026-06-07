@@ -1,4 +1,5 @@
 ﻿
+
 namespace KwikNesta.Shared.Responses
 {
     public static class PropertyResponse
@@ -50,5 +51,7 @@ namespace KwikNesta.Shared.Responses
         public static readonly string SessionNotExpiredYet = "Session not yet expired for channel {0}";
         public static readonly string InvalidSessionId = "Invalid session id";
         public static readonly string NotAllowedToJoinNotAPaticipant = "You are not allowed to join this session because you're not a participant.";
+        public static readonly string YouCanNotJoinSessionNow = "You can not join the viewing session now. Please wait for another {0} minute(s).";
+        public static readonly string FreshTokenCannotBeIssuedNow = "You are not longer able to join this call with just {0} minutes left to the end of the session";
     }
 }

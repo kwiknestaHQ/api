@@ -7,7 +7,6 @@ using KwikNesta.Shared.ServiceDTOs.Property;
 using KwikNesta.Shared.ServiceQueries.Property;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Net;
 
 namespace KwikNestaGateway.API.Controllers.V1.Property
 {
@@ -322,7 +321,7 @@ namespace KwikNestaGateway.API.Controllers.V1.Property
         /// <returns></returns>
         [HttpGet("view-sessions/{id}")]
         [Authorize(Roles = "Tenant,LandLord")]
-        [ProducesResponseType(typeof(Response<string>), 200)]
+        [ProducesResponseType(typeof(Response<ViewRequestSessionDetailsDto>), 200)]
         public async Task<IActionResult> GetViewRequestSession([FromRoute] Guid id)
         {
             return Ok(await _mediator.SendAsync(new GetPropertyViewSessionByIdQuery
@@ -338,7 +337,7 @@ namespace KwikNestaGateway.API.Controllers.V1.Property
         /// <returns></returns>
         [HttpPost("view-sessions/{id}/join")]
         [Authorize(Roles = "Tenant,LandLord")]
-        [ProducesResponseType(typeof(Response<string>), 200)]
+        [ProducesResponseType(typeof(Response<AgoraSessionTokenDto>), 200)]
         public async Task<IActionResult> JoinSession([FromRoute] Guid id)
         {
             return Ok(await _mediator.SendAsync(new JoinViewSessionCallCommand
