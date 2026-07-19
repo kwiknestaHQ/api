@@ -346,5 +346,41 @@ namespace KwikNestaGateway.API.Controllers.V1.Property
                 Context = HttpContext.GetContext()
             }));
         }
+
+        /// <summary>
+        /// Checks In a viewing request participant
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [Authorize]
+        [HttpPost("viewing-requests/{id}/check-in")]
+        public async Task<IActionResult> CheckIn([FromRoute] Guid id, [FromBody] ViewingCheckInRequest request)
+        {
+            return Ok(await _mediator.SendAsync(new ViewingCheckInCommand
+            {
+                ViewingRequestId = id,
+                AccuracyMeters = request.AccuracyMeters,
+                Latitude = request.Latitude,
+                Longitude = request.Longitude,
+                UserContext = HttpContext.GetContext()
+            }));
+        }
+
+       /// <summary>
+       /// Gets viewing request data for preview
+       /// </summary>
+       /// <param name="id"></param>
+       /// <returns></returns>
+        [Authorize]
+        [HttpGet("viewing-requests/{id}/check-in-preview")]
+        public async Task<IActionResult> CheckInPreview([FromRoute] Guid id)
+        {
+            return Ok(await _mediator.SendAsync(new ViewingCheckInPreviewQuery
+            {
+                ViewingRequestId = id,
+                UserId = HttpContext.User.GetLoggedInUserId()!
+            }));
+        }
     }
 }

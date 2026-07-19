@@ -10,5 +10,6 @@
         public PaystackSettings Paystack { get; set; } = default!;
         public AgoraSetting Agora { get; set; } = default!;
         public SettlementConfig Settlement { get; set; } = default!;
+        public ViewingCheckInSettings CheckIn { get; set; } = default!;
     }
 }

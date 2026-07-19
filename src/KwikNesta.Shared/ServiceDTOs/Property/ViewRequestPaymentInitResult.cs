@@ -1,4 +1,4 @@
-﻿namespace KwikNesta.Shared.ServiceDTOs.Payment
+﻿namespace KwikNesta.Shared.ServiceDTOs.Property
 {
     public class ViewRequestPaymentInitResult
     {

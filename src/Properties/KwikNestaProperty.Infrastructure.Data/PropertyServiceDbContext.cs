@@ -19,6 +19,7 @@ namespace KwikNestaProperty.Infrastructure.Data
         public DbSet<PropertyView> PropertyViews { get; set; }
         public DbSet<ViewingSession> ViewingSessions { get; set; }
         public DbSet<SessionParticipant> SessionParticipants { get; set; }
+        public DbSet<ViewingCheckIn> ViewingCheckIns { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

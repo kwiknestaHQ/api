@@ -4,6 +4,7 @@ using KwikNesta.Shared.Extensions;
 using KwikNesta.Shared.Responses;
 using KwikNesta.Shared.ServiceCommands.Payment;
 using KwikNesta.Shared.ServiceDTOs.Payment;
+using KwikNesta.Shared.ServiceDTOs.Property;
 using KwikNesta.Shared.ServiceQueries.Payment;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

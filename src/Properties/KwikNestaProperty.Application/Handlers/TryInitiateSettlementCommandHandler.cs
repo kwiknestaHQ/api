@@ -26,6 +26,8 @@ namespace KwikNestaProperty.Application.Handlers
             throw new ArgumentNullException(nameof(SettlementConfig));
         private readonly AgoraSetting _agoraConfig = options.Value.Agora ??
            throw new ArgumentNullException(nameof(AgoraSetting));
+        private readonly ViewingCheckInSettings _settings = options.Value.CheckIn ??
+                throw new ArgumentNullException(nameof(ViewingCheckInSettings));
 
         public async Task<Response<string>> HandleAsync(TryInitiateSettlementCommand request, CancellationToken cancellationToken)
         {
@@ -46,18 +48,23 @@ namespace KwikNestaProperty.Application.Handlers
                     StatusCodes.Status404NotFound);
             }
 
+            var landlord = session.Participants
+                .FirstOrDefault(sp => sp.Role == ESessionParticipantRole.Publisher);
+
+            var tenant = session.Participants
+                .FirstOrDefault(sp => sp.Role == ESessionParticipantRole.Subscriber);
+
+            if (landlord == null || tenant == null)
+            {
+                return Response<string>.Fail(PropertyResponse.RecordNotFound,
+                    StatusCodes.Status404NotFound);
+            }
+
             if (session.IsSettled())
             {
                 return Response<string>.Fail(
                     string.Format(PropertyResponse.SettlementHandledForChannel, request.Channel),
                     StatusCodes.Status409Conflict);
-            }
-
-            if (!session.IsExpired(_agoraConfig.ExpiryInSeconds))
-            {
-                return Response<string>.Fail(
-                    string.Format(PropertyResponse.SessionNotExpiredYet, request.Channel),
-                    StatusCodes.Status403Forbidden);
             }
 
             var viewingRequest = await _repository.ViewingRequest
@@ -69,16 +76,15 @@ namespace KwikNestaProperty.Application.Handlers
                     StatusCodes.Status404NotFound);
             }
 
-            var landlord = session.Participants
-                .FirstOrDefault(sp => sp.Role == ESessionParticipantRole.Publisher);
+            var sessionExpiryInSeconds = viewingRequest.Type == EViewingType.Virtual ?
+                _agoraConfig.ExpiryInSeconds :
+                _settings.WindowMinutesAfter * 60;
 
-            var tenant = session.Participants
-                .FirstOrDefault(sp => sp.Role == ESessionParticipantRole.Subscriber);
-
-            if (landlord == null || tenant == null)
+            if (!session.IsExpired(sessionExpiryInSeconds))
             {
-                return Response<string>.Fail(PropertyResponse.RecordNotFound, 
-                    StatusCodes.Status404NotFound);
+                return Response<string>.Fail(
+                    string.Format(PropertyResponse.SessionNotExpiredYet, request.Channel),
+                    StatusCodes.Status403Forbidden);
             }
 
             var settlementOutcome = InspectionSettlementResult.DetermineSettlement(
@@ -105,19 +111,14 @@ namespace KwikNestaProperty.Application.Handlers
                 return Response<string>.Fail(settlementResult.Message, settlementResult.StatusCode);
             }
 
-            var eventLog = await _mediator.SendAsync(new GetAgoraWebhookEventLogQuery
-            {
-                Channel = session.ChannelName,
-                Event = EAgoraEvent.ChannelDestroyed,
-                Module = EAgoraModule.Inspection
-            }, cancellationToken);
-
-            var sessionCompletedTime = eventLog.Data?
-                .OrderByDescending(e => e.Timestamp)
-                .FirstOrDefault()?.Timestamp ?? DateTime.UtcNow;
+            var sessionCompletionTime = await GetCompletionTime(
+                session.ChannelName, 
+                session.ViewingRequestId,
+                viewingRequest.Type, 
+                cancellationToken);
 
             session.UpdateSettlementStatus(ESSessionettlementStatus.Scheduled);
-            session.MarkAsCompleted(sessionCompletedTime);
+            session.MarkAsCompleted(sessionCompletionTime);
             if(settlementOutcome.Outcome == ESettlementOutcome.NoShow)
             {
                 viewingRequest.MarkNoShow();
@@ -166,6 +167,39 @@ namespace KwikNestaProperty.Application.Handlers
                     }, cancellationToken);
                     break;
             }
+        }
+
+        private async Task<DateTime> GetCompletionTime(string channelName, 
+                                        Guid requestId, 
+                                        EViewingType viewingType, 
+                                        CancellationToken cancellationToken)
+        {
+            var time = DateTime.UtcNow;
+            switch (viewingType)
+            {
+                case EViewingType.Virtual:
+                    var eventLog = await _mediator.SendAsync(new GetAgoraWebhookEventLogQuery
+                    {
+                        Channel = channelName,
+                        Event = EAgoraEvent.ChannelDestroyed,
+                        Module = EAgoraModule.Inspection
+                    }, cancellationToken);
+                    
+                    time = eventLog.Data?
+                        .OrderByDescending(e => e.Timestamp)
+                        .FirstOrDefault()?.Timestamp ?? time;
+                    break;
+                case EViewingType.Physical:
+                    time = (await _repository.ViewingCheckIn
+                        .Get(c => c.ViewingRequestId == requestId)
+                        .OrderByDescending(c => c.CreatedOn)
+                        .FirstOrDefaultAsync(cancellationToken))?.CreatedOn ?? time;
+                    break;
+                default:
+                    break;
+            }
+
+            return time;
         }
     }
 }

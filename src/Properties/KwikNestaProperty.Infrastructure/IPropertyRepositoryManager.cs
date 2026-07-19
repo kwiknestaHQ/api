@@ -18,5 +18,6 @@ namespace KwikNestaProperty.Infrastructure
         IPropertyViewRepository PropertyView { get; }
         ISessionParticipantRepository SessionParticipant { get; }
         IViewingSessionRepository ViewingSession { get; }
+        IViewingCheckInRepository ViewingCheckIn {  get; }
     }
 }

@@ -33,6 +33,8 @@ namespace KwikNestaProperty.Infrastructure
             new(() => new ViewingSessionRepository(context));
         private readonly Lazy<ISessionParticipantRepository> _sessionParticipantRepository = 
             new(() => new SessionParticipantRepository(context));
+        private readonly Lazy<IViewingCheckInRepository> _viewingCheckInRepository =
+            new(() => new ViewingCheckInRepository(context));
 
         public IKNPropertyRepository Property => _propertyRepository.Value;
         public IOwnershipVerificationRepository OwnershipVerification => _ownershipVerificationRepository.Value;
@@ -47,6 +49,7 @@ namespace KwikNestaProperty.Infrastructure
         public IPropertyViewRepository PropertyView => _propertyViewRepository.Value;
         public ISessionParticipantRepository SessionParticipant => _sessionParticipantRepository.Value;
         public IViewingSessionRepository ViewingSession => _viewingSessionRepository.Value;
+        public IViewingCheckInRepository ViewingCheckIn => _viewingCheckInRepository.Value;
 
         public async Task BeginTransaction(Func<Task> action)
         {

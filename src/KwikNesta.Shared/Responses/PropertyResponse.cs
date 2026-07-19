@@ -53,5 +53,9 @@ namespace KwikNesta.Shared.Responses
         public static readonly string NotAllowedToJoinNotAPaticipant = "You are not allowed to join this session because you're not a participant.";
         public static readonly string YouCanNotJoinSessionNow = "You can not join the viewing session now. Please wait for another {0} minute(s).";
         public static readonly string FreshTokenCannotBeIssuedNow = "You are not longer able to join this call with just {0} minutes left to the end of the session";
+        public static readonly string CheckInNotPermitted = "Check-in is only available between {0} and {1} UTC.";
+        public static readonly string AlreadyCheckedIn = "Already checked in for this viewing.";
+        public static readonly string GPSAccuracyLow = "GPS accuracy too low ({0} m). Move to open sky and try again.";
+        public static readonly string TooFarFromPropertyToCheckIn = "You're {0} m from the property. Must be within {1} m to check in.";
     }
 }

@@ -1,7 +1,7 @@
 ﻿using KwikNesta.Mediator.Cores.Abstractions;
 using KwikNesta.Shared.Models;
 using KwikNesta.Shared.Responses;
-using KwikNesta.Shared.ServiceDTOs.Payment;
+using KwikNesta.Shared.ServiceDTOs.Property;
 
 namespace KwikNesta.Shared.ServiceCommands.Payment
 {
