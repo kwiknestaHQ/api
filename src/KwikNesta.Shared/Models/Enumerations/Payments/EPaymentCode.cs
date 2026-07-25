@@ -3,6 +3,6 @@
     public enum EPaymentCode
     {
         ViewRequest = 010,
-        RentCommission = 070
+        Rent = 070
     }
 }
